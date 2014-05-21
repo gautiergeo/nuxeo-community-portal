@@ -1,0 +1,15 @@
+<component name="org.nuxeo.community.portal.front.authentication">
+
+  <extension
+    target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService"
+    point="startURL">
+
+    <startURLPattern>
+      <patterns>
+        <pattern>nuxeo-community/</pattern>
+      </patterns>
+    </startURLPattern>
+
+  </extension>
+
+</component>
