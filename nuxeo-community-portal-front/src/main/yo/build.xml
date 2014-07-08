@@ -1,10 +1,13 @@
 <?xml version="1.0"?>
 <project name="Build" default="build" basedir=".">
-  <target name="build" />
+  <target name="build">
     <echo message="build and test" />
     <mkdir dir="../../../target/surefire-reports" />
     <copy file="test-results.xml"
           todir="../../../target/surefire-reports"
           failonerror="false" />
+    <copy file="nuxeo-community"
+      todir="../../../target/classes/web/nuxeo.war/nuxeo-community"
+      failonerror="false" />
   </target>
 </project>

@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+ 
+  <!-- Standard Meta -->
+   
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+ 
+  <!-- Site Properties -->
+ 
+  <title>NxCommunity</title>
+  <link type="text/css" rel="stylesheet" href="css/mainPage.css" />
+  <link rel="stylesheet" href="semantic/packaged/css/semantic.css" type="text/css"></link>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+  <!--  <link rel="stylesheet" type="text/css" href="/WEB-INF/lib/semantic/packaged/css/semantic.css"> -->
+
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.js"></script>
+ <!--  <script src="/WEB-INF/lib/semantic/packaged/javascript/semantic.js"></script> -->   <!-- Semantic UI -->
+  <script language="JavaScript" type="text/JavaScript" src="js/mainPage.js"></script>
+  <script language="JavaScript" type="text/JavaScript" src="semantic/packaged/javascript/semantic.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="js/nuxeov2.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/services.js"></script>
+  <!--  <link rel="stylesheet" type="text/css" href="mainPage.css"> -->
+  <!-- <script src="mainPage.js"></script> -->
+
+</head>
+
+<body id="feed">
+  <div id="Feedhaut">
+  <!-- Menu Dropdown en haut à droite -->
+  <div class="ui right aligned header">
+    <div class="ui secondary menu">
+      <!-- Langue -->
+      <div class="ui simple dropdown item">
+        English <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">French</div>
+          <div class="item">Italian</div>
+        </div>
+      </div>
+      <!-- Produit -->
+      <div class="ui simple dropdown item">
+        Products  <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">DM</div>
+          <div class="item">DAM</div>
+          <div class="item">DRIVE</div>
+        </div>
+      </div>
+      <!-- Autre compte -->
+      <div class="ui simple dropdown item">
+        My Connect <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">Connect</div>
+          <div class="item">Answers</div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- Fin menu en haut à droite -->
+
+  <!-- Menu Dropdown central cf NuxeoDotCom + Image Nuxeo à gauche -->
+  <div class="ui center aligned header">
+    <!-- Image nuxeo en haut à gauche -->
+    <img class="left floated ui medium image" src="http://nuxeodotcom.wpengine.com/wp-content/themes/nuxeo.com_wp/imgs/logo340x60.png">
+    <!-- Menu central haut-->
+    <div class="ui aligned secondary menu" id="secMenu">
+      <div class="ui simple dropdown item">
+        Products <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">NUXEO PLATFORM</div>
+          <div class="item">NUXEO DRIVE</div>
+          <div class="item">Document Management</div>
+          <div class="item">DAM</div>
+        </div>
+      </div>
+      <div class="ui simple dropdown item">
+        Services <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">Choice 1</div>
+          <div class="item">Choice 2</div>
+          <div class="item">Choice 3</div>
+        </div>
+      </div>
+      <div class="ui simple dropdown item">
+        Customers <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">Choice 1</div>
+          <div class="item">Choice 2</div>
+          <div class="item">Choice 3</div>
+        </div>
+      </div>
+      <div class="ui simple dropdown item">
+        Partners <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">Choice 1</div>
+          <div class="item">Choice 2</div>
+          <div class="item">Choice 3</div>
+        </div>
+      </div>
+      <div class="ui simple dropdown item">
+        Learning <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">Choice 1</div>
+          <div class="item">Choice 2</div>
+          <div class="item">Choice 3</div>
+        </div>
+      </div>
+      <div class="ui simple dropdown item">
+        About us <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">Choice 1</div>
+          <div class="item">Choice 2</div>
+          <div class="item">Choice 3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fin menu central -->
+
+  <!-- Breadcrumb -->
+  <div class="left floated ui breadcrumb">
+    <a class="section" href="http://nuxeodotcom.wpengine.com/">Home</a> 
+    <i class="right arrow icon divider"></i>
+    <a class="section" href="http://nuxeodotcom.wpengine.com/about/">About Us</a> 
+    <i class="right arrow icon divider"></i>
+    <div class="active section">Community</div>
+  </div>
+</br>
+</div>
+  <!-- Fin Breadcrumb -->
+  <!-- Bouton connect et barre search -->
+  <div id="feed1">
+  </br>
+    <div id="feedhaut2">
+  <div class="ui center aligned header" ng-controller="ProfilCtrl1">
+    <!-- bouton connect -->
+    <div class="right floated ui blue inverted huge aligned button" onclick='login()'>Connect
+    </div>
+    <div class="right floated ui blue inverted huge aligned button" ng-click="profil('George Alain');">My Account
+    </div>
+    <!-- Barre search -->
+    <div class="left floated ui icon input">
+      <input type="text" name="sethu" id="hu" value="Enter code" /> 
+      <i class="search icon" onclick="getHU();"></i>
+    </div>
+  </div> 
+</div>
+
+</br>
+  <!-- Fin bouton connect et barre search -->
+
+  <!-- les différents "popup" -->
+
+  <!-- Login quand clique sur connect ou login-->
+  <div class="ui modal" id="login">
+      <div class="ui fluid form segment">
+        <div class="ui right floated segment">
+          <i class="close icon"></i> 
+        </div>  
+        <p>Connecte toi !!!</p>
+        <div class="field">
+            <label>Username</label>
+            <input placeholder="Username" type="text">
+        </div>
+        <div class="field">
+            <label>Password</label>
+            <input type="password">
+        </div>
+        <div class="ui left floated aligned button"  onclick='submit33()'>Let's go</div>
+        <div class="ui right floated aligned button" onclick='register()'> Register</div>  
+      </div>
+  </div>
+
+  <!-- Register quand clique sur register --> 
+  <div  class="ui modal" id="register">
+
+      <!-- Form register -->
+      <div class="ui fluid form segment">
+        <div class="ui right floated segment">
+          <i class="close icon"></i> 
+        </div>  
+        <p>Inscrit toi !!!</p>
+        <div class="field">
+            <label for="pseudo">Username</label>
+            <input id="pseudo" placeholder="Username" type="text" class="champ">
+        </div>
+        <div class="field">
+            <label for="pseudo">Password</label>
+            <input id="mdp" type="password" class="champ">
+        </div>
+        <div class="field">
+            <label for="confirmation">Confirmation Password</label>
+            <input id="confirmation" type="password" class="champ">
+        </div>
+        <div class="inline field">
+          <div class="ui checkbox">
+            <input type="checkbox" id="terms" class="champ">
+            <label for="terms">I agree to the terms and conditions</label>
+          </div>
+        </div>
+        <div class="ui left floated button" id="envoi">Submit</div>
+        <div class="ui button" id="reset">Reset</div>
+        <div class="ui button" onclick='login()'> LogIn</div>
+      </div>
+      <div class="ui segment" id="erreur">
+        <p>Vous n'avez pas rempli correctement les champs du formulaire !</p>
+      </div>  
+  </div>  
+
+  <!-- Félicitation inscription -->
+  <div  class="ui modal" id="Congratulation">
+      <div class="ui fluid form segment">
+        <div class="ui right floated segment">
+          <i class="close icon"></i> 
+        </div>  
+        <p>Merci de t'être inscrit !</p>
+      </div>
+  </div> 
+
+  <!-- Fenêtre de tous les utilisateurs clique sur allUser -->
+  <div  class="ui modal" id="allUsers">
+    <div class="ui fluid form segment">
+      <div class="ui right floated segment">
+        <i class="close icon"></i> 
+      </div>  
+      <p>Tous les utilisateurs!</p>
+      <div class="ui icon input">
+        <input type="text" placeholder="Search...">
+        <i class="search icon"></i>
+      </div>
+      <!-- Tableau de photos des utilisateurs -->
+      <div class="ui celled grid" ng-controller="UserListCtrl">
+        <!-- 3 lignes divisées en 3 colonnes de taille 5 -->
+        <!-- Ligne 1 -->
+          <div class="row">
+            <div class="five wide column" ng-repeat="user in users">
+              <div class="ui celled grid">
+                <div class="six wide column">
+                  <img class="circular ui medium image" src="{{user.pic}}">
+                </div>
+                <div class="eight wide column">  
+                  <p><a href="#" ng-click="profil(user.name);"> {{user.name}} </a><br/>{{user.dateInscription}}<br/>{{user.statut}}</p>
+                </div>  
+              </div>  
+            </div>
+          </div>
+          <div class="row">
+            <div class="five wide column" ng-repeat="user in users">
+              <div class="ui celled grid">
+                <div class="six wide column">
+                  <img class="circular ui medium image" src="{{user.pic}}">
+                </div>
+                <div class="eight wide column">  
+                  <p><a href="#" ng-click="profil(user.name);"> {{user.name}} </a><br/>{{user.dateInscription}}<br/>{{user.statut}}</p>
+                </div>  
+              </div>  
+            </div>
+          </div>
+          <div class="row">  
+            <div class="five wide column" >
+              <div class="ui celled grid">
+                <div class="six wide column">
+                  <img class="circular ui medium image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                </div>
+                <div class="eight wide column">  
+                  <p><a href="#" onclick='profil()'> George Alain</a><br/>Utlisateur depuis le 13/06/13<br/>Rang: Légende</p>
+                </div>  
+              </div>  
+            </div>
+            <div class="five wide column" >
+              <div class="ui celled grid">
+                <div class="six wide column">
+                  <img class="circular ui medium image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                </div>
+                <div class="eight wide column">  
+                  <p><a href="#" onclick='profil()'> George Alain</a><br/>Utlisateur depuis le 13/06/13<br/>Rang: Légende</p>
+                </div>  
+              </div>  
+            </div>
+            <div class="five wide column" >
+              <div class="ui celled grid">
+                <div class="six wide column">
+                  <img class="circular ui medium image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                </div>
+                <div class="eight wide column">  
+                  <p><a href="#" value="George Alain" onclick='profil()'> George Alain</a><br/>Utlisateur depuis le 13/06/13<br/>Rang: Légende</p>
+                </div>  
+              </div>  
+            </div>
+          </div>
+          <div class="ui pagination menu">
+            <a class="icon item"><i class="icon left arrow"></i></a>
+            <a class="active item">1</a>
+            <div class="disabled item">...</div>
+            <a class="item">10</a>
+            <a class="item">11</a>
+            <a class="item">12</a>
+            <a class="icon item"><i class="icon right arrow"></i></a>
+          </div>  
+      </div>
+    </div> 
+  </div>
+
+  <!-- Modal Profil utilisateur -->
+  <div class="ui modal" id="profil">
+      <div class="ui right floated segment">
+        <i class="close icon"></i> 
+      </div> 
+      <div class="ui celled grid" ng-controller="UserListCtrl">
+        <div class="row">
+          <div class="five wide column">
+            <img class="circular ui small image" src="{{user.properties.username}}">
+            </div>
+          <div class="eleven wide column" >  
+            <p>{{user.properties.username}}<br/>{{user.properties.lastName}}<br/>{{user.properties.email}}</p>
+          </div> 
+        </div>
+        <div class="row">
+          <div class="sixteen wide column">
+            <div class="ui tabular filter menu three">
+            <a class="active item" data-tab="recentUser">Recent Activities</a>
+            <a class="item" data-tab="bio">Bio</a>
+            <a class="item" data-tab="info">More Informations</a>
+            </div>
+            <div id="parent-three">
+              <div class="ui divided inbox selection list active tab" data-tab="recentUser">
+              <div class="events">
+                <div class="event">
+                  <div class="type jira"><img src="/media/icons/qa.png" alt=""></div>
+                  <div class="description">
+                    <p><a rel="nofollow" href="https://answers.nuxeo.com/questions/8875/issue-with-xorbinarymanager-in-nuxeo-58-while-encrypting-file-in-schema-files-ex-attachments-of-emails">Issue with XORBinaryManager in Nuxeo 5.8 while encrypting file in schema files. (ex Attachments of Emails)</a></p>
+                    <span class="info">New question on <em>Answers</em>, by <a href="#" ng-click="profil(0)">amirbuzo</a></span>
+                    <span class="when"><a href="/archive/2014/5/7">about 1 hour ago</a></span>
+                    <div class="ui mini button hover">
+                      Like
+                    </div>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              
+                <div class="event">
+                  <div class="type jira"><img src="/media/icons/qa.png" alt=""></div>
+                  <div class="description">
+                    <p><a rel="nofollow" href="https://answers.nuxeo.com/questions/8871/existing-document-gets-replaced-by-new-dropped-document">Existing document gets replaced by new dropped document</a></p>
+                    <span class="info">New question on <em>Answers</em>, by <a href="/user/acn">acn</a></span>
+                    <span class="when"><a href="/archive/2014/5/7">about 2 hours ago</a></span>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+              </div>
+              <div class="ui divided inbox selection list tab" data-tab="bio">
+                <p> {{user.properties.groups}}</p>
+              </div>
+              <div class="ui divided inbox selection list tab" data-tab="info">
+                <p> {{user.properties.isAdministrator}} </p>
+              </div>
+            </div>  
+          </div>  
+        </div>
+      </div>      
+  </div> 
+  
+  <!-- Modal comments -->
+  <div  class="ui modal" id="comments" ng-controller="ActivityListCtrl">
+	  <div class="ui segment">
+	    <div class="ui right floated segment">
+        <i class="close icon"></i> 
+      </div>
+	    <h2 class="ui header">
+        <i class="floated icon inverted circular blue comment"></i> Comments
+	    </h2>
+      <div class="ui comments">
+	  	  <div class="ui red segment" ng-repeat="comment in activities[0].comments">
+	       <!--  <a class="avatar">
+	          <img class="circular ui small image" src="{{activitiesss[0].comments[0].pic}}">
+	        </a> -->
+	        <div class="content">
+            <a class="author">{{comment.author}}</a>
+	      	  <div class="text">
+            {{comment.text}}
+            </div>
+	          <span class="date">2 days ago</span>
+	        </div>
+	      </div>
+      </div>  
+      <form class="ui reply form">
+	      <div class="field">
+          <textarea></textarea>
+        </div>
+	      <div class="ui fluid blue labeled submit icon button">
+          <i class="icon edit"></i> Add Reply
+	      </div>
+      </form>
+    </div>   
+  </div>
+
+
+
+
+  <!-- fin des popup -->
+
+  <!-- Grille principale -->
+  <div class="ui divided grid">
+    <!-- Partie de gauche =  Activités -->
+    <div class="twelve wide column">
+    <div class="ui blue inverted segment">
+      <!-- Tabular menu -->
+      <div class="ui tabular filter menu one">
+        <a class="active item" data-tab="recentActivities">Recent Activities</a>
+        <a class="item" data-tab="saved">Community Work</a>
+        <a class="item" data-tab="all">Post</a>
+      </div>
+      <!-- Exemples de post -->
+      <div id="parent-one">
+        <!-- Activities -->
+        <div class="ui divided inbox selection list active tab" data-tab="recentActivities" ng-controller="ActivityListCtrl">
+          <div class="feedsBlock" ng-controller="showComments">
+            <!-- un segment = une activité -->
+            <div class="ui blue segment" ng-repeat="activity in activities">
+              <div class="type jira"><img src="/media/icons/qa.png" alt=""></div>
+              <div class="description" ng-controller="ProfilCtrl1">
+                <p><a rel="nofollow" href="https://answers.nuxeo.com/questions/8875/issue-with-xorbinarymanager-in-nuxeo-58-while-encrypting-file-in-schema-files-ex-attachments-of-emails">{{activity.title}} </a></p>
+                <span class="info">New question on <em>{{activity.type}} </em>, by <a id="{{$index}}" href="#" ng-click="profil(activity.author);"> {{activity.author}} </a></span>
+                {{activity.date}} 
+                <div class="ui mini button" id="like">Like
+                </div>
+                <div class="ui mini button" ng-click="showComments($index);">Comments
+                </div>  
+              </div>  
+              <div class="clear"></div>
+            </div>
+
+            <div class="ui red segment">
+              <div class="type jira"><img src="/media/icons/qa.png" alt=""></div>
+              <div class="description" ng-controller="ProfilCtrl1">
+                <p><a rel="nofollow" href="https://answers.nuxeo.com/questions/8865/adding-computed-groups-on-document-creation">adding computed groups on document creation</a></p>
+                <span class="info">New question on <em>Answers</em>, by <a href="#" ng-click="profil(0)">Bauke Roo</a></span>
+                <span class="when"><a href="/archive/2014/5/7">about 7 hours ago</a></span>
+                <div class="ui mini button">Like
+                </div>
+                <div class="ui mini button" ng-click="showComments(0);">Comments
+                </div> 
+              </div>
+              <div class="clear"></div>
+            </div> 
+          </div>
+        </div>    
+        <!-- Community Work -->
+        <div class="ui divided inbox selection list tab" data-tab="saved">
+          <div class="item">
+            <div class="left floated ui star rating"><i class="icon"></i></div>
+            <div class="right floated date">Sep 14, 2013</div>
+            <div class="description">Your favorite saved article</div>
+          </div>
+          <div class="item">
+            <div class="left floated ui star rating"><i class="icon"></i></div>
+            <div class="right floated date">Sep 14, 2013</div>
+            <div class="description">Your favorite saved article</div>
+          </div>
+          <div class="item">
+            <div class="left floated ui star rating"><i class="icon"></i></div>
+            <div class="right floated date">Sep 14, 2013</div>
+            <div class="description">Your favorite saved article</div>
+          </div>
+        </div>
+        <!-- Post -->
+        <div class="ui divided inbox selection list tab" data-tab="all">
+          <div class="item">
+            <div class="left floated ui star rating"><i class="link icon"></i></div>
+            <div class="right floated date">Sep 14, 2013</div>
+            <div class="description">There turns out there is only one article under all.</div>
+          </div>
+        </div>
+      </div>
+      <!-- Nombre de pages -->
+      <div class="page">Showing <b>6</b> of 213</div>
+      <div class="ui pagination menu">
+        <a class="icon item"><i class="icon left arrow"></i></a>
+        <a class="active item">1</a>
+        <div class="disabled item">...</div>
+        <a class="item">10</a>
+        <a class="item">11</a>
+        <a class="item">12</a>
+        <a class="icon item"><i class="icon right arrow"></i></a>
+      </div>
+    </div> 
+    </div> 
+    <!-- Fin Partie de gauche -->
+
+    <!-- Partie de droite -->
+    <div class="four wide column">
+      <!-- Une grille pour avoir une colone de taille 16 -->
+      <div class="ui grid"> 
+        <!-- une ligne = un tableau -->
+        <div class="row">
+          <!-- Utilisateurs et Medailles -->
+          <div class="sixteen wide column" id="blockUser">
+            <div class="ui blue inverted segment">
+            <div class="ui tabular filter menu two">
+              <a class="active item" data-tab="users">Top Users</a>
+              <a class="item" data-tab="medals">Medals</a>
+            </div> 
+            <div  id="parent-two">
+              <div class="ui divided inbox selection list active tab" data-tab="users">
+                <div class="ui celled grid" ng-controller="ProfilCtrl1">
+                  <div class="row">
+                    <div class="two wide column" >
+                      <div class="item" title="George Alain 32ans Nuxeo">
+                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg" ng-click="profil('George Alain');">
+                      </div>
+                    </div>
+                    <div class="two wide column"> 
+                      <div class="item" title="George Alain 32ans Nuxeo">
+                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg" ng-click="profil('Charles H.');">
+                      </div>
+                    </div>
+                    <div class="two wide column" >
+                      <div class="item" title="Michael Kyle 28ans Smart&soft">
+                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg">
+                      </div>
+                    </div>
+                  </div>  
+                  <div class="row">
+                    <div class="two wide column" >
+                      <div class="item">
+                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg">
+                      </div>
+                    </div>
+                    <div class="two wide column" >
+                      <div class="item">
+                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg">
+                      </div>
+                    </div>
+                    <div class="two wide column" >
+                      <div class="item">
+                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg">
+                      </div>
+                    </div>
+                  </div>  
+                  <div class="row">
+                    <div class="two wide column" >
+                      <div class="item">
+                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg">
+                      </div>
+                    </div>
+                    <div class="two wide column" >
+                      <div class="item">
+                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg">
+                      </div>
+                    </div>
+                    <div class="two wide column" >
+                      <div class="item">
+                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg">
+                      </div>
+                    </div>
+                  </div>  
+                </div> 
+                <div class="ui basic button" onclick='allUsers()'>All Users</div> 
+              </div>
+              <div class="ui divided inbox selection list tab" data-tab="medals">  
+                <div class="ui celled grid">
+                  <div class="row">
+                    <div class="two wide column" >
+                      <div class="item" title="Médaille du contributeur">
+                        <img class="circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                      </div>
+                    </div>
+                    <div class="two wide column" >
+                      <div class="item" title="Le maitre de la correction">
+                        <img class="circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                      </div>
+                    </div>
+                    <div class="two wide column" >
+                      <div class="item">
+                        <img class="circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                      </div>
+                    </div>
+                  </div>  
+                  <div class="row">
+                    <div class="two wide column" >
+                      <div class="item">
+                        <img class="circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                      </div>
+                    </div>
+                    <div class="two wide column" >
+                      <div class="item">
+                        <img class="circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                      </div>
+                    </div>
+                    <div class="two wide column" >
+                      <div class="item">
+                        <img class="circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                      </div>
+                    </div>
+                  </div>  
+                  <div class="row">
+                    <div class="two wide column" >
+                      <div class="item">
+                        <img class="circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                      </div>
+                    </div>
+                    <div class="two wide column" >
+                      <div class="item">
+                        <img class="circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                      </div>
+                    </div>
+                    <div class="two wide column" >
+                      <div class="item">
+                        <img class="circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                      </div>
+                    </div>
+                  </div>  
+                </div>
+                <div class="ui basic button" onclick="return popitup('http://www.sochi2014.com/en/medals')">All Medals</div> 
+              </div> 
+            </div>
+            </div>            
+          </div>
+        </div>
+        <div class="row">
+          <div class="sixteen wide column">
+            <div class="ui green inverted segment">
+            Question of the week: 
+            <var>What would you change to improve nuxeo platform ?</var>  
+            <br>
+            <form class="ui reply form">
+		      <div class="field">
+	            <textarea></textarea>
+	          </div>
+		      <div class="ui fluid blue labeled submit icon button">
+		        <i class="icon edit"></i> Add Reply
+		      </div>
+		    </form>
+            </div>
+          </div> 
+        </div>
+        <!-- Social -->
+        <div class="row">
+          <div class="sixteen wide column">
+            <div class="ui blue inverted segment">
+              <div class="left floated ui icon">
+                <i class="twitter sign icon"> </i>
+                <a href="https://twitter.com/nuxeo">follow us on twitter</a>
+              </div>  
+              <div class="left floated ui icon">
+                <i class="facebook sign icon"> </i>
+                <a href="https://www.facebook.com/Nuxeo" >follow us on facebook</a>
+              </div> 
+              <div class="left floated ui icon">
+                <i class="google plus icon"> </i>
+                <a href="https://plus.google.com/+nuxeo/posts">Join us on Google +</a>
+              </div> 
+            </div>
+          </div> 
+        </div>
+        <div class="row">
+          <div class="sixteen wide column">
+            <div class="ui green inverted segment">
+            Question of the day: 
+            <var>What is the name of our own reverse proxy?</var>  
+            <br>
+            Value:
+            <var>200</var> points
+            </div>
+          </div> 
+        </div>
+        <div class="row">
+          <div class="sixteen wide column">
+            <div class="ui purple inverted segment">
+            Meet the user of the week: 
+            <br>
+            <var>
+            <img class="left floated circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+            <a class="right floated link" href="#" onclick='profil()'> George Alain</a>
+            </var>  
+            </div>
+          </div> 
+        </div>
+      </div>
+      <!-- Fin grille -->
+    </div>
+    <!-- fin partie de droite -->     
+  </div>
+  <!-- "fin" de la page -->
+</div>
+  <!-- JS  -->
+  <script type="text/javascript"> 
+
+      //Affiche le popup de connexion
+     function login() {
+      $("#register").modal('hide.modal');
+      $("#login").modal('show');
+      }
+
+      //cache la connexion affiche l'enregistrement
+      function register() {
+      $("#login").modal('hide.modal');
+      $("#register").modal('show');
+      }
+
+      //cache tout quand on dit se log
+      function submit33() {
+      $("#login").modal('hide.module'); 
+      }
+	  
+      //Affiche les commentaires
+     
+   
+      //affiche le profil d'un utilisateur et cache le popup AllUSer
+      /*function profil() {
+      $("#allUsers").modal('hide.modal');   
+      $("#profil").modal('show'); 
+      }*/
+
+      //cache l'enregistrement affiche les félicitations
+      function submit1() {  
+      $("#register").modal('hide.modal');
+      $("#Congratulation").modal('show');  
+      }
+
+      //affiche le popup AllUsers
+      function allUsers() {  
+      $("#allUsers").modal('show');  
+      }
+
+      function getHU() 
+      { 
+      var hoo =  "http://demo.nuxeo.com:80/nuxeo/site/api/v1/user/"+ document.getElementById("hu").value ; 
+      newwindow=window.open(hoo);
+        if (window.focus) {newwindow.focus();}
+        return false;
+      } 
+
+
+
+
+      function wili()
+      {
+      var xmlHttp = null;
+      var hoo = document.getElementById("hu").value; 
+      xmlHttp = new XMLHttpRequest();
+      xmlHttp.open( "GET", hoo, false );
+      xmlHttp.send( null );
+      return xmlHttp.responseText;
+      }
+
+      //popup à remplacer quand on clique sur les médailles
+      function popitup(url) {
+      newwindow=window.open(url,'Medals','height=500,width=500,left=100,top=100');
+        if (window.focus) {newwindow.focus();}
+        return false;
+      }
+
+  </script>
+  <!-- Fin JS -->
+</body>
+
+</html>

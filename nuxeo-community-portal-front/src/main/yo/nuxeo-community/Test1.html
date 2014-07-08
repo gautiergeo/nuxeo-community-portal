@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Ajax - La fonction ajax()</title>
+    <link type="text/css" rel="stylesheet" href="css/mainPage.css" />
+    <link rel="stylesheet" href="semantic/packaged/css/semantic.css" type="text/css"></link>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.js"></script>
+    <script src="js/nuxeov2.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="js/mainPage.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="semantic/packaged/javascript/semantic.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/services.js"></script>
+  </head>
+  
+  <body>
+    
+    <button onclick='nx()'> Récupérons les infos de Bill</button><br />
+
+    <script>
+
+var Bill;
+  function logBill(error,data,response) {
+    Bill = data;
+    console.log(Bill);
+    alert(Bill.properties.email);
+  }
+  function nx() {
+
+    // var nuxeo = require('nuxeo');
+
+    var client = new nuxeo.Client({
+      baseURL: 'http://demo.nuxeo.com/nuxeo',
+      username: 'Administrator',
+      password: 'Administrator'
+    });
+     
+    client.connect(function(error, client) {
+      if (error) {
+        console.error('Cannot connect to Nuxeo server');
+        throw new Error(error);
+        }
+    // do stuff
+    });
+    //alert("Pro");
+    Bill = client.user("Administrator");
+    console.log(Bill);
+    Bill.fetch(logBill);
+    console.log(Bill);
+      //  var query = "SELECT * FROM user";
+
+
+  /*var request = client.request('/').schema(['dublincore', 'file'])
+  .path('@search')
+  .query({
+    'query': query,
+  });
+
+    request.execute(function(error, data) {
+    if (error) {
+      console.error('Error while fetching documents');
+      throw new Error(error);
+    }
+ 
+    // do stuff
+    console.log(data);
+  });*/
+  }
+//  var doc = client.document(jsonDoc)
+
+  //doc.set(propertiesObject)
+
+
+
+    
+    </script>
+  </body>
+</html>

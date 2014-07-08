@@ -4,7 +4,7 @@
   <install>
     <!-- Unzip the contents of our nuxeo.war into the server -->
     <unzip from="${bundle.fileName}" to="/" prefix="web">
-      <include>web/nuxeo.war/**</include>
+      <include>classes/web/nuxeo.war/community/**</include>
     </unzip>
   </install>
 

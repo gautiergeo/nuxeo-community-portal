@@ -1,0 +1,148 @@
+/*******************************
+            Global
+*******************************/
+
+html,
+body {
+  font-size: 15px;
+  height: 100%;
+}
+
+body {
+  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  padding: 0px;
+  color: #555555;
+  text-rendering: optimizeLegibility;
+  min-width: 320px;
+}
+
+.ui.header {
+  font-family: 'Source Sans Pro', "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+#Feedhaut{ 
+background-color: #66CCFF;
+}
+
+#Feedhaut .header{
+margin-left: 25px;
+margin-right: 25px;
+}
+
+#Feedhaut .breadcrumb{
+margin-left: 25px;
+margin-right: 25px;
+}
+
+#feedhaut2{
+margin-left: 25px;
+margin-right: 25px;
+}
+#feed1{ 
+background-color: white;
+}
+#secMenu {
+margin-right: 300px;
+}
+
+/*******************************
+            Global
+*******************************/
+
+/*-------------------
+        Sidebar
+--------------------*/
+
+#feed .sidebar {
+  overflow: visible;
+}
+
+/*-------------------
+        Grid
+--------------------*/
+
+#feed .grid {
+  height: 100%;
+}
+
+#feed > .grid > .column {
+  height: 100%;
+}
+
+#feed .modal .segment .input {
+  width: 300px;
+}
+
+#login {
+  margin: -200px;
+  width: 400px;
+}
+
+#Congratulation {
+  margin: -200px;
+  width: 400px;
+}
+
+#register {
+  margin: -200px;
+  width: 400px;
+}
+
+/*-------------------
+       Inbox
+--------------------*/
+
+#feed .inbox.tab {
+  background-color: #FFFFFF;
+}
+
+#feed .inbox.tab .item {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+#feed .inbox.tab .item .rating {
+  margin-top: 0.2rem;
+}
+
+#feed .inbox.tab .item .description {
+  margin-left: 2em;
+}
+
+#feed .page {
+  float: right;
+  margin-top: 0.9em;
+}
+
+#feed .middle.column {
+  padding: 1em 2em;
+}
+
+#feed .middle.column h2 {
+  margin-top: 0em;
+}
+
+#feed .right.column {
+  padding: 1em 2em;
+  background-color: #FAFAFA;
+}
+
+#erreur {
+  display: none;
+}
+/*******************************
+          Responsive
+*******************************/
+
+@media only screen and (max-width : 1000px) {
+  #feed .inbox .date {
+    float: none;
+    margin-bottom: 0.5em;
+  }
+}
+
+@media only screen and (max-width : 1250px) {
+  #feed .left.column > .menu .item {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,319 @@
+{
+  "entity-type": "users",
+  "isPaginable": true,
+  "resultsCount": 10,
+  "pageSize": 50,
+  "maxPageSize": 100,
+  "currentPageSize": 10,
+  "currentPageIndex": 0,
+  "numberOfPages": 1,
+  "isPreviousPageAvailable": false,
+  "isNextPageAvailable": false,
+  "isLastPageAvailable": false,
+  "isSortable": false,
+  "hasError": false,
+  "errorMessage": null,
+  "entries": [
+    {
+      "entity-type": "user",
+      "id": "Administrator",
+      "properties": {
+        "lastName": "",
+        "username": "Administrator",
+        "email": "Administrator@example.com",
+        "company": "",
+        "firstName": "",
+        "password": "",
+        "groups": [
+          "administrators"
+        ]
+      },
+      "extendedGroups": [
+        {
+          "name": "administrators",
+          "label": "Administrators group",
+          "url": "group/administrators"
+        },
+        {
+          "name": "doc:default:0b2b8384-4d31-4ea3-bf64-3957e8aa85f6_members",
+          "label": "doc:default:0b2b8384-4d31-4ea3-bf64-3957e8aa85f6_members",
+          "url": "group/doc:default:0b2b8384-4d31-4ea3-bf64-3957e8aa85f6_members"
+        },
+        {
+          "name": "doc:default:0b2b8384-4d31-4ea3-bf64-3957e8aa85f6_administrators",
+          "label": "doc:default:0b2b8384-4d31-4ea3-bf64-3957e8aa85f6_administrators",
+          "url": "group/doc:default:0b2b8384-4d31-4ea3-bf64-3957e8aa85f6_administrators"
+        }
+      ],
+      "isAdministrator": true,
+      "isAnonymous": false
+    },
+    {
+      "entity-type": "user",
+      "id": "Bill",
+      "properties": {
+        "lastName": "Murray",
+        "username": "Bill",
+        "email": "bill@exemple.com",
+        "company": "",
+        "firstName": "Bill",
+        "password": "",
+        "groups": [
+          "members",
+          "ecm-experts",
+          "hr_operational_managers"
+        ]
+      },
+      "extendedGroups": [
+        {
+          "name": "members",
+          "label": "Members group",
+          "url": "group/members"
+        },
+        {
+          "name": "ecm-experts",
+          "label": "ECM experts",
+          "url": "group/ecm-experts"
+        },
+        {
+          "name": "hr_operational_managers",
+          "label": "",
+          "url": "group/hr_operational_managers"
+        },
+        {
+          "name": "doc:default:ac6e425b-262b-41ed-bbdd-b79c22d06657_members",
+          "label": "doc:default:ac6e425b-262b-41ed-bbdd-b79c22d06657_members",
+          "url": "group/doc:default:ac6e425b-262b-41ed-bbdd-b79c22d06657_members"
+        },
+        {
+          "name": "doc:default:b6994e9f-636c-484b-bc46-d4fd9071e432_members",
+          "label": "doc:default:b6994e9f-636c-484b-bc46-d4fd9071e432_members",
+          "url": "group/doc:default:b6994e9f-636c-484b-bc46-d4fd9071e432_members"
+        },
+        {
+          "name": "doc:default:ac6e425b-262b-41ed-bbdd-b79c22d06657_administrators",
+          "label": "doc:default:ac6e425b-262b-41ed-bbdd-b79c22d06657_administrators",
+          "url": "group/doc:default:ac6e425b-262b-41ed-bbdd-b79c22d06657_administrators"
+        }
+      ],
+      "isAdministrator": false,
+      "isAnonymous": false
+    },
+    {
+      "entity-type": "user",
+      "id": "Eric",
+      "properties": {
+        "lastName": "Hochet",
+        "username": "Eric",
+        "email": "eric@exemple.com",
+        "company": "",
+        "firstName": "Eric",
+        "password": "",
+        "groups": [
+          "members",
+          "ecm-experts"
+        ]
+      },
+      "extendedGroups": [
+        {
+          "name": "members",
+          "label": "Members group",
+          "url": "group/members"
+        },
+        {
+          "name": "ecm-experts",
+          "label": "ECM experts",
+          "url": "group/ecm-experts"
+        },
+        {
+          "name": "doc:default:ac6e425b-262b-41ed-bbdd-b79c22d06657_members",
+          "label": "doc:default:ac6e425b-262b-41ed-bbdd-b79c22d06657_members",
+          "url": "group/doc:default:ac6e425b-262b-41ed-bbdd-b79c22d06657_members"
+        },
+        {
+          "name": "doc:default:b6994e9f-636c-484b-bc46-d4fd9071e432_members",
+          "label": "doc:default:b6994e9f-636c-484b-bc46-d4fd9071e432_members",
+          "url": "group/doc:default:b6994e9f-636c-484b-bc46-d4fd9071e432_members"
+        },
+        {
+          "name": "doc:default:b6994e9f-636c-484b-bc46-d4fd9071e432_administrators",
+          "label": "doc:default:b6994e9f-636c-484b-bc46-d4fd9071e432_administrators",
+          "url": "group/doc:default:b6994e9f-636c-484b-bc46-d4fd9071e432_administrators"
+        }
+      ],
+      "isAdministrator": false,
+      "isAnonymous": false
+    },
+    {
+      "entity-type": "user",
+      "id": "John",
+      "properties": {
+        "lastName": "Lennon",
+        "username": "John",
+        "email": "john@exemple.com",
+        "company": "",
+        "firstName": "John",
+        "password": "",
+        "groups": []
+      },
+      "extendedGroups": [],
+      "isAdministrator": false,
+      "isAnonymous": false
+    },
+    {
+      "entity-type": "user",
+      "id": "Leo",
+      "properties": {
+        "lastName": "Pold",
+        "username": "Leo",
+        "email": "leo@exemple.com",
+        "company": "",
+        "firstName": "Leo",
+        "password": "",
+        "groups": [
+          "members"
+        ]
+      },
+      "extendedGroups": [
+        {
+          "name": "members",
+          "label": "Members group",
+          "url": "group/members"
+        }
+      ],
+      "isAdministrator": false,
+      "isAnonymous": false
+    },
+    {
+      "entity-type": "user",
+      "id": "monitor",
+      "properties": {
+        "lastName": "nuxeo",
+        "username": "monitor",
+        "email": "devnull@nuxeo.com",
+        "company": "Nuxeo",
+        "firstName": "Monitoring",
+        "password": "",
+        "groups": []
+      },
+      "extendedGroups": [],
+      "isAdministrator": false,
+      "isAnonymous": false
+    },
+    {
+      "entity-type": "user",
+      "id": "Ornella",
+      "properties": {
+        "lastName": "",
+        "username": "Ornella",
+        "email": "ornella@exemple.com",
+        "company": "",
+        "firstName": "Ornella",
+        "password": "",
+        "groups": [
+          "members",
+          "hr_manager"
+        ]
+      },
+      "extendedGroups": [
+        {
+          "name": "members",
+          "label": "Members group",
+          "url": "group/members"
+        },
+        {
+          "name": "hr_manager",
+          "label": "hr_manager",
+          "url": "group/hr_manager"
+        }
+      ],
+      "isAdministrator": false,
+      "isAnonymous": false
+    },
+    {
+      "entity-type": "user",
+      "id": "sameera",
+      "properties": {
+        "lastName": "P",
+        "username": "sameera",
+        "email": "sameera.perera@bigtincan.com",
+        "company": "",
+        "firstName": "sameera",
+        "password": "",
+        "groups": []
+      },
+      "extendedGroups": [],
+      "isAdministrator": false,
+      "isAnonymous": false
+    },
+    {
+      "entity-type": "user",
+      "id": "Steve",
+      "properties": {
+        "lastName": "McQueen",
+        "username": "Steve",
+        "email": "Steve@exemple.com",
+        "company": "",
+        "firstName": "Steve",
+        "password": "",
+        "groups": [
+          "members",
+          "ecm-experts"
+        ]
+      },
+      "extendedGroups": [
+        {
+          "name": "members",
+          "label": "Members group",
+          "url": "group/members"
+        },
+        {
+          "name": "ecm-experts",
+          "label": "ECM experts",
+          "url": "group/ecm-experts"
+        },
+        {
+          "name": "doc:default:ac6e425b-262b-41ed-bbdd-b79c22d06657_members",
+          "label": "doc:default:ac6e425b-262b-41ed-bbdd-b79c22d06657_members",
+          "url": "group/doc:default:ac6e425b-262b-41ed-bbdd-b79c22d06657_members"
+        },
+        {
+          "name": "doc:default:b6994e9f-636c-484b-bc46-d4fd9071e432_members",
+          "label": "doc:default:b6994e9f-636c-484b-bc46-d4fd9071e432_members",
+          "url": "group/doc:default:b6994e9f-636c-484b-bc46-d4fd9071e432_members"
+        },
+        {
+          "name": "doc:default:b6994e9f-636c-484b-bc46-d4fd9071e432_administrators",
+          "label": "doc:default:b6994e9f-636c-484b-bc46-d4fd9071e432_administrators",
+          "url": "group/doc:default:b6994e9f-636c-484b-bc46-d4fd9071e432_administrators"
+        }
+      ],
+      "isAdministrator": false,
+      "isAnonymous": false
+    },
+    {
+      "entity-type": "user",
+      "id": "test",
+      "properties": {
+        "lastName": "test",
+        "username": "test",
+        "email": "test@nuxeo.com",
+        "company": "test",
+        "firstName": "test",
+        "password": "",
+        "groups": [
+          "members"
+        ]
+      },
+      "extendedGroups": [
+        {
+          "name": "members",
+          "label": "Members group",
+          "url": "group/members"
+        }
+      ],
+      "isAdministrator": false,
+      "isAnonymous": false
+    }
+  ]
+}
