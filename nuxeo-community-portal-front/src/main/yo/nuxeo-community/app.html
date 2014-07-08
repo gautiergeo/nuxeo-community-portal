@@ -14,7 +14,6 @@
   <link type="text/css" rel="stylesheet" href="css/mainPage.css" />
   <link rel="stylesheet" href="semantic/packaged/css/semantic.css" type="text/css"></link>
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
   <!--  <link rel="stylesheet" type="text/css" href="/WEB-INF/lib/semantic/packaged/css/semantic.css"> -->
 
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
@@ -26,8 +25,7 @@
   <script src="bower_components/angular-animate/angular-animate.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-resource/angular-resource.js"></script>
-  <script src="js/nuxeov2.js"></script>
-  <script src="js/animations.js"></script>
+  <script src="js/nuxeo.js"></script>
   <script src="js/controllers.js"></script>
   <script src="js/filters.js"></script>
   <script src="js/services.js"></script>
@@ -144,7 +142,7 @@
   <div id="feed1">
   </br>
     <div id="feedhaut2">
-  <div class="ui center aligned header" ng-controller="ProfilCtrl1">
+  <div class="ui center aligned header" ng-controller="userProfilController">
     <!-- bouton connect -->
     <div class="right floated ui blue inverted huge aligned button" onclick='login()'>Connect
     </div>
@@ -241,29 +239,17 @@
         <i class="search icon"></i>
       </div>
       <!-- Tableau de photos des utilisateurs -->
-      <div class="ui celled grid" ng-controller="UserListCtrl">
+      <div class="ui celled grid" ng-controller="userListController">
         <!-- 3 lignes divisées en 3 colonnes de taille 5 -->
         <!-- Ligne 1 -->
           <div class="row">
             <div class="five wide column" ng-repeat="user in users">
               <div class="ui celled grid">
                 <div class="six wide column">
-                  <img class="circular ui medium image" src="{{user.pic}}">
+                  <img class="circular ui medium image" src="">
                 </div>
                 <div class="eight wide column">  
-                  <p><a href="#" ng-click="profil(user.name);"> {{user.name}} </a><br/>{{user.dateInscription}}<br/>{{user.statut}}</p>
-                </div>  
-              </div>  
-            </div>
-          </div>
-          <div class="row">
-            <div class="five wide column" ng-repeat="user in users">
-              <div class="ui celled grid">
-                <div class="six wide column">
-                  <img class="circular ui medium image" src="{{user.pic}}">
-                </div>
-                <div class="eight wide column">  
-                  <p><a href="#" ng-click="profil(user.name);"> {{user.name}} </a><br/>{{user.dateInscription}}<br/>{{user.statut}}</p>
+                  <p><a href="#" ng-click="showProfil(user.name);"> {{user.name}} </a><br/>{{user.dateInscription}}<br/>{{user.statut}}</p>
                 </div>  
               </div>  
             </div>
@@ -275,7 +261,7 @@
                   <img class="circular ui medium image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
                 </div>
                 <div class="eight wide column">  
-                  <p><a href="#" onclick='profil()'> George Alain</a><br/>Utlisateur depuis le 13/06/13<br/>Rang: Légende</p>
+                  <p><a href="#" ng-click='showProfil()'> George Alain</a><br/>Utlisateur depuis le 13/06/13<br/>Rang: Légende</p>
                 </div>  
               </div>  
             </div>
@@ -285,7 +271,7 @@
                   <img class="circular ui medium image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
                 </div>
                 <div class="eight wide column">  
-                  <p><a href="#" onclick='profil()'> George Alain</a><br/>Utlisateur depuis le 13/06/13<br/>Rang: Légende</p>
+                  <p><a href="#" ng-click='showProfil()'> George Alain</a><br/>Utlisateur depuis le 13/06/13<br/>Rang: Légende</p>
                 </div>  
               </div>  
             </div>
@@ -318,10 +304,10 @@
       <div class="ui right floated segment">
         <i class="close icon"></i> 
       </div> 
-      <div class="ui celled grid" ng-controller="UserListCtrl">
+      <div class="ui celled grid" ng-controller="userListController">
         <div class="row">
           <div class="five wide column">
-            <img class="circular ui small image" src="{{user.properties.username}}">
+            <img class="circular ui small image" src="">
             </div>
           <div class="eleven wide column" >  
             <p>{{user.properties.username}}<br/>{{user.properties.lastName}}<br/>{{user.properties.email}}</p>
@@ -338,7 +324,7 @@
               <div class="ui divided inbox selection list active tab" data-tab="recentUser">
               <div class="events">
                 <div class="event">
-                  <div class="type jira"><img src="/media/icons/qa.png" alt=""></div>
+                  <div class="type jira"><img  alt=""></div>
                   <div class="description">
                     <p><a rel="nofollow" href="https://answers.nuxeo.com/questions/8875/issue-with-xorbinarymanager-in-nuxeo-58-while-encrypting-file-in-schema-files-ex-attachments-of-emails">Issue with XORBinaryManager in Nuxeo 5.8 while encrypting file in schema files. (ex Attachments of Emails)</a></p>
                     <span class="info">New question on <em>Answers</em>, by <a href="#" ng-click="profil(0)">amirbuzo</a></span>
@@ -351,7 +337,7 @@
                 </div>
               
                 <div class="event">
-                  <div class="type jira"><img src="/media/icons/qa.png" alt=""></div>
+                  <div class="type jira"><img  alt=""></div>
                   <div class="description">
                     <p><a rel="nofollow" href="https://answers.nuxeo.com/questions/8871/existing-document-gets-replaced-by-new-dropped-document">Existing document gets replaced by new dropped document</a></p>
                     <span class="info">New question on <em>Answers</em>, by <a href="/user/acn">acn</a></span>
@@ -374,7 +360,7 @@
   </div> 
   
   <!-- Modal comments -->
-  <div  class="ui modal" id="comments" ng-controller="ActivityListCtrl">
+  <div  class="ui modal" id="comments" ng-controller="activityListController">
 	  <div class="ui segment">
 	    <div class="ui right floated segment">
         <i class="close icon"></i> 
@@ -426,14 +412,14 @@
       <!-- Exemples de post -->
       <div id="parent-one">
         <!-- Activities -->
-        <div class="ui divided inbox selection list active tab" data-tab="recentActivities" ng-controller="ActivityListCtrl">
-          <div class="feedsBlock" ng-controller="showComments">
+        <div class="ui divided inbox selection list active tab" data-tab="recentActivities" ng-controller="activityListController">
+          <div class="feedsBlock" ng-controller="commentsController">
             <!-- un segment = une activité -->
             <div class="ui blue segment" ng-repeat="activity in activities">
-              <div class="type jira"><img src="/media/icons/qa.png" alt=""></div>
-              <div class="description" ng-controller="ProfilCtrl1">
+              <div class="type jira"><img src="" alt=""></div>
+              <div class="description" ng-controller="userProfilController">
                 <p><a rel="nofollow" href="https://answers.nuxeo.com/questions/8875/issue-with-xorbinarymanager-in-nuxeo-58-while-encrypting-file-in-schema-files-ex-attachments-of-emails">{{activity.title}} </a></p>
-                <span class="info">New question on <em>{{activity.type}} </em>, by <a id="{{$index}}" href="#" ng-click="profil(activity.author);"> {{activity.author}} </a></span>
+                <span class="info">New question on <em>{{activity.type}} </em>, by <a id="{{$index}}" href="#" ng-click="showProfil(activity.author);"> {{activity.author}} </a></span>
                 {{activity.date}} 
                 <div class="ui mini button" id="like">Like
                 </div>
@@ -444,10 +430,10 @@
             </div>
 
             <div class="ui red segment">
-              <div class="type jira"><img src="/media/icons/qa.png" alt=""></div>
-              <div class="description" ng-controller="ProfilCtrl1">
+              <div class="type jira"><img src="" alt=""></div>
+              <div class="description" ng-controller="userProfilController">
                 <p><a rel="nofollow" href="https://answers.nuxeo.com/questions/8865/adding-computed-groups-on-document-creation">adding computed groups on document creation</a></p>
-                <span class="info">New question on <em>Answers</em>, by <a href="#" ng-click="profil(0)">Bauke Roo</a></span>
+                <span class="info">New question on <em>Answers</em>, by <a href="#" ng-click="showProfil('Administrator')">Bauke Roo</a></span>
                 <span class="when"><a href="/archive/2014/5/7">about 7 hours ago</a></span>
                 <div class="ui mini button">Like
                 </div>
@@ -515,16 +501,16 @@
             </div> 
             <div  id="parent-two">
               <div class="ui divided inbox selection list active tab" data-tab="users">
-                <div class="ui celled grid" ng-controller="ProfilCtrl1">
+                <div class="ui celled grid" ng-controller="userProfilController">
                   <div class="row">
                     <div class="two wide column" >
                       <div class="item" title="George Alain 32ans Nuxeo">
-                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg" ng-click="profil('George Alain');">
+                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg" ng-click="showProfil('George Alain');">
                       </div>
                     </div>
                     <div class="two wide column"> 
                       <div class="item" title="George Alain 32ans Nuxeo">
-                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg" ng-click="profil('Charles H.');">
+                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg" ng-click="showProfil('Charles H.');">
                       </div>
                     </div>
                     <div class="two wide column" >
@@ -684,7 +670,7 @@
             <br>
             <var>
             <img class="left floated circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
-            <a class="right floated link" href="#" onclick='profil()'> George Alain</a>
+            <a class="right floated link" href="#" ng-click='showProfil()'> George Alain</a>
             </var>  
             </div>
           </div> 
