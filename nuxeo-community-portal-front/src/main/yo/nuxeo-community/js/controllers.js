@@ -107,10 +107,11 @@ app.controller('commentsController', ['$scope', function($scope) {
 
 app.controller('userProfilController', ['$rootScope', function($rootScope) { 
     $rootScope.showProfil = function(username) {
-      $("#allUsers").modal('hide.modal');   
-      $("#profil").modal('show');
       client.request("/user/"+username).get(function (error,user){
       $rootScope.user=user;
+      $rootScope.$apply();
+      $("#allUsers").modal('hide.modal');   
+      $("#profil").modal('show');
       });
     }; 
 }]); 
