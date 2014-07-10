@@ -321,31 +321,25 @@
             <a class="item" data-tab="info">More Informations</a>
             </div>
             <div id="parent-three">
-              <div class="ui divided inbox selection list active tab" data-tab="recentUser">
-              <div class="events">
-                <div class="event">
-                  <div class="type jira"><img  alt=""></div>
-                  <div class="description">
-                    <p><a rel="nofollow" href="https://answers.nuxeo.com/questions/8875/issue-with-xorbinarymanager-in-nuxeo-58-while-encrypting-file-in-schema-files-ex-attachments-of-emails">Issue with XORBinaryManager in Nuxeo 5.8 while encrypting file in schema files. (ex Attachments of Emails)</a></p>
-                    <span class="info">New question on <em>Answers</em>, by <a href="#" ng-click="profil(0)">amirbuzo</a></span>
-                    <span class="when"><a href="/archive/2014/5/7">about 1 hour ago</a></span>
-                    <div class="ui mini button hover">
-                      Like
-                    </div>
+              <div class="ui divided inbox selection list active tab" data-tab="recentUser" ng-controller="activityListController">
+                <div class="feedsBlock" ng-controller="commentsController">
+            <!-- un segment = une activité -->
+                  <div class="ui blue segment" ng-repeat="activity in activities.entries | limitTo:4">
+                    <div><img src="" alt=""></div>
+                    <div class="description" ng-controller="userProfilController">
+                      <p><a rel="nofollow" href="{{activity.properties['dc:source']}}">{{activity.properties['dc:title']}} </a></p>
+                      <span class="info">New question on 
+                        <em>{{activity.type}} </em>, by 
+                        <a id="{{$index}}" href="#" ng-click="showProfil(activity.properties['dc:publisher']);"> {{activity.properties['dc:publisher']}} </a>
+                      </span> on {{activity.properties['dc:created']}} 
+                      <div class="ui mini button" id="like">Like
+                      </div>
+                      <div class="ui mini button" ng-click="showComments($index);">Comments
+                      </div>  
+                    </div>  
+                    <div class="clear"></div>
                   </div>
-                  <div class="clear"></div>
-                </div>
-              
-                <div class="event">
-                  <div class="type jira"><img  alt=""></div>
-                  <div class="description">
-                    <p><a rel="nofollow" href="https://answers.nuxeo.com/questions/8871/existing-document-gets-replaced-by-new-dropped-document">Existing document gets replaced by new dropped document</a></p>
-                    <span class="info">New question on <em>Answers</em>, by <a href="/user/acn">acn</a></span>
-                    <span class="when"><a href="/archive/2014/5/7">about 2 hours ago</a></span>
-                  </div>
-                  <div class="clear"></div>
-                </div>
-              </div>
+                </div>   
               </div>
               <div class="ui divided inbox selection list tab" data-tab="bio">
                 <p> {{user.properties.groups}}</p>
@@ -406,8 +400,8 @@
       <!-- Tabular menu -->
       <div class="ui tabular filter menu one">
         <a class="active item" data-tab="recentActivities">Recent Activities</a>
-        <a class="item" data-tab="saved">Community Work</a>
-        <a class="item" data-tab="all">Post</a>
+        <a class="item" data-tab="CommunityWork">Community Work</a>
+        <a class="item" data-tab="Posts">Posts</a>
       </div>
       <!-- Exemples de post -->
       <div id="parent-one">
@@ -415,12 +409,12 @@
         <div class="ui divided inbox selection list active tab" data-tab="recentActivities" ng-controller="activityListController">
           <div class="feedsBlock" ng-controller="commentsController">
             <!-- un segment = une activité -->
-            <div class="ui blue segment" ng-repeat="activity in activities">
-              <div class="type jira"><img src="" alt=""></div>
+            <div class="ui blue segment" ng-repeat="activity in activities.entries | limitTo:10">
+              <div><img src="" alt=""></div>
               <div class="description" ng-controller="userProfilController">
-                <p><a rel="nofollow" href="https://answers.nuxeo.com/questions/8875/issue-with-xorbinarymanager-in-nuxeo-58-while-encrypting-file-in-schema-files-ex-attachments-of-emails">{{activity.title}} </a></p>
-                <span class="info">New question on <em>{{activity.type}} </em>, by <a id="{{$index}}" href="#" ng-click="showProfil(activity.author);"> {{activity.author}} </a></span>
-                {{activity.date}} 
+                <p><a rel="nofollow" href="{{activity.properties['dc:source']}}">{{activity.properties['dc:title']}} </a></p>
+                <span class="info">New question on <em>{{activity.type}} </em>, by <a id="{{$index}}" href="#" ng-click="showProfil(activity.properties['dc:publisher']);"> {{activity.properties['dc:publisher']}} </a></span>
+                on {{activity.properties['dc:created']}} 
                 <div class="ui mini button" id="like">Like
                 </div>
                 <div class="ui mini button" ng-click="showComments($index);">Comments
@@ -428,24 +422,10 @@
               </div>  
               <div class="clear"></div>
             </div>
-
-            <div class="ui red segment">
-              <div class="type jira"><img src="" alt=""></div>
-              <div class="description" ng-controller="userProfilController">
-                <p><a rel="nofollow" href="https://answers.nuxeo.com/questions/8865/adding-computed-groups-on-document-creation">adding computed groups on document creation</a></p>
-                <span class="info">New question on <em>Answers</em>, by <a href="#" ng-click="showProfil('Administrator')">Bauke Roo</a></span>
-                <span class="when"><a href="/archive/2014/5/7">about 7 hours ago</a></span>
-                <div class="ui mini button">Like
-                </div>
-                <div class="ui mini button" ng-click="showComments(0);">Comments
-                </div> 
-              </div>
-              <div class="clear"></div>
-            </div> 
           </div>
         </div>    
         <!-- Community Work -->
-        <div class="ui divided inbox selection list tab" data-tab="saved">
+        <div class="ui divided inbox selection list tab" data-tab="CommunityWork">
           <div class="item">
             <div class="left floated ui star rating"><i class="icon"></i></div>
             <div class="right floated date">Sep 14, 2013</div>
@@ -463,7 +443,7 @@
           </div>
         </div>
         <!-- Post -->
-        <div class="ui divided inbox selection list tab" data-tab="all">
+        <div class="ui divided inbox selection list tab" data-tab="Posts">
           <div class="item">
             <div class="left floated ui star rating"><i class="link icon"></i></div>
             <div class="right floated date">Sep 14, 2013</div>
@@ -472,14 +452,12 @@
         </div>
       </div>
       <!-- Nombre de pages -->
-      <div class="page">Showing <b>6</b> of 213</div>
+      <div class="page">Showing <b>1</b> of 1</div>
       <div class="ui pagination menu">
         <a class="icon item"><i class="icon left arrow"></i></a>
         <a class="active item">1</a>
         <div class="disabled item">...</div>
         <a class="item">10</a>
-        <a class="item">11</a>
-        <a class="item">12</a>
         <a class="icon item"><i class="icon right arrow"></i></a>
       </div>
     </div> 
@@ -701,16 +679,7 @@
       function submit33() {
       $("#login").modal('hide.module'); 
       }
-	  
-      //Affiche les commentaires
-     
-   
-      //affiche le profil d'un utilisateur et cache le popup AllUSer
-      /*function profil() {
-      $("#allUsers").modal('hide.modal');   
-      $("#profil").modal('show'); 
-      }*/
-
+  
       //cache l'enregistrement affiche les félicitations
       function submit1() {  
       $("#register").modal('hide.modal');
@@ -722,6 +691,7 @@
       $("#allUsers").modal('show');  
       }
 
+      //fonction qui charge une page contenant les données d'un utilisateur en json
       function getHU() 
       { 
       var hoo =  "http://demo.nuxeo.com:80/nuxeo/site/api/v1/user/"+ document.getElementById("hu").value ; 
@@ -729,9 +699,6 @@
         if (window.focus) {newwindow.focus();}
         return false;
       } 
-
-
-
 
       function wili()
       {
