@@ -18,7 +18,7 @@ function start(route) {
   console.log("Server has started.");
 
   var client = new nuxeo.Client({
-  baseURL: 'http://demo.nuxeo.com/nuxeo/',
+  baseURL: 'http://localhost:8080/nuxeo/',
   username: 'Administrator',
   password: 'Administrator',
   timeout: 60000
@@ -37,7 +37,7 @@ function start(route) {
   function ArticleExist(Tab,i){
       client.operation('Document.Query')
       .params( {
-        query : "SELECT * FROM Folder WHERE dc:description ='"+Tab[i].id+"'"
+        query : "SELECT * FROM ActivityCommunity WHERE dc:description ='"+Tab[i].id+"' AND ecm:currentLifeCycleState != 'deleted'"
       })
       .execute(function(error, data) {
         if (error) {
@@ -55,9 +55,9 @@ function start(route) {
   function CreateArticle(Tab,i){
     client.operation('Document.Create')
     .params({
-      type: 'Folder',
+      type: 'ActivityCommunity',
       name: Tab[i].title,
-      properties: 'dc:title='+Tab[i].title + '\ndc:description='+Tab[i].id + '\ndc:source='+Tab[i].id 
+      properties: 'dc:title='+Tab[i].title + '\ndc:description='+Tab[i].id + '\ndc:source='+Tab[i].link + '\ndc:publisher='+Tab[i].author
     })
     .input('doc:/default-domain/workspaces/Activities')
       .execute(function(error, folder) {
