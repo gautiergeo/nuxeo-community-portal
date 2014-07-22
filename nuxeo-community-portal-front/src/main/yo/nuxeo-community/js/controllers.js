@@ -50,7 +50,7 @@ app.controller("userListController", function ($scope) {
 app.controller('activityListController', function ($rootScope) {
   client.operation('Document.Query')
   .params( {
-  query : "SELECT * FROM ActivityCommunity"})
+  query : "SELECT * FROM ActivityCommunity WHERE ecm:currentLifeCycleState != 'deleted'"})
   .execute(function(error, data) {
     if (error) {
       // something went wrong
@@ -58,6 +58,7 @@ app.controller('activityListController', function ($rootScope) {
     }
   $rootScope.activities = data;
   $rootScope.$apply();
+  console.log(data)
   })
 }); 
 

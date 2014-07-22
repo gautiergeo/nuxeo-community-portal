@@ -409,7 +409,7 @@
         <div class="ui divided inbox selection list active tab" data-tab="recentActivities" ng-controller="activityListController">
           <div class="feedsBlock" ng-controller="commentsController">
             <!-- un segment = une activité -->
-            <div class="ui blue segment" ng-repeat="activity in activities.entries | limitTo:10">
+            <div class="ui blue segment" ng-repeat="activity in activities.entries | limitTo:20">
               <div><img src="" alt=""></div>
               <div class="description" ng-controller="userProfilController">
                 <p><a rel="nofollow" href="{{activity.properties['dc:source']}}">{{activity.properties['dc:title']}} </a></p>

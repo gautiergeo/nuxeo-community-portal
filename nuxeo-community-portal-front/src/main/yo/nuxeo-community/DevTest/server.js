@@ -111,7 +111,7 @@ function start(route) {
     xhr.open("GET", "http://answers.nuxeo.com/feeds/rss");
 
     xhr.send();
-  }, 10000 );
+  }, 30000 );
 
 }
 function getTitle(Flux,i){
