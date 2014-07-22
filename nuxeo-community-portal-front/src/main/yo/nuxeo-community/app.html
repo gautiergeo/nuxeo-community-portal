@@ -144,7 +144,7 @@
     <div id="feedhaut2">
   <div class="ui center aligned header" ng-controller="userProfilController">
     <!-- bouton connect -->
-    <div class="right floated ui blue inverted huge aligned button" onclick='login()'>Connect
+    <div class="right floated ui blue inverted huge aligned button" onclick='CreateDoc()'>Connect
     </div>
     <div class="right floated ui blue inverted huge aligned button" ng-click="profil('George Alain');">My Account
     </div>
@@ -324,7 +324,7 @@
               <div class="ui divided inbox selection list active tab" data-tab="recentUser" ng-controller="activityListController">
                 <div class="feedsBlock" ng-controller="commentsController">
             <!-- un segment = une activité -->
-                  <div class="ui blue segment" ng-repeat="activity in activities.entries | limitTo:4">
+                  <div class="ui blue segment" ng-repeat="activity in userActivities.entries | limitTo:4">
                     <div><img src="" alt=""></div>
                     <div class="description" ng-controller="userProfilController">
                       <p><a rel="nofollow" href="{{activity.properties['dc:source']}}">{{activity.properties['dc:title']}} </a></p>
@@ -691,6 +691,23 @@
       $("#allUsers").modal('show');  
       }
 
+      function CreateDoc() {
+        client.operation('Document.Create')
+  .params({
+    type: 'ActivityCommunity',
+    name: 'TestBill',
+    properties: 'dc:title=TestBill \ndc:description=A Simple Folder \ndc:publisher=Bill'
+  })
+  .input('doc:/default-domain/workspaces/Activities')
+  .execute(function(error, folder) {
+    if (error) {
+      // something went wrong
+      throw error;
+    }
+
+    console.log( folder )
+  });
+      }
       //fonction qui charge une page contenant les données d'un utilisateur en json
       function getHU() 
       { 

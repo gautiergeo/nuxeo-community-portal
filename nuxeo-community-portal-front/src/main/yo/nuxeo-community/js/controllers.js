@@ -47,30 +47,32 @@ app.controller("userListController", function ($scope) {
   ];
 }); 
 
-// app.controller('activityListController', function ($rootScope) {
-//   client.operation('Document.Query')
-//   .input('SELECT (*) FROM ActivityCommunity')
-//   .execute(function(error, data) {
-//     if (error) {
-//       // something went wrong
-//       throw error;
-//     }
-//   console.log(data)
-//   })
-// }); 
-
 app.controller('activityListController', function ($rootScope) {
-  client.operation('Document.GetChildren')
-  .input('/default-domain/workspaces/Activities')
-  .execute(function(error, children) {
+  client.operation('Document.Query')
+  .params( {
+  query : "SELECT * FROM ActivityCommunity"})
+  .execute(function(error, data) {
     if (error) {
       // something went wrong
       throw error;
     }
-    $rootScope.activities = children;
-    $rootScope.$apply();
+  $rootScope.activities = data;
+  $rootScope.$apply();
   })
 }); 
+
+// app.controller('activityListController', function ($rootScope) {
+//   client.operation('Document.GetChildren')
+//   .input('/default-domain/workspaces/Activities')
+//   .execute(function(error, children) {
+//     if (error) {
+//       // something went wrong
+//       throw error;
+//     }
+//     $rootScope.activities = children;
+//     $rootScope.$apply();
+//   })
+// }); 
 
 app.controller('commentsController', ['$scope', function($scope) { 
     $scope.showComments = function(id) {
@@ -83,9 +85,18 @@ app.controller('userProfilController', ['$rootScope', function($rootScope) {
       client.request("/user/"+username).get(function (error,user){
       $rootScope.user=user;
       $rootScope.$apply();
-      console.log(user)
       $("#allUsers").modal('hide.modal');   
       $("#profil").modal('show');
+      });
+      client.operation('Document.Query').params( {
+        query : "SELECT * FROM ActivityCommunity WHERE dc:publisher ='"+username+"'"})
+      .execute(function(error, data) {
+      if (error) {
+      // something went wrong
+        throw error;
+      }
+      console.log(data)
+      $rootScope.userActivities = data;
       });
     }; 
 }]); 
