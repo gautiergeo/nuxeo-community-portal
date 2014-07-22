@@ -35,7 +35,6 @@ function start(route) {
   });
 
   function ArticleExist(Tab,i){
-      var newData = new Object();
       client.operation('Document.Query')
       .params( {
         query : "SELECT * FROM Folder WHERE dc:description ='"+Tab[i].id+"'"
@@ -45,10 +44,30 @@ function start(route) {
           console.log('Not created')
           throw error;
         }
-        console.log(data)
+        if (data.entries.length === 0) {
+          CreateArticle(Tab,i);
+        };
+        if (data.entries.length !== 0) {
+          console.log("This Article Exist")
+        };
       }); 
     };      
-
+  function CreateArticle(Tab,i){
+    client.operation('Document.Create')
+    .params({
+      type: 'Folder',
+      name: Tab[i].title,
+      properties: 'dc:title='+Tab[i].title + '\ndc:description='+Tab[i].id + '\ndc:source='+Tab[i].id 
+    })
+    .input('doc:/default-domain/workspaces/Activities')
+      .execute(function(error, folder) {
+      if (error) {
+      // something went wrong
+        throw error;
+      }
+      console.log('It worked')
+    });
+  }
   setInterval(function (){
     var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
@@ -84,31 +103,10 @@ function start(route) {
         Article.id=gettingId[1];
         TabOfArticles[i-7]= Article;
       };  
-      for (var i = 1; i < 4; i++) { 
-      var newData = new Object();
-      newData = ArticleExist(TabOfArticles,i);
-      //console.log(newData)
+      for (var i = 0; i < TabOfArticles.length; i++) { 
+        ArticleExist(TabOfArticles,i);
       }; 
     };
-      /*client.operation('Document.Create')
-      .params({
-    type: 'Folder',
-    name: TabOfArticles[1].title,
-    properties: 'dc:title='+TabOfArticles[1].title + '\ndc:description='+TabOfArticles[0].id + '\ndc:source='+TabOfArticles[0].id 
-  })
-      /*.params({
-      type: 'Document',
-      name: TabOfArticles[0].title,
-      properties:'' /*'dc:title='+TabOfArticles[0].title+ '\ndc:source='+ TabOfArticles[0].link +' \ndc:publisher='+TabOfArticles[0].author+ '\ndc:description='+TabOfArticles[0].id
-      })
-      .input('doc:/default-domain/workspaces/Activities')
-      .execute(function(error, folder) {
-      if (error) {
-      // something went wrong
-        throw error;
-      }
-      console.log('It worked')
-      });*/
     }
     xhr.open("GET", "http://answers.nuxeo.com/feeds/rss");
 
