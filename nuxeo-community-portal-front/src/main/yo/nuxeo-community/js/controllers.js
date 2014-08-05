@@ -161,9 +161,14 @@ app.controller('userProfilController', ['$rootScope', function($rootScope) {
       });
     };
     if (username!=$rootScope.username) {
-      mainClient.request("/user/"+username).get(function (error,user){
+      mainClient.request("/user/"+username).get(function (error,user){  
+            if(error){
+              alert("The user isn't registered")
+            }
+            else{
             $rootScope.user=user;
             $rootScope.$apply();  
+            }
       });
       mainClient.operation('Document.Query').params( {
       query : "SELECT * FROM ActivityCommunity WHERE dc:publisher ='"+username+"'"})
@@ -174,8 +179,10 @@ app.controller('userProfilController', ['$rootScope', function($rootScope) {
         }
         $rootScope.userActivities = data;
         $rootScope.$apply();
+        if ($rootScope.user!=null) {
         $("#allUsers").modal('hide.modal');   
         $("#profil").modal('show');
+      };
       });
     }; 
   };
