@@ -4,25 +4,20 @@
 
 var app = angular.module("app", []);
 
-var client = new nuxeo.Client({
+var mainClient = new nuxeo.Client({
   baseURL: 'http://localhost:8080/nuxeo/',
   username: 'Administrator',
   password: 'Administrator'
 });
      
-client.connect(function(error, client) {
+mainClient.connect(function(error, mainClient) {
   if (error) {
     console.error('Cannot connect to Nuxeo server');
     throw new Error(error);
   }
 });
 
-client.schemas(['dublincore','common', 'file']);
-
-// client.request("path//default-domain/workspaces/Activities").get(function (error, data, response){ 
-//     doc=data;
-//     console.log(doc);
-//   });
+mainClient.schemas(['dublincore','common', 'file','nxsourceid']);
 
 app.controller("userListController", function ($scope) {
   $scope.users = [
@@ -48,9 +43,9 @@ app.controller("userListController", function ($scope) {
 }); 
 
 app.controller('activityListController', function ($rootScope) {
-  client.operation('Document.Query')
+  mainClient.operation('Document.Query')
   .params( {
-  query : "SELECT * FROM ActivityCommunity WHERE ecm:currentLifeCycleState != 'deleted'"})
+  query : "SELECT * FROM ActivityCommunity WHERE ecm:currentLifeCycleState != 'deleted' ORDER BY dc:description DESC"})
   .execute(function(error, data) {
     if (error) {
       // something went wrong
@@ -58,22 +53,17 @@ app.controller('activityListController', function ($rootScope) {
     }
   $rootScope.activities = data;
   $rootScope.$apply();
-  console.log(data)
   })
 }); 
 
-// app.controller('activityListController', function ($rootScope) {
-//   client.operation('Document.GetChildren')
-//   .input('/default-domain/workspaces/Activities')
-//   .execute(function(error, children) {
-//     if (error) {
-//       // something went wrong
-//       throw error;
-//     }
-//     $rootScope.activities = children;
-//     $rootScope.$apply();
-//   })
-// }); 
+app.controller('userConnectedController', ['$rootScope', function($rootScope) { 
+    $rootScope.getUsername = function() {
+    // $rootScope.username=document.getElementById("username").value;
+    $rootScope.username="Administrator";
+    $("#login").modal('hide.module');
+    console.log($rootScope.username)
+    }; 
+}]);  
 
 app.controller('commentsController', ['$scope', function($scope) { 
     $scope.showComments = function(id) {
@@ -81,23 +71,113 @@ app.controller('commentsController', ['$scope', function($scope) {
     }; 
 }]); 
 
-app.controller('userProfilController', ['$rootScope', function($rootScope) { 
-    $rootScope.showProfil = function(username) {
-      client.request("/user/"+username).get(function (error,user){
-      $rootScope.user=user;
-      $rootScope.$apply();
-      $("#allUsers").modal('hide.modal');   
-      $("#profil").modal('show');
-      });
-      client.operation('Document.Query').params( {
-        query : "SELECT * FROM ActivityCommunity WHERE dc:publisher ='"+username+"'"})
-      .execute(function(error, data) {
+app.controller('IdSourceController', ['$rootScope', function($rootScope) { 
+    $rootScope.getUsernames = function() {
+      var blogsName = document.getElementById("BlogsId").value;
+      var answersName = document.getElementById("AnswersId").value;
+      mainClient.operation('Document.Query')
+    .params( {
+        query : "SELECT * FROM NxSourceId WHERE nxsourceid:NxId ='"+answersName+"' AND nxsourceid:NxSource='Answers'"
+      })
+    .execute(function(error, data) {
       if (error) {
-      // something went wrong
         throw error;
       }
-      console.log(data)
-      $rootScope.userActivities = data;
+      if (data.entries[0]!= undefined){
+         console.log("that's not You")
+      }
+      if (data.entries[0]== undefined){
+         mainClient.operation('Document.Create')
+        .params({
+          type: 'NxSourceId',
+          name: 'Test',
+          properties: 'nxsourceid:NxSource='+'Answers' +'\nnxsourceid:NxId='+answersName + '\ndnxsourceid:NxUsername='+ $rootScope.username
+        })
+        .input('doc:/NuxeoCommunityPortal/sections/NuxeoSourceId')
+          .execute(function(error, folder) {
+          if (error) {
+          // something went wrong
+            throw error;
+          }
+          console.log('It worked')
+        });
+      }
+    });
+      $("#pickAccount").modal('hide.modal');
+      }}]);
+
+
+app.controller('ConnectController', ['$scope', function($scope) { 
+    $scope.getInformations = function() {
+      var firstName = document.getElementById("firstname").value;
+      var lastName = document.getElementById("lastname").value;
+      var password = document.getElementById("pswd").value;
+      mainClient.request("../../user").post({
+  "entity-type": "user",
+  "id": "Bill",
+  "properties": {
+    "lastName": "Murray",
+    "username": "Bill",
+    "email": "bill@exemple.com",
+    "company": "",
+    "firstName": "Bill",
+    "password": "",
+    "groups": [
+      "members",
+      "ecm-experts",
+      "hr_operational_managers"
+    ]
+  },
+  "isAdministrator": false,
+  "isAnonymous": false
+},function (error,user){
+        console.log(user)
+        });
+    }   
+}]); 
+
+app.controller('userProfilController', ['$rootScope', function($rootScope) { 
+  $rootScope.showProfil = function(username) {
+    if (username== undefined) {
+      alert('You are not connected');
+    }
+    else{
+    if (username==$rootScope.username) {
+      mainClient.request("/user/"+username).get(function (error,user){
+        $rootScope.user=user;
+        $rootScope.$apply(); 
+      });
+      mainClient.operation('Document.Query').params( {
+      query : "SELECT * FROM ActivityCommunity WHERE dc:publisher ='"+username+"'"})
+      .execute(function(error, data) {
+        if (error) {
+            // something went wrong
+          throw error;
+        }
+            $rootScope.userActivities = data;
+            $rootScope.$apply();
+            $("#allUsers").modal('hide.modal');   
+            $("#profilUser").modal('show');
+      });
+    };
+    if (username!=$rootScope.username) {
+      mainClient.request("/user/"+username).get(function (error,user){
+            $rootScope.user=user;
+            $rootScope.$apply();  
+      });
+      mainClient.operation('Document.Query').params( {
+      query : "SELECT * FROM ActivityCommunity WHERE dc:publisher ='"+username+"'"})
+      .execute(function(error, data) {
+        if (error) {
+            // something went wrong
+          throw error;
+        }
+        $rootScope.userActivities = data;
+        $rootScope.$apply();
+        $("#allUsers").modal('hide.modal');   
+        $("#profil").modal('show');
       });
     }; 
+  };
+  }; 
 }]); 

@@ -70,7 +70,7 @@
   <!-- Menu Dropdown central cf NuxeoDotCom + Image Nuxeo à gauche -->
   <div class="ui center aligned header">
     <!-- Image nuxeo en haut à gauche -->
-    <img class="left floated ui medium image" src="http://nuxeodotcom.wpengine.com/wp-content/themes/nuxeo.com_wp/imgs/logo340x60.png">
+    <img class="left floated ui medium image" src="">
     <!-- Menu central haut-->
     <div class="ui aligned secondary menu" id="secMenu">
       <div class="ui simple dropdown item">
@@ -144,9 +144,9 @@
     <div id="feedhaut2">
   <div class="ui center aligned header" ng-controller="userProfilController">
     <!-- bouton connect -->
-    <div class="right floated ui blue inverted huge aligned button" onclick='CreateDoc()'>Connect
+    <div class="right floated ui blue inverted huge aligned button" onclick='connection()'>Connect
     </div>
-    <div class="right floated ui blue inverted huge aligned button" ng-click="profil('George Alain');">My Account
+    <div class="right floated ui blue inverted huge aligned button" ng-click="showProfil(username);">MyAccount
     </div>
     <!-- Barre search -->
     <div class="left floated ui icon input">
@@ -162,7 +162,7 @@
   <!-- les différents "popup" -->
 
   <!-- Login quand clique sur connect ou login-->
-  <div class="ui modal" id="login">
+  <div class="ui modal" id="login" ng-controller="userConnectedController">
       <div class="ui fluid form segment">
         <div class="ui right floated segment">
           <i class="close icon"></i> 
@@ -170,19 +170,37 @@
         <p>Connecte toi !!!</p>
         <div class="field">
             <label>Username</label>
-            <input placeholder="Username" type="text">
+            <input placeholder="Username" type="text" id="username">
         </div>
         <div class="field">
             <label>Password</label>
             <input type="password">
         </div>
-        <div class="ui left floated aligned button"  onclick='submit33()'>Let's go</div>
+        <div class="ui left floated aligned button"  ng-click="getUsername();">Let's go</div>
         <div class="ui right floated aligned button" onclick='register()'> Register</div>  
       </div>
   </div>
 
+  <div class="ui modal" id="pickAccount" ng-controller="IdSourceController" >
+      <div class="ui fluid form segment">
+        <div class="ui right floated segment">
+          <i class="close icon"></i> 
+        </div>  
+        <p>What are your Ids?</p>
+        <div class="field">
+            <label>Blogs</label>
+            <input placeholder="Username" type="text" id="BlogsId">
+        </div>
+        <div class="field">
+            <label>Answers</label>
+            <input placeholder="Username" type="text" id="AnswersId">
+        </div>
+        <div class="ui left floated aligned button"  ng-click="getUsernames();">Let's go</div>  
+      </div>
+  </div>
+
   <!-- Register quand clique sur register --> 
-  <div  class="ui modal" id="register">
+  <div  class="ui modal" id="register" ng-controller="ConnectController">
 
       <!-- Form register -->
       <div class="ui fluid form segment">
@@ -191,12 +209,16 @@
         </div>  
         <p>Inscrit toi !!!</p>
         <div class="field">
-            <label for="pseudo">Username</label>
-            <input id="pseudo" placeholder="Username" type="text" class="champ">
+            <label for="pseudo">Firstname</label>
+            <input id="firstname" placeholder="Firstname" type="text" class="champ">
+        </div>
+        <div class="field">
+            <label for="pseudo">Lastname</label>
+            <input id="lastname" placeholder="Lastname" type="text" class="champ">
         </div>
         <div class="field">
             <label for="pseudo">Password</label>
-            <input id="mdp" type="password" class="champ">
+            <input id="pswd" type="password" class="champ">
         </div>
         <div class="field">
             <label for="confirmation">Confirmation Password</label>
@@ -208,7 +230,7 @@
             <label for="terms">I agree to the terms and conditions</label>
           </div>
         </div>
-        <div class="ui left floated button" id="envoi">Submit</div>
+        <div class="ui left floated button" id="envoi" ng-click="getInformations();">Submit</div>
         <div class="ui button" id="reset">Reset</div>
         <div class="ui button" onclick='login()'> LogIn</div>
       </div>
@@ -258,7 +280,7 @@
             <div class="five wide column" >
               <div class="ui celled grid">
                 <div class="six wide column">
-                  <img class="circular ui medium image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                  <img class="circular ui medium image" src="">
                 </div>
                 <div class="eight wide column">  
                   <p><a href="#" ng-click='showProfil()'> George Alain</a><br/>Utlisateur depuis le 13/06/13<br/>Rang: Légende</p>
@@ -268,7 +290,7 @@
             <div class="five wide column" >
               <div class="ui celled grid">
                 <div class="six wide column">
-                  <img class="circular ui medium image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                  <img class="circular ui medium image" src="">
                 </div>
                 <div class="eight wide column">  
                   <p><a href="#" ng-click='showProfil()'> George Alain</a><br/>Utlisateur depuis le 13/06/13<br/>Rang: Légende</p>
@@ -278,7 +300,7 @@
             <div class="five wide column" >
               <div class="ui celled grid">
                 <div class="six wide column">
-                  <img class="circular ui medium image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                  <img class="circular ui medium image" src="">
                 </div>
                 <div class="eight wide column">  
                   <p><a href="#" value="George Alain" onclick='profil()'> George Alain</a><br/>Utlisateur depuis le 13/06/13<br/>Rang: Légende</p>
@@ -310,7 +332,61 @@
             <img class="circular ui small image" src="">
             </div>
           <div class="eleven wide column" >  
-            <p>{{user.properties.username}}<br/>{{user.properties.lastName}}<br/>{{user.properties.email}}</p>
+            <p>{{user.properties.firstName}}<br/>{{user.properties.lastName}}<br/>{{user.properties.email}}</p>
+          </div> 
+        </div>
+        <div class="row">
+          <div class="sixteen wide column">
+            <div class="ui tabular filter menu three">
+            <a class="active item" data-tab="recentUser">Recent Activities</a>
+            <a class="item" data-tab="bio">Bio</a>
+            <a class="item" data-tab="info">More Informations</a>
+            </div>
+            <div id="parent-three">
+              <div class="ui divided inbox selection list active tab" data-tab="recentUser" ng-controller="activityListController">
+                <div class="feedsBlock" ng-controller="commentsController">
+            <!-- un segment = une activité -->
+                  <div class="ui blue segment" ng-repeat="activity in userActivities.entries | limitTo:4">
+                    <div><img src="" alt=""></div>
+                    <div class="description" ng-controller="userProfilController">
+                      <p><a rel="nofollow" href="{{activity.properties['dc:source']}}">{{activity.properties['dc:title']}} </a></p>
+                      <span class="info">New question on 
+                        <em>{{activity.type}} </em>, by 
+                        <a id="{{$index}}" href="#" ng-click="showProfil(activity.properties['dc:publisher']);"> {{activity.properties['dc:publisher']}} </a>
+                      </span> on {{activity.properties['dc:created']}} 
+                      <div class="ui mini button" id="like">Like
+                      </div>
+                      <div class="ui mini button" ng-click="showComments($index);">Comments
+                      </div>  
+                    </div>  
+                    <div class="clear"></div>
+                  </div>
+                </div>   
+              </div>
+              <div class="ui divided inbox selection list tab" data-tab="bio">
+                <p> {{user.properties.groups}}</p>
+              </div>
+              <div class="ui divided inbox selection list tab" data-tab="info">
+                <p> {{user.properties.isAdministrator}} </p>
+              </div>
+            </div>  
+          </div>  
+        </div>
+      </div>      
+  </div> 
+
+  <div class="ui modal" id="profilUser">
+      <div class="ui right floated segment">
+        <div class="ui small button" onclick="pickAccount()"> Bind this account to my Main Account</div>
+        <i class="close icon"></i> 
+      </div> 
+      <div class="ui celled grid" ng-controller="userListController">
+        <div class="row">
+          <div class="five wide column">
+            <img class="circular ui small image" src="">
+            </div>
+          <div class="eleven wide column" >  
+            <p>{{user.properties.firstName}}<br/>{{user.properties.lastName}}<br/>{{user.properties.email}}</p>
           </div> 
         </div>
         <div class="row">
@@ -483,51 +559,51 @@
                   <div class="row">
                     <div class="two wide column" >
                       <div class="item" title="George Alain 32ans Nuxeo">
-                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg" ng-click="showProfil('George Alain');">
+                        <img class="circular ui small image" src="" ng-click="showProfil('George Alain');">
                       </div>
                     </div>
                     <div class="two wide column"> 
                       <div class="item" title="George Alain 32ans Nuxeo">
-                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg" ng-click="showProfil('Charles H.');">
+                        <img class="circular ui small image" src="" ng-click="showProfil('Charles H.');">
                       </div>
                     </div>
                     <div class="two wide column" >
                       <div class="item" title="Michael Kyle 28ans Smart&soft">
-                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg">
+                        <img class="circular ui small image" src="">
                       </div>
                     </div>
                   </div>  
                   <div class="row">
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg">
+                        <img class="circular ui small image" src="">
                       </div>
                     </div>
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg">
+                        <img class="circular ui small image" src="">
                       </div>
                     </div>
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg">
+                        <img class="circular ui small image" src="">
                       </div>
                     </div>
                   </div>  
                   <div class="row">
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg">
+                        <img class="circular ui small image" src="">
                       </div>
                     </div>
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg">
+                        <img class="circular ui small image" src="">
                       </div>
                     </div>
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="http://assets-s3.rollingstone.com/assets/images/artists/304x304/ac-dc.jpg">
+                        <img class="circular ui small image" src="">
                       </div>
                     </div>
                   </div>  
@@ -539,51 +615,51 @@
                   <div class="row">
                     <div class="two wide column" >
                       <div class="item" title="Médaille du contributeur">
-                        <img class="circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                        <img class="circular ui small image" src="">
                       </div>
                     </div>
                     <div class="two wide column" >
                       <div class="item" title="Le maitre de la correction">
-                        <img class="circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                        <img class="circular ui small image" src="">
                       </div>
                     </div>
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
-                      </div>
-                    </div>
-                  </div>  
-                  <div class="row">
-                    <div class="two wide column" >
-                      <div class="item">
-                        <img class="circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
-                      </div>
-                    </div>
-                    <div class="two wide column" >
-                      <div class="item">
-                        <img class="circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
-                      </div>
-                    </div>
-                    <div class="two wide column" >
-                      <div class="item">
-                        <img class="circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                        <img class="circular ui small image" src="">
                       </div>
                     </div>
                   </div>  
                   <div class="row">
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                        <img class="circular ui small image" src="">
                       </div>
                     </div>
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                        <img class="circular ui small image" src="">
                       </div>
                     </div>
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+                        <img class="circular ui small image" src="">
+                      </div>
+                    </div>
+                  </div>  
+                  <div class="row">
+                    <div class="two wide column" >
+                      <div class="item">
+                        <img class="circular ui small image" src="">
+                      </div>
+                    </div>
+                    <div class="two wide column" >
+                      <div class="item">
+                        <img class="circular ui small image" src="">
+                      </div>
+                    </div>
+                    <div class="two wide column" >
+                      <div class="item">
+                        <img class="circular ui small image" src="">
                       </div>
                     </div>
                   </div>  
@@ -647,7 +723,7 @@
             Meet the user of the week: 
             <br>
             <var>
-            <img class="left floated circular ui small image" src="http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg">
+            <img class="left floated circular ui small image" src="">
             <a class="right floated link" href="#" ng-click='showProfil()'> George Alain</a>
             </var>  
             </div>
@@ -664,7 +740,7 @@
   <script type="text/javascript"> 
 
       //Affiche le popup de connexion
-     function login() {
+     function connection() {
       $("#register").modal('hide.modal');
       $("#login").modal('show');
       }
@@ -674,11 +750,6 @@
       $("#login").modal('hide.modal');
       $("#register").modal('show');
       }
-
-      //cache tout quand on dit se log
-      function submit33() {
-      $("#login").modal('hide.module'); 
-      }
   
       //cache l'enregistrement affiche les félicitations
       function submit1() {  
@@ -686,28 +757,16 @@
       $("#Congratulation").modal('show');  
       }
 
+      function pickAccount() {  
+      $("#userProfil").modal('hide.modal');
+      $("#userProfil").modal('hide.module');
+      $("#pickAccount").modal('show');  
+      }
       //affiche le popup AllUsers
       function allUsers() {  
       $("#allUsers").modal('show');  
       }
 
-      function CreateDoc() {
-        client.operation('Document.Create')
-  .params({
-    type: 'ActivityCommunity',
-    name: 'TestBill',
-    properties: 'dc:title=TestBill \ndc:description=A Simple Folder \ndc:publisher=Bill'
-  })
-  .input('doc:/default-domain/workspaces/Activities')
-  .execute(function(error, folder) {
-    if (error) {
-      // something went wrong
-      throw error;
-    }
-
-    console.log( folder )
-  });
-      }
       //fonction qui charge une page contenant les données d'un utilisateur en json
       function getHU() 
       { 
@@ -716,16 +775,6 @@
         if (window.focus) {newwindow.focus();}
         return false;
       } 
-
-      function wili()
-      {
-      var xmlHttp = null;
-      var hoo = document.getElementById("hu").value; 
-      xmlHttp = new XMLHttpRequest();
-      xmlHttp.open( "GET", hoo, false );
-      xmlHttp.send( null );
-      return xmlHttp.responseText;
-      }
 
       //popup à remplacer quand on clique sur les médailles
       function popitup(url) {

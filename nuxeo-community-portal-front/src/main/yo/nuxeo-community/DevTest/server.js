@@ -57,7 +57,7 @@ function start(route) {
     .params({
       type: 'ActivityCommunity',
       name: Tab[i].title,
-      properties: 'dc:title='+Tab[i].title + '\ndc:description='+Tab[i].id + '\ndc:source='+Tab[i].link + '\ndc:publisher='+Tab[i].author
+      properties: 'dc:title='+Tab[i].title + '\ndc:description='+Tab[i].id + '\ndc:source='+Tab[i].link + '\ndc:publisher='+Tab[i].author '\ndc:created='+Tab[i].datePub
     })
     .input('doc:/default-domain/workspaces/Activities')
       .execute(function(error, folder) {
