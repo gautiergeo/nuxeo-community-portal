@@ -150,7 +150,7 @@
     </div>
     <!-- Barre search -->
     <div class="left floated ui icon input">
-      <input type="text" name="sethu" id="hu" value="Enter code" /> 
+      <input type="text" name="sethu" id="hu" /> 
       <i class="search icon" onclick="getHU();"></i>
     </div>
   </div> 
@@ -364,16 +364,18 @@
                 </div>   
               </div>
               <div class="ui divided inbox selection list tab" data-tab="bio">
-                <p> {{user.properties.groups}}</p>
+                <p> {{MyProfile.properties['userprofile_schema:Biography']}}</p>
               </div>
               <div class="ui divided inbox selection list tab" data-tab="info">
-                <p> {{user.properties.isAdministrator}} </p>
+                <p> {{MyProfile.properties['userprofile_schema:Informations']}} </p>
               </div>
             </div>  
           </div>  
         </div>
       </div>      
   </div> 
+
+
 
   <div class="ui modal" id="profilUser">
       <div class="ui right floated segment">
@@ -391,12 +393,12 @@
         </div>
         <div class="row">
           <div class="sixteen wide column">
-            <div class="ui tabular filter menu three">
+            <div class="ui tabular filter menu four">
             <a class="active item" data-tab="recentUser">Recent Activities</a>
             <a class="item" data-tab="bio">Bio</a>
             <a class="item" data-tab="info">More Informations</a>
             </div>
-            <div id="parent-three">
+            <div id="parent-four">
               <div class="ui divided inbox selection list active tab" data-tab="recentUser" ng-controller="activityListController">
                 <div class="feedsBlock" ng-controller="commentsController">
             <!-- un segment = une activité -->
@@ -418,10 +420,10 @@
                 </div>   
               </div>
               <div class="ui divided inbox selection list tab" data-tab="bio">
-                <p> {{user.properties.groups}}</p>
+                <p> {{MyProfile.properties['userprofile_schema:Biography']}}</p>
               </div>
               <div class="ui divided inbox selection list tab" data-tab="info">
-                <p> {{user.properties.isAdministrator}} </p>
+                <p> {{MyProfile.properties['userprofile_schema:Informations']}} </p>
               </div>
             </div>  
           </div>  
@@ -485,11 +487,11 @@
         <div class="ui divided inbox selection list active tab" data-tab="recentActivities" ng-controller="activityListController">
           <div class="feedsBlock" ng-controller="commentsController">
             <!-- un segment = une activité -->
-            <div class="ui blue segment" ng-repeat="activity in activities.entries | limitTo:20">
+            <div class="ui blue segment" ng-repeat="activity in activities.entries | limitTo:10">
               <div><img src="" alt=""></div>
               <div class="description" ng-controller="userProfilController">
                 <p><a rel="nofollow" href="{{activity.properties['dc:source']}}">{{activity.properties['dc:title']}} </a></p>
-                <span class="info">New question on <em>{{activity.type}} </em>, by <a id="{{$index}}" href="#" ng-click="showProfil(activity.properties['dc:publisher']);"> {{activity.properties['dc:publisher']}} </a></span>
+                <span class="info">New post on <em>{{activity.properties['dc:source']}} </em>, by <a id="{{$index}}" href="#" ng-click="showProfil(activity.properties['dc:publisher']);"> {{activity.properties['dc:publisher']}} </a></span>
                 on {{activity.properties['dc:created']}} 
                 <div class="ui mini button" id="like">Like
                 </div>
@@ -526,15 +528,6 @@
             <div class="description">There turns out there is only one article under all.</div>
           </div>
         </div>
-      </div>
-      <!-- Nombre de pages -->
-      <div class="page">Showing <b>1</b> of 1</div>
-      <div class="ui pagination menu">
-        <a class="icon item"><i class="icon left arrow"></i></a>
-        <a class="active item">1</a>
-        <div class="disabled item">...</div>
-        <a class="item">10</a>
-        <a class="icon item"><i class="icon right arrow"></i></a>
       </div>
     </div> 
     </div> 

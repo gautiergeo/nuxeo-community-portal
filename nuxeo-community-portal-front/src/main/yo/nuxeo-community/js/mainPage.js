@@ -25,6 +25,13 @@ $(document)
       });
     ;
 
+    $('.menu.four .item')
+      .tab({
+        history : false,
+        context: '#parent-four'
+      });
+    ;
+
     $('.ui.rating')
       .rating({
         clearable: true
