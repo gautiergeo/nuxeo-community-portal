@@ -23,7 +23,7 @@ function start(route) {
   password: 'Administrator',
   timeout: 60000
   });
-  client.schemas(['dublincore','common', 'file','nxsourceid']);     
+  client.schemas(['dublincore','common', 'file','nxsourceid','activitycommunity']);     
   client.connect(function(error, client) {
     if (error) {
       console.error('Cannot connect to Nuxeo server');
@@ -55,7 +55,7 @@ function start(route) {
   function CreateArticle(Tab,i){
     client.operation('Document.Query')
     .params( {
-        query : "SELECT * FROM NxSourceId WHERE nxsourceid:NxId ='"+Tab[i].author+"' AND nxsourceid:NxSource='Answers'"
+        query : "SELECT * FROM NxSourceId WHERE nxsourceid:NxId ='"+Tab[i].author+"'"
       })
     .execute(function(error, data) {
       if (error) {
@@ -67,8 +67,8 @@ function start(route) {
         .params({
           type: 'ActivityCommunity',
           name: Tab[i].title,
-          properties: 'dc:title='+Tab[i].title + '\ndc:description='+Tab[i].id + '\ndc:source='+Tab[i].link + '\ndc:publisher='+Tab[i].author //+ '\nactivitycommunity:Published='+Tab[i].datePub
-        })
+          properties: 'dc:title='+Tab[i].title + '\ndc:description='+Tab[i].id + '\nactivitycommunity:Link='+Tab[i].link + '\ndc:publisher='+Tab[i].author +'\ndc:source=' +Tab[i].source
+          })
         .input('doc:/default-domain/workspaces/Activities')
           .execute(function(error, folder) {
           if (error) {
@@ -83,7 +83,7 @@ function start(route) {
         .params({
           type: 'ActivityCommunity',
           name: Tab[i].title,
-          properties: 'dc:title='+Tab[i].title + '\ndc:description='+Tab[i].id + '\ndc:source='+Tab[i].link + '\ndc:publisher='+Tab[i].author //+ '\nactivitycommunity:Published='+Tab[i].datePub
+          properties: 'dc:title='+Tab[i].title + '\ndc:description='+Tab[i].id + '\nactivitycommunity:Link='+Tab[i].link + '\ndc:publisher='+Tab[i].author  +'\ndc:source=' +Tab[i].source
         })
         .input('doc:/default-domain/workspaces/Activities')
           .execute(function(error, folder) {
@@ -128,6 +128,7 @@ function start(route) {
         Article.author=getAuthor(handler.dom,i);
         Article.datePub=getDatePub(handler.dom,i);
         Article.link=getLink(handler.dom,i);
+        Article.source='Answers';
         var gettingId = Article.link.match("questions/(.*)/");
         Article.id=gettingId[1];
         TabOfArticles[i-7]= Article;
@@ -135,57 +136,63 @@ function start(route) {
       for (var i = 0; i < TabOfArticles.length; i++) { 
         ArticleExist(TabOfArticles,i);
       }; 
+      // client.operation('Document.Query')
+      // .params( {
+      //     query : "SELECT * FROM NxSourceId WHERE nxsourceid:NxState='Undone'"
+      //   })
+      // .execute(function(error, data) {
+      //   if (error) {
+      //     throw error;
+      //   }
+      // });  
     };
     }
     xhr.open("GET", "http://answers.nuxeo.com/feeds/rss");
 
     xhr.send();
-  }, 10000 );
+  }, 30000 );
 
-// setInterval(function (){
-//     var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+setInterval(function (){
+    var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
-//     var xhr = new XMLHttpRequest();
+    var xhr = new XMLHttpRequest();
 
-//     xhr.onreadystatechange = function() {
-//     sys.puts("State: " + this.readyState);
+    xhr.onreadystatechange = function() {
+    sys.puts("State: " + this.readyState);
 
-//     if (this.readyState == 4) {
-//       //sys.puts("Complete.\nBody length: " + this.responseText.length);
-//       //sys.puts("Body:\n" + this.responseText);
-
-//       var rawHtml = this.responseText;
-//       var htmlparser = require("htmlparser");
-//       var handler = new htmlparser.DefaultHandler(function (error, dom) {
-//           if (error)
-//               console.log("error")
-//           else
-//               console.log("success")
-//       });
-//       var parser = new htmlparser.Parser(handler);
-//       parser.parseComplete(rawHtml);
-//       var TabOfBlogPosts = new Array();
-//       //sys.puts(sys.inspect(handler.dom, false, null));
-//       for (var i = 20; i < 39; i=i+2) {
-//         var Post = new Object();
-//         Post.title=getPostTitle(handler.dom,i);
-//         Post.author=getPostAuthor(handler.dom,i)[1];
-//         Post.datePub=getPostDatePub(handler.dom,i);
-//         Post.link=getPostLink(handler.dom,i);
-//         Post.id=Post.link;
+    if (this.readyState == 4) {
+      var rawHtml = this.responseText;
+      var htmlparser = require("htmlparser");
+      var handler = new htmlparser.DefaultHandler(function (error, dom) {
+          if (error)
+              console.log("error")
+          else
+              console.log("success")
+      });
+      var parser = new htmlparser.Parser(handler);
+      parser.parseComplete(rawHtml);
+      var TabOfBlogPosts = new Array();
+     
+      for (var i = 20; i < 39; i=i+2) {
+        var Post = new Object();
+        Post.title=getPostTitle(handler.dom,i);
+        Post.author=getPostAuthor(handler.dom,i)[1];
+        Post.datePub=getPostDatePub(handler.dom,i);
+        Post.link=getPostLink(handler.dom,i);
+        Post.source='Blogs';
+        Post.id=Post.link;
         
-//         TabOfBlogPosts[(i/2)-10]= Post;
-//       };  
-//       console.log(TabOfBlogPosts)
-//       // for (var i = 0; i < TabOfBlogPosts.length; i++) { 
-//       //   ArticleExist(TabOfBlogPosts,i);
-//       // }; 
-//     };
-//     }
-//     xhr.open("GET", "http://blogs.nuxeo.com/feed/");
+        TabOfBlogPosts[(i/2)-10]= Post;
+      };  
+      for (var i = 0; i < TabOfBlogPosts.length; i++) { 
+        ArticleExist(TabOfBlogPosts,i);
+      }; 
+    };
+    }
+    xhr.open("GET", "http://blogs.nuxeo.com/feed/");
 
-//     xhr.send();
-//   }, 60000 );
+    xhr.send();
+  }, 20000 );
 
 }
 function getTitle(Flux,i){
@@ -225,7 +232,7 @@ function getPostAuthor(Flux,i){
       }      
 
 function getPostLink(Flux,i){
-      link = Flux[2].children[1].children[i].children[18].children[0].data;
+      link = Flux[2].children[1].children[i].children[4].data;
       return link;
       }  
 exports.start = start;

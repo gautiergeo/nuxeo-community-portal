@@ -268,7 +268,7 @@
             <div class="five wide column" ng-repeat="user in users">
               <div class="ui celled grid">
                 <div class="six wide column">
-                  <img class="circular ui medium image" src="">
+                  <img class="circular ui medium image" src="../nuxeo-community/img/user.png">
                 </div>
                 <div class="eight wide column">  
                   <p><a href="#" ng-click="showProfil(user.name);"> {{user.name}} </a><br/>{{user.dateInscription}}<br/>{{user.statut}}</p>
@@ -487,10 +487,10 @@
         <div class="ui divided inbox selection list active tab" data-tab="recentActivities" ng-controller="activityListController">
           <div class="feedsBlock" ng-controller="commentsController">
             <!-- un segment = une activité -->
-            <div class="ui blue segment" ng-repeat="activity in activities.entries | limitTo:10">
+            <div class="ui blue segment" ng-repeat="activity in activities.entries | limitTo:12">
               <div><img src="" alt=""></div>
               <div class="description" ng-controller="userProfilController">
-                <p><a rel="nofollow" href="{{activity.properties['dc:source']}}">{{activity.properties['dc:title']}} </a></p>
+                <p><a rel="nofollow" href="{{activity.properties['activitycommunity:Link']}}">{{activity.properties['dc:title']}} </a></p>
                 <span class="info">New post on <em>{{activity.properties['dc:source']}} </em>, by <a id="{{$index}}" href="#" ng-click="showProfil(activity.properties['dc:publisher']);"> {{activity.properties['dc:publisher']}} </a></span>
                 on {{activity.properties['dc:created']}} 
                 <div class="ui mini button" id="like">Like
@@ -521,12 +521,22 @@
           </div>
         </div>
         <!-- Post -->
-        <div class="ui divided inbox selection list tab" data-tab="Posts">
-          <div class="item">
-            <div class="left floated ui star rating"><i class="link icon"></i></div>
-            <div class="right floated date">Sep 14, 2013</div>
-            <div class="description">There turns out there is only one article under all.</div>
+        <div class="ui divided inbox selection list tab" data-tab="Posts" ng-controller="blogPostListController">
+          <div class="feedsBlock" ng-controller="commentsController">
+          <div class="ui blue segment" ng-repeat="blogPost in blogPosts.entries | limitTo:12">
+            <div><img src="" alt=""></div>
+            <div class="description" ng-controller="userProfilController">
+              <p><a rel="nofollow" href="{{blogPost.properties['activitycommunity:Link']}}">{{blogPost.properties['dc:title']}} </a></p>
+              <span class="info">New post on <em>{{blogPost.properties['dc:source']}} </em>, by <a id="{{$index}}" href="#" ng-click="showProfil(blogPost.properties['dc:publisher']);"> {{blogPost.properties['dc:publisher']}} </a></span>
+              on {{blogPost.properties['dc:created']}} 
+              <div class="ui mini button" id="like">Like
+              </div>
+              <div class="ui mini button" ng-click="showComments($index);">Comments
+              </div>  
+            </div>  
+            <div class="clear"></div>
           </div>
+        </div>
         </div>
       </div>
     </div> 
@@ -552,51 +562,51 @@
                   <div class="row">
                     <div class="two wide column" >
                       <div class="item" title="George Alain 32ans Nuxeo">
-                        <img class="circular ui small image" src="" ng-click="showProfil('George Alain');">
+                        <img class="circular ui small image" src="../nuxeo-community/img/user.png" ng-click="showProfil('George Alain');">
                       </div>
                     </div>
                     <div class="two wide column"> 
                       <div class="item" title="George Alain 32ans Nuxeo">
-                        <img class="circular ui small image" src="" ng-click="showProfil('Charles H.');">
+                        <img class="circular ui small image" src="../nuxeo-community/img/user.png" ng-click="showProfil('Charles H.');">
                       </div>
                     </div>
                     <div class="two wide column" >
                       <div class="item" title="Michael Kyle 28ans Smart&soft">
-                        <img class="circular ui small image" src="">
+                        <img class="circular ui small image" src="../nuxeo-community/img/user.png">
                       </div>
                     </div>
                   </div>  
                   <div class="row">
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="">
+                        <img class="circular ui small image" src="../nuxeo-community/img/user.png">
                       </div>
                     </div>
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="">
+                        <img class="circular ui small image" src="../nuxeo-community/img/user.png">
                       </div>
                     </div>
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="">
+                        <img class="circular ui small image" src="../nuxeo-community/img/user.png">
                       </div>
                     </div>
                   </div>  
                   <div class="row">
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="">
+                        <img class="circular ui small image" src="../nuxeo-community/img/user.png">
                       </div>
                     </div>
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="">
+                        <img class="circular ui small image" src="../nuxeo-community/img/user.png">
                       </div>
                     </div>
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="">
+                        <img class="circular ui small image" src="../nuxeo-community/img/user.png">
                       </div>
                     </div>
                   </div>  

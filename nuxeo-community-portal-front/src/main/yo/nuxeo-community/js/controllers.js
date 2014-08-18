@@ -17,24 +17,21 @@ mainClient.connect(function(error, mainClient) {
   }
 });
 
-mainClient.schemas(['dublincore','common', 'file','nxsourceid','userprofile_schema']);
+mainClient.schemas(['dublincore','common', 'file','nxsourceid','userprofile_schema','activitycommunity']);
 
 app.controller("userListController", function ($scope) {
   $scope.users = [
     {"name": "Bill",
-     "pic": "http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg",
      "dateInscription": "Utlisateur depuis le 13/06/13",
      "statut" : "Tout va bien",
      "description" : "Né le 68 Février 2798 . Il travaille chez Solucom depuis 7 ans.Travaille actuellement en tant que Directeur commercial. A étudier à Central Paris. Aime le football, la natation, les films dhorreur et le ketchup" ,
      "info" : "Alain a gagné la médaille Champion du commentaire il y a 3 jours"},
     {"name": "Administrator",
-     "pic": "http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg",
      "dateInscription": "Utlisateur depuis le 13/06/13",
      "statut" : "Tout va bien",
      "description" : "Né le 68 Février 2798 . Il travaille chez Solucom depuis 7 ans.Travaille actuellement en tant que Directeur commercial. A étudier à Central Paris. Aime le football, la natation, les films dhorreur et le ketchup" ,
      "info" : "Alain a gagné la médaille Champion du commentaire il y a 3 jours"},
     {"name": "Ornella",
-     "pic": "http://www.bobmarleymusic.us/Pictures/images/albums/big/Bob_Marley/2008_-_Bob_Marley_Vs_Lee_Scratch_Perry-The_Best_Of_The_Upsetter_Years.jpg",
      "dateInscription": "Utlisateur depuis le 13/06/13",
      "statut" : "hehee",
      "description" : "Né le 68 Février 2798 . Il travaille chez Solucom depuis 7 ans.Travaille actuellement en tant que Directeur commercial. A étudier à Central Paris. Aime le football, la natation, les films dhorreur et le ketchup" ,
@@ -45,13 +42,27 @@ app.controller("userListController", function ($scope) {
 app.controller('activityListController', function ($rootScope) {
   mainClient.operation('Document.Query')
   .params( {
-  query : "SELECT * FROM ActivityCommunity WHERE ecm:currentLifeCycleState != 'deleted' ORDER BY dc:created DESC"})
+  query : "SELECT * FROM ActivityCommunity WHERE dc:source='Answers' AND ecm:currentLifeCycleState != 'deleted' ORDER BY dc:created DESC"})
   .execute(function(error, data) {
     if (error) {
       // something went wrong
       throw error;
     }
   $rootScope.activities = data;
+  $rootScope.$apply();
+  })
+}); 
+
+app.controller('blogPostListController', function ($rootScope) {
+  mainClient.operation('Document.Query')
+  .params( {
+  query : "SELECT * FROM ActivityCommunity WHERE dc:source='Blogs' AND ecm:currentLifeCycleState != 'deleted' ORDER BY dc:created DESC"})
+  .execute(function(error, data) {
+    if (error) {
+      // something went wrong
+      throw error;
+    }
+  $rootScope.blogPosts = data;
   $rootScope.$apply();
   })
 }); 
@@ -92,7 +103,7 @@ app.controller('IdSourceController', ['$rootScope', function($rootScope) {
             .params({
               type: 'NxSourceId',
               name: '',
-              properties: 'nxsourceid:NxSource='+'Answers' +'\nnxsourceid:NxId='+answersName + '\nnxsourceid:NxUsername='+ $rootScope.username
+              properties: 'nxsourceid:NxSource='+'Answers' +'\nnxsourceid:NxId='+answersName + '\nnxsourceid:NxUsername='+ $rootScope.username + '\nnxsourceid:NxState= Undone'
             })
             .input('doc:/NuxeoCommunityPortal/sections/NuxeoSourceId/')
               .execute(function(error, data) {
@@ -132,7 +143,7 @@ app.controller('IdSourceController', ['$rootScope', function($rootScope) {
             .params({
               type: 'NxSourceId',
               name: '',
-              properties: 'nxsourceid:NxSource=Blogs' +'\nnxsourceid:NxId='+blogsName + '\nnxsourceid:NxUsername='+ $rootScope.username
+              properties: 'nxsourceid:NxSource=Blogs' +'\nnxsourceid:NxId='+blogsName + '\nnxsourceid:NxUsername='+ $rootScope.username + '\nnxsourceid:NxState= (Undone'
             })
             .input('doc:/NuxeoCommunityPortal/sections/NuxeoSourceId/')
               .execute(function(error, data) {
