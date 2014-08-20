@@ -181,6 +181,8 @@
       </div>
   </div>
 
+  <!-- création NxSourceId -->
+
   <div class="ui modal" id="pickAccount" ng-controller="IdSourceController" >
       <div class="ui fluid form segment">
         <div class="ui right floated segment">
@@ -200,7 +202,7 @@
   </div>
 
   <!-- Register quand clique sur register --> 
-  <div  class="ui modal" id="register" ng-controller="ConnectController">
+  <div  class="ui modal" id="register"> <!-- ng-controller="ConnectController">-->
 
       <!-- Form register -->
       <div class="ui fluid form segment">
@@ -249,6 +251,58 @@
       </div>
   </div> 
 
+  <!-- photos du profil -->
+  <div  class="ui modal" id="pictures">
+    <div class="ui fluid form segment">
+      <div class="ui right floated segment">
+        <i class="close icon"></i> 
+      </div>  
+      <p>Pictures</p>
+      <div class="ui celled grid" ng-controller="profilPictureController">
+          <div class="row">
+            <div class="two wide column">
+              <img class="circular ui small image" src="../nuxeo-community/img/boy-1-icon.png" ng-click="changePicture('../nuxeo-community/img/boy-1-icon.png')">   
+            </div>
+            <div class="two wide column">
+              <img class="circular ui small image" src="../nuxeo-community/img/boy-2-icon.png" ng-click="changePicture('../nuxeo-community/img/boy-2-icon.png')">       
+            </div>
+            <div class="two wide column">
+              <img class="circular ui small image" src="../nuxeo-community/img/boy-3-icon.png" ng-click="changePicture('../nuxeo-community/img/boy-3-icon.png')">        
+            </div>
+            <div class="two wide column">
+              <img class="circular ui small image" src="../nuxeo-community/img/boy-4-icon.png" ng-click="changePicture('../nuxeo-community/img/boy-4-icon.png')">      
+            </div>
+            <div class="two wide column">
+              <img class="circular ui small image" src="../nuxeo-community/img/boy-5-icon.png" ng-click="changePicture('../nuxeo-community/img/boy-5-icon.png')">        
+            </div>
+            <div class="two wide column">
+              <img class="circular ui small image" src="../nuxeo-community/img/boy-6-icon.png" ng-click="changePicture('../nuxeo-community/img/boy-6-icon.png')">       
+            </div>
+          </div>
+          <div class="row">
+            <div class="two wide column">
+              <img class="circular ui small image" src="../nuxeo-community/img/boy-7-icon.png" ng-click="changePicture('../nuxeo-community/img/boy-7-icon.png')">      
+            </div>
+            <div class="two wide column">
+              <img class="circular ui small image" src="../nuxeo-community/img/boy-8-icon.png" ng-click="changePicture('../nuxeo-community/img/boy-8-icon.png')">   
+            </div>
+            <div class="two wide column">
+              <img class="circular ui small image" src="../nuxeo-community/img/boy-9-icon.png" ng-click="changePicture('../nuxeo-community/img/boy-9-icon.png')">       
+            </div>
+            <div class="two wide column">
+              <img class="circular ui small image" src="../nuxeo-community/img/administrator-icon.png" ng-click="changePicture('../nuxeo-community/img/administrator-icon.png')">     
+            </div>
+            <div class="two wide column">
+              <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png" ng-click="changePicture('../nuxeo-community/img/Default-user-icon.png')">        
+            </div>
+            <div class="two wide column">
+              <img class="circular ui small image" src="../nuxeo-community/img/User-icon.png" ng-click="changePicture('../nuxeo-community/img/User-icon.png')">        
+            </div>
+          </div>
+      </div>
+    </div>  
+  </div>
+
   <!-- Fenêtre de tous les utilisateurs clique sur allUser -->
   <div  class="ui modal" id="allUsers">
     <div class="ui fluid form segment">
@@ -268,7 +322,7 @@
             <div class="five wide column" ng-repeat="user in users">
               <div class="ui celled grid">
                 <div class="six wide column">
-                  <img class="circular ui medium image" src="../nuxeo-community/img/user.png">
+                  <img class="circular ui medium image" src="../nuxeo-community/img/Default-user-icon.png">
                 </div>
                 <div class="eight wide column">  
                   <p><a href="#" ng-click="showProfil(user.name);"> {{user.name}} </a><br/>{{user.dateInscription}}<br/>{{user.statut}}</p>
@@ -308,31 +362,22 @@
               </div>  
             </div>
           </div>
-          <div class="ui pagination menu">
-            <a class="icon item"><i class="icon left arrow"></i></a>
-            <a class="active item">1</a>
-            <div class="disabled item">...</div>
-            <a class="item">10</a>
-            <a class="item">11</a>
-            <a class="item">12</a>
-            <a class="icon item"><i class="icon right arrow"></i></a>
-          </div>  
       </div>
     </div> 
   </div>
 
   <!-- Modal Profil utilisateur -->
   <div class="ui modal" id="profil">
-      <div class="ui right floated segment">
-        <i class="close icon"></i> 
-      </div> 
       <div class="ui celled grid" ng-controller="userListController">
         <div class="row">
-          <div class="five wide column">
-            <img class="circular ui small image" src="">
+          <div class="three wide column">
+            <img class="circular ui image" src="{{MyProfile.properties['userprofile_schema:Picture']}}">
+          </div>
+          <div class="twelve wide column" >  
+            <div class="ui right floated segment">
+              <i class="close icon"></i> 
             </div>
-          <div class="eleven wide column" >  
-            <p>{{user.properties.firstName}}<br/>{{user.properties.lastName}}<br/>{{user.properties.email}}</p>
+            <p>Firstname: {{user.properties.firstName}}</br></br>Lastname: {{user.properties.lastName}}</br></br>I am {{user.properties.email}}</p>
           </div> 
         </div>
         <div class="row">
@@ -346,7 +391,7 @@
               <div class="ui divided inbox selection list active tab" data-tab="recentUser" ng-controller="activityListController">
                 <div class="feedsBlock" ng-controller="commentsController">
             <!-- un segment = une activité -->
-                  <div class="ui blue segment" ng-repeat="activity in userActivities.entries | limitTo:4">
+                  <div class="ui blue segment" ng-repeat="activity in userActivities.entries | limitTo:3">
                     <div><img src="" alt=""></div>
                     <div class="description" ng-controller="userProfilController">
                       <p><a rel="nofollow" href="{{activity.properties['dc:source']}}">{{activity.properties['dc:title']}} </a></p>
@@ -375,20 +420,20 @@
       </div>      
   </div> 
 
-
+<!-- Modal: Profil de l'utilisateur connecté -->
 
   <div class="ui modal" id="profilUser">
-      <div class="ui right floated segment">
-        <div class="ui small button" onclick="pickAccount()"> Bind this account to my Main Account</div>
-        <i class="close icon"></i> 
-      </div> 
       <div class="ui celled grid" ng-controller="userListController">
         <div class="row">
-          <div class="five wide column">
-            <img class="circular ui small image" src="">
-            </div>
-          <div class="eleven wide column" >  
-            <p>{{user.properties.firstName}}<br/>{{user.properties.lastName}}<br/>{{user.properties.email}}</p>
+          <div class="three wide column">
+            <img class="circular ui image" src="{{MyProfile.properties['userprofile_schema:Picture']}}" onclick="showProfilePictures();">
+          </div>
+          <div class="twelve wide column" > 
+            <div class="ui right floated segment">
+              <i class="close icon"></i> 
+            </div>  
+            <p>Firstname: {{user.properties.firstName}}</br></br>Lastname: {{user.properties.lastName}}</br></br>I am {{user.properties.email}}</p>
+            <div class="ui right floated small button" onclick="pickAccount()"> Bind another account</div>
           </div> 
         </div>
         <div class="row">
@@ -402,8 +447,8 @@
               <div class="ui divided inbox selection list active tab" data-tab="recentUser" ng-controller="activityListController">
                 <div class="feedsBlock" ng-controller="commentsController">
             <!-- un segment = une activité -->
-                  <div class="ui blue segment" ng-repeat="activity in userActivities.entries | limitTo:4">
-                    <div><img src="" alt=""></div>
+                  <div class="ui blue segment" ng-repeat="activity in userActivities.entries | limitTo:3">
+                    <div><img src=""></div>
                     <div class="description" ng-controller="userProfilController">
                       <p><a rel="nofollow" href="{{activity.properties['dc:source']}}">{{activity.properties['dc:title']}} </a></p>
                       <span class="info">New question on 
@@ -421,9 +466,13 @@
               </div>
               <div class="ui divided inbox selection list tab" data-tab="bio">
                 <p> {{MyProfile.properties['userprofile_schema:Biography']}}</p>
+                <div class="ui right floated mini button" onclick="changeBiography();"> Change my biography
+                </div>
               </div>
               <div class="ui divided inbox selection list tab" data-tab="info">
                 <p> {{MyProfile.properties['userprofile_schema:Informations']}} </p>
+                <div class="ui right floated mini button" onclick="changeInformations();"> Change my informations
+                </div>
               </div>
             </div>  
           </div>  
@@ -431,6 +480,36 @@
       </div>      
   </div> 
   
+  <!-- Modal changement des infos du profil -->
+  <div  class="ui modal" id="changeInformations" ng-controller="profilInfosController">
+      <form class="ui reply form">
+        <div class="ui right floated segment">
+          <i class="close icon"></i> 
+        </div>
+        <div class="field">
+          <textarea id="newInformations">{{MyProfile.properties['userprofile_schema:Informations']}}</textarea>
+        </div>
+        <div class="ui fluid labeled submit icon button" ng-click="submitInfos();">
+          <i class="icon edit"></i> Edit
+        </div>
+      </form>
+  </div>    
+
+  <!-- Modal changement de la biographie du profil -->
+  <div  class="ui modal" id="changeBiography" ng-controller="profilBioController">
+    <form class="ui reply form">
+        <div class="ui right floated segment">
+          <i class="close icon"></i> 
+        </div>
+        <div class="field">
+          <textarea id="newBiography">{{MyProfile.properties['userprofile_schema:Biography']}}</textarea>
+        </div>
+        <div class="ui fluid labeled submit icon button" ng-click="submitBio();">
+          <i class="icon edit"></i> Edit
+        </div>
+      </form>
+  </div>
+
   <!-- Modal comments -->
   <div  class="ui modal" id="comments" ng-controller="activityListController">
 	  <div class="ui segment">
@@ -479,7 +558,7 @@
       <div class="ui tabular filter menu one">
         <a class="active item" data-tab="recentActivities">Recent Activities</a>
         <a class="item" data-tab="CommunityWork">Community Work</a>
-        <a class="item" data-tab="Posts">Posts</a>
+        <a class="item" data-tab="Posts">Blog Posts</a>
       </div>
       <!-- Exemples de post -->
       <div id="parent-one">
@@ -503,23 +582,24 @@
           </div>
         </div>    
         <!-- Community Work -->
-        <div class="ui divided inbox selection list tab" data-tab="CommunityWork">
-          <div class="item">
-            <div class="left floated ui star rating"><i class="icon"></i></div>
-            <div class="right floated date">Sep 14, 2013</div>
-            <div class="description">Your favorite saved article</div>
+        <div class="ui divided inbox selection list tab" data-tab="CommunityWork" ng-controller="jiraActivityListController">
+          <div class="feedsBlock" ng-controller="commentsController">
+            <!-- un segment = une activité -->
+            <div class="ui blue segment" ng-repeat="activity in jiraActivities.entries | limitTo:12">
+              <div><img src="" alt=""></div>
+              <div class="description" ng-controller="userProfilController">
+                <p><a rel="nofollow" href="{{activity.properties['activitycommunity:Link']}}">{{activity.properties['dc:title']}} </a></p>
+                <span class="info">New post on <em>{{activity.properties['dc:source']}} </em>, by <a id="{{$index}}" href="#" ng-click="showProfil(activity.properties['dc:publisher']);"> {{activity.properties['dc:publisher']}} </a></span>
+                on {{activity.properties['dc:created']}} 
+                <div class="ui mini button" id="like">Like
+                </div>
+                <div class="ui mini button" ng-click="showComments($index);">Comments
+                </div>  
+              </div>  
+              <div class="clear"></div>
+            </div>
           </div>
-          <div class="item">
-            <div class="left floated ui star rating"><i class="icon"></i></div>
-            <div class="right floated date">Sep 14, 2013</div>
-            <div class="description">Your favorite saved article</div>
-          </div>
-          <div class="item">
-            <div class="left floated ui star rating"><i class="icon"></i></div>
-            <div class="right floated date">Sep 14, 2013</div>
-            <div class="description">Your favorite saved article</div>
-          </div>
-        </div>
+        </div>    
         <!-- Post -->
         <div class="ui divided inbox selection list tab" data-tab="Posts" ng-controller="blogPostListController">
           <div class="feedsBlock" ng-controller="commentsController">
@@ -562,51 +642,51 @@
                   <div class="row">
                     <div class="two wide column" >
                       <div class="item" title="George Alain 32ans Nuxeo">
-                        <img class="circular ui small image" src="../nuxeo-community/img/user.png" ng-click="showProfil('George Alain');">
+                        <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png" ng-click="showProfil('George Alain');">
                       </div>
                     </div>
                     <div class="two wide column"> 
                       <div class="item" title="George Alain 32ans Nuxeo">
-                        <img class="circular ui small image" src="../nuxeo-community/img/user.png" ng-click="showProfil('Charles H.');">
+                        <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png" ng-click="showProfil('Charles H.');">
                       </div>
                     </div>
                     <div class="two wide column" >
                       <div class="item" title="Michael Kyle 28ans Smart&soft">
-                        <img class="circular ui small image" src="../nuxeo-community/img/user.png">
+                        <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png">
                       </div>
                     </div>
                   </div>  
                   <div class="row">
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="../nuxeo-community/img/user.png">
+                        <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png">
                       </div>
                     </div>
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="../nuxeo-community/img/user.png">
+                        <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png">
                       </div>
                     </div>
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="../nuxeo-community/img/user.png">
+                        <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png">
                       </div>
                     </div>
                   </div>  
                   <div class="row">
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="../nuxeo-community/img/user.png">
+                        <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png">
                       </div>
                     </div>
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="../nuxeo-community/img/user.png">
+                        <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png">
                       </div>
                     </div>
                     <div class="two wide column" >
                       <div class="item">
-                        <img class="circular ui small image" src="../nuxeo-community/img/user.png">
+                        <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png">
                       </div>
                     </div>
                   </div>  
@@ -621,50 +701,10 @@
                         <img class="circular ui small image" src="">
                       </div>
                     </div>
-                    <div class="two wide column" >
-                      <div class="item" title="Le maitre de la correction">
-                        <img class="circular ui small image" src="">
-                      </div>
-                    </div>
-                    <div class="two wide column" >
-                      <div class="item">
-                        <img class="circular ui small image" src="">
-                      </div>
-                    </div>
                   </div>  
                   <div class="row">
-                    <div class="two wide column" >
-                      <div class="item">
-                        <img class="circular ui small image" src="">
-                      </div>
-                    </div>
-                    <div class="two wide column" >
-                      <div class="item">
-                        <img class="circular ui small image" src="">
-                      </div>
-                    </div>
-                    <div class="two wide column" >
-                      <div class="item">
-                        <img class="circular ui small image" src="">
-                      </div>
-                    </div>
                   </div>  
                   <div class="row">
-                    <div class="two wide column" >
-                      <div class="item">
-                        <img class="circular ui small image" src="">
-                      </div>
-                    </div>
-                    <div class="two wide column" >
-                      <div class="item">
-                        <img class="circular ui small image" src="">
-                      </div>
-                    </div>
-                    <div class="two wide column" >
-                      <div class="item">
-                        <img class="circular ui small image" src="">
-                      </div>
-                    </div>
                   </div>  
                 </div>
                 <div class="ui basic button" onclick="return popitup('http://www.sochi2014.com/en/medals')">All Medals</div> 
@@ -768,6 +808,18 @@
       //affiche le popup AllUsers
       function allUsers() {  
       $("#allUsers").modal('show');  
+      }
+
+      function showProfilePictures() {
+      $("#pictures").modal('show');
+      }
+
+      function changeInformations() {
+      $("#changeInformations").modal('show');
+      }
+
+      function changeBiography() {
+      $("#changeBiography").modal('show');
       }
 
       //fonction qui charge une page contenant les données d'un utilisateur en json

@@ -150,7 +150,47 @@ function start(route) {
     xhr.open("GET", "http://answers.nuxeo.com/feeds/rss");
 
     xhr.send();
-  }, 30000 );
+  }, 600000 );
+
+setInterval(function (){
+    var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+      sys.puts("State: " + this.readyState);
+
+      if (this.readyState == 4) {
+        var rawHtml = this.responseText;
+        var htmlparser = require("htmlparser");
+        var handler = new htmlparser.DefaultHandler(function (error, dom) {
+          if (error)
+            console.log("error")
+        });
+        var parser = new htmlparser.Parser(handler);
+        parser.parseComplete(rawHtml);
+
+        var TabOfActivities = new Array();
+        //sys.puts(sys.inspect(handler.dom, false, null));
+        for (var i = 5; i < 15; i++) {
+          var Activity = new Object();
+          Activity.title=getActivityTitle(handler.dom,i);
+          Activity.author=getActivityAuthor(handler.dom,i);
+          Activity.datePub='';
+          Activity.link=getActivityLink(handler.dom,i);
+          Activity.source='Jira';
+          Activity.id=Activity.link+Activity.author;
+          TabOfActivities[i-5]= Activity;
+        };  
+        for (var i = 0; i < TabOfActivities.length; i++) { 
+          ArticleExist(TabOfActivities,i);
+        }; 
+      };
+    }
+    xhr.open("GET", "https://jira.nuxeo.com/activity?maxResults=10&streams=key+IS+NXP&providers=issues+thirdparty+dvcs-streams-provider&title=undefined");
+
+    xhr.send();
+  }, 480000 );
 
 setInterval(function (){
     var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
@@ -192,9 +232,70 @@ setInterval(function (){
     xhr.open("GET", "http://blogs.nuxeo.com/feed/");
 
     xhr.send();
-  }, 20000 );
+  }, 3600000 );
 
 }
+function getActivityAuthor(Flux,i){
+  author = Flux[0].children[i].children[1].children[0].data.match('jspa\\?name\\=(.*)\\" class');
+  var authorUsername = author[1];
+  return authorUsername;    
+}
+
+function getActivityTitle(Flux,i){
+  username=  Flux[0].children[i].children[1].children[1].data.match('(.*)\\&lt\\;\\/a');
+  typeComment= Flux[0].children[i].children[1].children[2].data.match('commented');
+  typeUpdate= Flux[0].children[i].children[1].children[2].data.match('updated');
+  typeLink= Flux[0].children[i].children[1].children[2].data.match('linked');
+  typeNolink = Flux[0].children[i].children[1].children[2].data.match('removed');
+  typeResolution = Flux[0].children[i].children[1].children[2].data.match('resolved');
+  typeAdd = Flux[0].children[i].children[1].children[2].data.match('added');
+  typeCreate = Flux[0].children[i].children[1].children[2].data.match('created');
+  typeChange = Flux[0].children[i].children[1].children[2].data.match('changed');
+  typeAttachFiles = Flux[0].children[i].children[1].children[2].data.match('attached');
+
+
+  if (typeAttachFiles!=null) {
+    var title=username[1]+' attached files to an issue';
+    return title;
+  };
+  if (typeNolink!=null) {
+    var title=username[1]+' removed the link between two issues';
+    return title;
+  }; 
+  if (typeCreate!=null) {
+    var title=username[1]+' created an issue';
+    return title;
+  }; 
+  if (typeAdd!=null) {
+    var title=username[1]+' added a fix version';
+    return title;
+  }; 
+  if (typeComment!=null) {
+   var title=username[1]+' commented an issue';
+    return title;
+  };
+  if (typeLink!=null) {
+    var title=username[1]+' linked two issues';
+    return title;
+  }; 
+  if (typeResolution!=null) {
+    var title=username[1]+' resolved an issue';
+    return title;
+  };   
+  if (title == undefined) {
+    var title=username[1]+' updated an issue';
+    return title;
+  };
+}
+
+function getActivityLink(Flux,i){
+  link= Flux[0].children[i].children[1].children[2].data.match('href\\=\\"(.*)\\"');
+  if (link!=null) {
+    link=link[1];
+    return link;
+  };
+}
+
 function getTitle(Flux,i){
       title = Flux[2].children[0].children[i].children[0].children[0].data;
       return title;

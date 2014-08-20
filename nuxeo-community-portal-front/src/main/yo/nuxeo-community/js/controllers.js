@@ -6,7 +6,7 @@ var app = angular.module("app", []);
 
 var mainClient = new nuxeo.Client({
   baseURL: 'http://localhost:8080/nuxeo/',
-  username: 'Administrator',
+  username: 'aescaffre',
   password: 'Administrator'
 });
      
@@ -67,10 +67,24 @@ app.controller('blogPostListController', function ($rootScope) {
   })
 }); 
 
+app.controller('jiraActivityListController', function ($rootScope) {
+  mainClient.operation('Document.Query')
+  .params( {
+  query : "SELECT * FROM ActivityCommunity WHERE dc:source='Jira' AND ecm:currentLifeCycleState != 'deleted' ORDER BY dc:created DESC"})
+  .execute(function(error, data) {
+    if (error) {
+      // something went wrong
+      throw error;
+    }
+  $rootScope.jiraActivities = data;
+  $rootScope.$apply();
+  })
+}); 
+
 app.controller('userConnectedController', ['$rootScope', function($rootScope) { 
     $rootScope.getUsername = function() {
     // $rootScope.username=document.getElementById("username").value;
-    $rootScope.username="Adam";
+    $rootScope.username="aescaffre";
     $("#login").modal('hide.module');
     console.log($rootScope.username)
     }; 
@@ -80,6 +94,61 @@ app.controller('commentsController', ['$scope', function($scope) {
     $scope.showComments = function(id) {
     $("#comments").modal('show');
     }; 
+}]); 
+
+app.controller('profilPictureController', ['$rootScope', function($rootScope) { 
+    $rootScope.changePicture = function(picture) {
+    mainClient.document($rootScope.MyProfile.path)
+    .fetch(function(error, doc) {
+    if (error) {
+      // something went wrong
+      throw error;
+    }
+    doc.set({'userprofile_schema:Picture':picture });
+    doc.save(function(error, doc) {});
+  });  
+  $("#pictures").modal('hide.module');  
+    // mainClient.request("/Document/"+ $rootScope.MyProfile.path).put({
+    //     properties:'userprofile_schema:Picture=../nuxeo-community/img/administrator-icon.png'
+    //   },function (error,user){  
+    //   if(error){
+    //     console.log("error")
+    //   }
+    //   else{
+    //     console.log("picture changed") 
+    //   }
+    // });
+  };
+}]);
+
+app.controller('profilInfosController', ['$rootScope', function($rootScope) { 
+    $rootScope.submitInfos = function(picture) {
+    var infos = document.getElementById("newInformations").value;  
+    mainClient.document($rootScope.MyProfile.path)
+    .fetch(function(error, doc) {
+    if (error) {
+      throw error;
+    }
+    doc.set({'userprofile_schema:Informations':infos });
+    doc.save(function(error, doc) {});
+  });  
+  $("#changeInformations").modal('hide.module');  
+  };
+}]); 
+
+app.controller('profilBioController', ['$rootScope', function($rootScope) { 
+    $rootScope.submitBio = function(picture) {
+    var bio = document.getElementById("newBiography").value;  
+    mainClient.document($rootScope.MyProfile.path)
+    .fetch(function(error, doc) {
+    if (error) {
+      throw error;
+    }
+    doc.set({'userprofile_schema:Biography':bio });
+    doc.save(function(error, doc) {});
+  });  
+  $("#changeBiography").modal('hide.module');  
+  };
 }]); 
 
 app.controller('IdSourceController', ['$rootScope', function($rootScope) { 
@@ -143,7 +212,7 @@ app.controller('IdSourceController', ['$rootScope', function($rootScope) {
             .params({
               type: 'NxSourceId',
               name: '',
-              properties: 'nxsourceid:NxSource=Blogs' +'\nnxsourceid:NxId='+blogsName + '\nnxsourceid:NxUsername='+ $rootScope.username + '\nnxsourceid:NxState= (Undone'
+              properties: 'nxsourceid:NxSource=Blogs' +'\nnxsourceid:NxId='+blogsName + '\nnxsourceid:NxUsername='+ $rootScope.username + '\nnxsourceid:NxState= Undone'
             })
             .input('doc:/NuxeoCommunityPortal/sections/NuxeoSourceId/')
               .execute(function(error, data) {
@@ -157,8 +226,8 @@ app.controller('IdSourceController', ['$rootScope', function($rootScope) {
         });
       };
       $("#pickAccount").modal('hide.modal');
-      }}]);
-
+    }
+  }]);
 
 app.controller('ConnectController', ['$scope', function($scope) { 
     $scope.getInformations = function() {
@@ -195,69 +264,69 @@ app.controller('userProfilController', ['$rootScope', function($rootScope) {
       alert('You are not connected');
     }
     else{
-    if (username==$rootScope.username) {
-      mainClient.request("/user/"+username).get(function (error,user){
-        $rootScope.user=user;
-        $rootScope.$apply(); 
-      });
-      mainClient.operation('Document.Query').params( {
-      query : "SELECT * FROM MyProfile WHERE dc:title ='"+username+"'"})
-      .execute(function(error, data) {
-        if (error) {
-          throw error;
-        }
-        $rootScope.MyProfile = data.entries[0];
-        $rootScope.$apply();
-      });  
-      mainClient.operation('Document.Query').params( {
-      query : "SELECT * FROM ActivityCommunity WHERE dc:publisher ='"+username+"'"})
-      .execute(function(error, data) {
-        if (error) {
-            // something went wrong
-          throw error;
-        }
-            $rootScope.userActivities = data;
-            $rootScope.$apply();
-            $("#allUsers").modal('hide.modal');   
-            $("#profilUser").modal('show');
-      });
-    };
-    if (username!=$rootScope.username) {
-      mainClient.request("/user/"+username).get(function (error,user){  
-            if(error){
-              alert("The user isn't registered")
-              $rootScope.user=null;
-              $rootScope.$apply(); 
-            }
-            else{
+      if (username==$rootScope.username) {
+        mainClient.request("/user/"+username).get(function (error,user){
+          $rootScope.user=user;
+          $rootScope.$apply(); 
+        });
+        mainClient.operation('Document.Query').params( {
+        query : "SELECT * FROM MyProfile WHERE dc:title ='"+username+"'"})
+        .execute(function(error, data) {
+          if (error) {
+            throw error;
+          }
+          $rootScope.MyProfile = data.entries[0];
+          $rootScope.$apply();
+        });  
+        mainClient.operation('Document.Query').params( {
+        query : "SELECT * FROM ActivityCommunity WHERE dc:publisher ='"+username+"'"})
+        .execute(function(error, data) {
+          if (error) {
+              // something went wrong
+            throw error;
+          }
+              $rootScope.userActivities = data;
+              $rootScope.$apply();
+              $("#allUsers").modal('hide.modal');   
+              $("#profilUser").modal('show');
+        });
+      };
+      if (username!=$rootScope.username) {
+        mainClient.request("/user/"+username).get(function (error,user){  
+          if(error){
+            alert("The user isn't registered")
+            $rootScope.user=null;
+            $rootScope.$apply(); 
+          }
+          else{
             $rootScope.user=user;
             $rootScope.$apply();  
-            }
-      });
-      mainClient.operation('Document.Query').params( {
-      query : "SELECT * FROM MyProfile WHERE dc:title ='"+username+"'"})
-      .execute(function(error, data) {
-        if (error) {
-          throw error;
-        }
-        $rootScope.MyProfile = data.entries[0];
-        $rootScope.$apply();
-      });  
-      mainClient.operation('Document.Query').params( {
-      query : "SELECT * FROM ActivityCommunity WHERE dc:publisher ='"+username+"'"})
-      .execute(function(error, data) {
-        if (error) {
-            // something went wrong
-          throw error;
-        }
-        $rootScope.userActivities = data;
-        $rootScope.$apply();
-        if ($rootScope.user!=null) {
-        $("#allUsers").modal('hide.modal');   
-        $("#profil").modal('show');
-      };
-      });
-    }; 
-  };
+          }
+        });
+        mainClient.operation('Document.Query').params( {
+        query : "SELECT * FROM MyProfile WHERE dc:title ='"+username+"'"})
+        .execute(function(error, data) {
+          if (error) {
+            throw error;
+          }
+          $rootScope.MyProfile = data.entries[0];
+          $rootScope.$apply();
+        });  
+        mainClient.operation('Document.Query').params( {
+        query : "SELECT * FROM ActivityCommunity WHERE dc:publisher ='"+username+"'"})
+        .execute(function(error, data) {
+          if (error) {
+              // something went wrong
+            throw error;
+          }
+          $rootScope.userActivities = data;
+          $rootScope.$apply();
+          if ($rootScope.user!=null) {
+            $("#allUsers").modal('hide.modal');   
+            $("#profil").modal('show');
+          };
+        });
+      }; 
+    };
   }; 
 }]); 
