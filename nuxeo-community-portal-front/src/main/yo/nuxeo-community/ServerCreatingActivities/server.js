@@ -41,13 +41,13 @@ function start(route) {
       })
       .execute(function(error, data) {
         if (error) {
-          console.log('Not created')
+          console.log('Not created because error')
           throw error;
         }
-        if (data.entries.length === 0) {
+        if (data.entries.length == 0) {
           CreateArticle(Tab,i);
         };
-        if (data.entries.length !== 0) {
+        if (data.entries.length != 0) {
           console.log("This Article Exist")
         };
       }); 
@@ -78,7 +78,7 @@ function start(route) {
           console.log('It worked')
         });
       }
-      if (data.entries[0]== undefined){
+      else {
          client.operation('Document.Create')
         .params({
           type: 'ActivityCommunity',
@@ -136,21 +136,12 @@ function start(route) {
       for (var i = 0; i < TabOfArticles.length; i++) { 
         ArticleExist(TabOfArticles,i);
       }; 
-      // client.operation('Document.Query')
-      // .params( {
-      //     query : "SELECT * FROM NxSourceId WHERE nxsourceid:NxState='Undone'"
-      //   })
-      // .execute(function(error, data) {
-      //   if (error) {
-      //     throw error;
-      //   }
-      // });  
     };
     }
     xhr.open("GET", "http://answers.nuxeo.com/feeds/rss");
 
     xhr.send();
-  }, 600000 );
+  }, 1211000 );
 
 setInterval(function (){
     var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
@@ -187,52 +178,51 @@ setInterval(function (){
         }; 
       };
     }
-    xhr.open("GET", "https://jira.nuxeo.com/activity?maxResults=10&streams=key+IS+NXP&providers=issues+thirdparty+dvcs-streams-provider&title=undefined");
-
+    xhr.open("GET", "https://jira.nuxeo.com/activity?maxResults=15&streams=key+IS+NXP&providers=issues+thirdparty+dvcs-streams-provider&title=undefined");
     xhr.send();
-  }, 480000 );
+  }, 600000 );
 
-setInterval(function (){
-    var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+// setInterval(function (){
+//     var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
-    var xhr = new XMLHttpRequest();
+//     var xhr = new XMLHttpRequest();
 
-    xhr.onreadystatechange = function() {
-    sys.puts("State: " + this.readyState);
+//     xhr.onreadystatechange = function() {
+//     sys.puts("State: " + this.readyState);
 
-    if (this.readyState == 4) {
-      var rawHtml = this.responseText;
-      var htmlparser = require("htmlparser");
-      var handler = new htmlparser.DefaultHandler(function (error, dom) {
-          if (error)
-              console.log("error")
-          else
-              console.log("success")
-      });
-      var parser = new htmlparser.Parser(handler);
-      parser.parseComplete(rawHtml);
-      var TabOfBlogPosts = new Array();
+//     if (this.readyState == 4) {
+//       var rawHtml = this.responseText;
+//       var htmlparser = require("htmlparser");
+//       var handler = new htmlparser.DefaultHandler(function (error, dom) {
+//           if (error)
+//               console.log("error")
+//           else
+//               console.log("success")
+//       });
+//       var parser = new htmlparser.Parser(handler);
+//       parser.parseComplete(rawHtml);
+//       var TabOfBlogPosts = new Array();
      
-      for (var i = 20; i < 39; i=i+2) {
-        var Post = new Object();
-        Post.title=getPostTitle(handler.dom,i);
-        Post.author=getPostAuthor(handler.dom,i)[1];
-        Post.datePub=getPostDatePub(handler.dom,i);
-        Post.link=getPostLink(handler.dom,i);
-        Post.source='Blogs';
-        Post.id=Post.link;
+//       for (var i = 20; i < 39; i=i+2) {
+//         var Post = new Object();
+//         Post.title=getPostTitle(handler.dom,i);
+//         Post.author=getPostAuthor(handler.dom,i)[1];
+//         Post.datePub=getPostDatePub(handler.dom,i);
+//         Post.link=getPostLink(handler.dom,i);
+//         Post.source='Blogs';
+//         Post.id=Post.link;
         
-        TabOfBlogPosts[(i/2)-10]= Post;
-      };  
-      for (var i = 0; i < TabOfBlogPosts.length; i++) { 
-        ArticleExist(TabOfBlogPosts,i);
-      }; 
-    };
-    }
-    xhr.open("GET", "http://blogs.nuxeo.com/feed/");
+//         TabOfBlogPosts[(i/2)-10]= Post;
+//       };  
+//       for (var i = 0; i < TabOfBlogPosts.length; i++) { 
+//         ArticleExist(TabOfBlogPosts,i);
+//       }; 
+//     };
+//     }
+//     xhr.open("GET", "http://blogs.nuxeo.com/feed/");
 
-    xhr.send();
-  }, 3600000 );
+//     xhr.send();
+//   }, 3600000 );
 
 }
 function getActivityAuthor(Flux,i){
@@ -243,48 +233,43 @@ function getActivityAuthor(Flux,i){
 
 function getActivityTitle(Flux,i){
   username=  Flux[0].children[i].children[1].children[1].data.match('(.*)\\&lt\\;\\/a');
-  typeComment= Flux[0].children[i].children[1].children[2].data.match('commented');
-  typeUpdate= Flux[0].children[i].children[1].children[2].data.match('updated');
-  typeLink= Flux[0].children[i].children[1].children[2].data.match('linked');
-  typeNolink = Flux[0].children[i].children[1].children[2].data.match('removed');
-  typeResolution = Flux[0].children[i].children[1].children[2].data.match('resolved');
-  typeAdd = Flux[0].children[i].children[1].children[2].data.match('added');
-  typeCreate = Flux[0].children[i].children[1].children[2].data.match('created');
-  typeChange = Flux[0].children[i].children[1].children[2].data.match('changed');
-  typeAttachFiles = Flux[0].children[i].children[1].children[2].data.match('attached');
+  if (Flux[0].children[i].children[1].children[3]!= undefined) {
+    title1= Flux[0].children[i].children[1].children[2].data.match('(.*)\\&lt\\;a');
+    title2= Flux[0].children[i].children[1].children[3].data.match('(.*)\\&lt\\;\\/');
+    title1= title1[1].trim();
 
+    if (title2 != null) {
+      title2= title2[1].replace("&amp;gt;",">");
+      title=username[1] +" "+ title1 +" "+ title2;
 
-  if (typeAttachFiles!=null) {
-    var title=username[1]+' attached files to an issue';
-    return title;
-  };
-  if (typeNolink!=null) {
-    var title=username[1]+' removed the link between two issues';
-    return title;
-  }; 
-  if (typeCreate!=null) {
-    var title=username[1]+' created an issue';
-    return title;
-  }; 
-  if (typeAdd!=null) {
-    var title=username[1]+' added a fix version';
-    return title;
-  }; 
-  if (typeComment!=null) {
-   var title=username[1]+' commented an issue';
-    return title;
-  };
-  if (typeLink!=null) {
-    var title=username[1]+' linked two issues';
-    return title;
-  }; 
-  if (typeResolution!=null) {
-    var title=username[1]+' resolved an issue';
-    return title;
-  };   
-  if (title == undefined) {
-    var title=username[1]+' updated an issue';
-    return title;
+      console.log(title)
+      return title;
+    }
+    else {
+      title2=Flux[0].children[i].children[1].children[4].data.match('(.*)\\&lt\\;\\/');
+      if (title2 != null) {
+      title2= title2[1];
+      title3= Flux[0].children[i].children[1].children[5].data.match('(.*)\\&lt\\;\\/');
+      title3= title3[1].replace("&amp;gt;",">");
+      title=username[1] +" "+ title1 +" "+ title2 + title3;
+
+      console.log(title)
+      return title;
+      }
+      else{
+        title2=Flux[0].children[i].children[1].children[5].data.match('(.*)\\&lt\\;\\/');
+        if (title2 != null) {
+        title2= title2[1].replace("&amp;gt;",">");
+        title=username[1] +" "+ title1 +" "+ title2;
+        console.log(title)
+        return title;
+        }
+        else{
+          title=username[1] +" "+ title1;
+          return title;
+        }
+      };
+    };
   };
 }
 

@@ -6,7 +6,7 @@ var app = angular.module("app", []);
 
 var mainClient = new nuxeo.Client({
   baseURL: 'http://localhost:8080/nuxeo/',
-  username: 'aescaffre',
+  username: 'Administrator',
   password: 'Administrator'
 });
      
@@ -234,24 +234,19 @@ app.controller('ConnectController', ['$scope', function($scope) {
       var firstName = document.getElementById("firstname").value;
       var lastName = document.getElementById("lastname").value;
       var password = document.getElementById("pswd").value;
-      mainClient.request("../../user").post({
-  "entity-type": "user",
-  "id": "Bill",
-  "properties": {
-    "lastName": "Murray",
-    "username": "Bill",
-    "email": "bill@exemple.com",
-    "company": "",
-    "firstName": "Bill",
-    "password": "",
-    "groups": [
-      "members",
-      "ecm-experts",
-      "hr_operational_managers"
-    ]
-  },
-  "isAdministrator": false,
-  "isAnonymous": false
+      mainClient.request("../../user").post({ "entity-type" : "user",
+  "id" : "psteele",
+  "extendedGroups" : [  ],
+  "isAdministrator" : false,
+  "isAnonymous" : false,
+  "properties" : { "company" : "Green Man",
+      "email" : "psteele@greenman.com",
+      "firstName" : "Peter",
+      "username" : "psteele",
+      "groups" : [  ],
+      "lastName" : "Steele",
+      "password" : "",
+    }
 },function (error,user){
         console.log(user)
         });
