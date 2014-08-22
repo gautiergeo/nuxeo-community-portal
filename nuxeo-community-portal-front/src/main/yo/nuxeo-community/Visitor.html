@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+ 
+  <!-- Standard Meta -->
+   
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+ 
+  <!-- Site Properties -->
+  <link rel="icon" href="../nuxeo-community/img/nuxeo-x-alone.png" />
+  <title>Nuxeo Community Platform Visitor</title>
+  <link type="text/css" rel="stylesheet" href="css/mainPage.css" />
+  <link rel="stylesheet" href="semantic/packaged/css/semantic.css" type="text/css"></link>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
+  <!--  <link rel="stylesheet" type="text/css" href="/WEB-INF/lib/semantic/packaged/css/semantic.css"> -->
+
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.js"></script>
+ <!--  <script src="/WEB-INF/lib/semantic/packaged/javascript/semantic.js"></script> -->   <!-- Semantic UI -->
+  <script language="JavaScript" type="text/JavaScript" src="js/mainPage.js"></script>
+  <script language="JavaScript" type="text/JavaScript" src="semantic/packaged/javascript/semantic.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="js/nuxeo.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/services.js"></script>
+  <!--  <link rel="stylesheet" type="text/css" href="mainPage.css"> -->
+  <!-- <script src="mainPage.js"></script> -->
+
+</head>
+
+<body id="feed">
+  <div id="Feedhaut">
+  <!-- Menu Dropdown en haut à droite -->
+  <div class="ui right aligned header">
+    <div class="ui secondary menu">
+      <!-- Langue -->
+      <div class="ui simple dropdown item">
+        English <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">French</div>
+          <div class="item">Italian</div>
+        </div>
+      </div>
+      <!-- Produit -->
+      <div class="ui simple dropdown item">
+        Products  <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">DM</div>
+          <div class="item">DAM</div>
+          <div class="item">DRIVE</div>
+        </div>
+      </div>
+      <!-- Autre compte -->
+      <div class="ui simple dropdown item">
+        My Connect <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">Connect</div>
+          <div class="item">Answers</div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- Fin menu en haut à droite -->
+
+  <!-- Menu Dropdown central cf NuxeoDotCom + Image Nuxeo à gauche -->
+  <div class="ui center aligned header">
+    <!-- Image nuxeo en haut à gauche -->
+    <img class="left floated ui medium image" src="">
+    <!-- Menu central haut-->
+    <div class="ui aligned secondary menu" id="secMenu">
+      <div class="ui simple dropdown item">
+        Products <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">NUXEO PLATFORM</div>
+          <div class="item">NUXEO DRIVE</div>
+          <div class="item">Document Management</div>
+          <div class="item">DAM</div>
+        </div>
+      </div>
+      <div class="ui simple dropdown item">
+        Services <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">Choice 1</div>
+          <div class="item">Choice 2</div>
+          <div class="item">Choice 3</div>
+        </div>
+      </div>
+      <div class="ui simple dropdown item">
+        Customers <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">Choice 1</div>
+          <div class="item">Choice 2</div>
+          <div class="item">Choice 3</div>
+        </div>
+      </div>
+      <div class="ui simple dropdown item">
+        Partners <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">Choice 1</div>
+          <div class="item">Choice 2</div>
+          <div class="item">Choice 3</div>
+        </div>
+      </div>
+      <div class="ui simple dropdown item">
+        Learning <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">Choice 1</div>
+          <div class="item">Choice 2</div>
+          <div class="item">Choice 3</div>
+        </div>
+      </div>
+      <div class="ui simple dropdown item">
+        About us <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">Choice 1</div>
+          <div class="item">Choice 2</div>
+          <div class="item">Choice 3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fin menu central -->
+
+  <!-- Breadcrumb -->
+  <div class="left floated ui breadcrumb">
+    <a class="section" href="http://nuxeodotcom.wpengine.com/">Home</a> 
+    <i class="right arrow icon divider"></i>
+    <a class="section" href="http://nuxeodotcom.wpengine.com/about/">About Us</a> 
+    <i class="right arrow icon divider"></i>
+    <div class="active section">Community</div>
+  </div>
+</br>
+</div>
+  <!-- Fin Breadcrumb -->
+  <!-- Bouton connect et barre search -->
+  <div id="feed1">
+  </br>
+    <div id="feedhaut2">
+  <div class="ui header"> <!--  ng-controller="beforeConnectController">
+    <div class="right floated ui blue inverted huge aligned button" ng-click="connection();">Connect
+    </div> -->
+    <!-- Barre search -->
+    <div class="left floated ui icon input">
+      <input type="text" name="sethu" id="hu" /> 
+      <i class="search icon" onclick="getHU();"></i>
+    </div>
+  </div> 
+</div>
+
+</br>
+  <!-- Fin bouton connect et barre search -->
+
+  <!-- les différents "popup" -->
+
+  <!-- Register quand clique sur register --> 
+  <div  class="ui modal" id="register">
+
+      <!-- Form register -->
+      <div class="ui fluid form segment">
+        <div class="ui right floated segment">
+          <i class="close icon"></i> 
+        </div>  
+        <p>Inscrit toi !!!</p>
+        <div class="field">
+            <label for="pseudo">Firstname</label>
+            <input id="firstname" placeholder="Firstname" type="text" class="champ">
+        </div>
+        <div class="field">
+            <label for="pseudo">Lastname</label>
+            <input id="lastname" placeholder="Lastname" type="text" class="champ">
+        </div>
+        <div class="field">
+            <label for="pseudo">Password</label>
+            <input id="pswd" type="password" class="champ">
+        </div>
+        <div class="field">
+            <label for="confirmation">Confirmation Password</label>
+            <input id="confirmation" type="password" class="champ">
+        </div>
+        <div class="inline field">
+          <div class="ui checkbox">
+            <input type="checkbox" id="terms" class="champ">
+            <label for="terms">I agree to the terms and conditions</label>
+          </div>
+        </div>
+        <div class="ui left floated button" id="envoi" ng-click="getInformations();">Submit</div>
+        <div class="ui button" id="reset">Reset</div>
+        <div class="ui button" onclick='login()'> LogIn</div>
+      </div>
+      <div class="ui segment" id="erreur">
+        <p>Vous n'avez pas rempli correctement les champs du formulaire !</p>
+      </div>  
+  </div>   
+
+  <!-- <div  class="ui modal" id="signIn">
+    <div class="ui blue inverted fluid form segment" ng-controller="connectionController">  
+      <font size="4">
+        <p>Sign in !!!</p>
+        <div class="field">
+          <label>Username</label>
+          <input placeholder="Username" type="text" id="username">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="text" id="password">
+        </div>
+        <div class="ui left floated aligned button"  ng-click="getUsername();">
+        <font size="4"> Submit</font>
+        </div>
+      </font>
+    </div>
+  </div>   -->
+
+  <!-- Fenêtre de tous les utilisateurs clique sur allUser -->
+  <div  class="ui modal" id="allUsers">
+    <div class="ui fluid form segment">
+      <div class="ui right floated segment">
+        <i class="close icon"></i> 
+      </div>  
+      <p>Tous les utilisateurs!</p>
+      <div class="ui icon input">
+        <input type="text" placeholder="Search...">
+        <i class="search icon"></i>
+      </div>
+      <!-- Tableau de photos des utilisateurs -->
+      <div class="ui celled grid" ng-controller="userListController">
+        <!-- 3 lignes divisées en 3 colonnes de taille 5 -->
+        <!-- Ligne 1 -->
+          <div class="row">
+            <div class="five wide column" ng-repeat="user in users">
+              <div class="ui celled grid">
+                <div class="six wide column">
+                  <img class="circular ui medium image" src="../nuxeo-community/img/Default-user-icon.png">
+                </div>
+                <div class="eight wide column">  
+                  <p><a href="#" ng-click="showProfil(user.name);"> {{user.name}} </a><br/>{{user.dateInscription}}<br/>{{user.statut}}</p>
+                </div>  
+              </div>  
+            </div>
+          </div>
+          <div class="row">  
+          </div>
+      </div>
+    </div> 
+  </div>
+
+  <!-- Modal Profil utilisateur -->
+  <div class="ui modal" id="profil">
+      <div class="ui celled grid" ng-controller="userListController">
+        <div class="row">
+          <div class="three wide column">
+            <img class="circular ui image" src="{{MyProfile.properties['userprofile_schema:Picture']}}">
+          </div>
+          <div class="twelve wide column" >  
+            <div class="ui right floated segment">
+              <i class="close icon"></i> 
+            </div>
+            <p>Firstname: {{user.properties.firstName}}</br></br>Lastname: {{user.properties.lastName}}</br></br>I am {{user.properties.email}}</p>
+          </div> 
+        </div>
+        <div class="row">
+          <div class="sixteen wide column">
+            <div class="ui tabular filter menu three">
+            <a class="active item" data-tab="recentUser">Recent Activities</a>
+            <a class="item" data-tab="bio">Bio</a>
+            <a class="item" data-tab="info">More Informations</a>
+            </div>
+            <div id="parent-three">
+              <div class="ui divided inbox selection list active tab" data-tab="recentUser"  ng-controller="activityListController">
+                <div class="feedsBlock" ng-controller="commentsController">
+            <!-- un segment = une activité -->
+                  <div class="ui blue segment" ng-repeat="activity in userActivities.entries | limitTo:3">
+                    <div class="description" ng-controller="userProfilController">
+                      <p><a rel="nofollow" href="{{activity.properties['activitycommunity:Link']}}">{{activity.properties['dc:title']}} </a></p>
+                      <span class="info">New post on <em>{{activity.properties['dc:source']}} </em>, by <a id="{{$index}}" href="#" ng-click="showProfil(activity.properties['dc:publisher']);"> {{activity.properties['dc:publisher']}} </a></span>
+                      on {{activity.properties['dc:created']}} 
+                      <div class="ui mini button" ng-click="showComments($index);">Comments
+                      </div>  
+                    </div>  
+                    <div class="clear"></div>
+                  </div>
+                </div>   
+              </div>
+              <div class="ui divided inbox selection list tab" data-tab="bio">
+                <p> {{MyProfile.properties['userprofile_schema:Biography']}}</p>
+              </div>
+              <div class="ui divided inbox selection list tab" data-tab="info">
+                <p> {{MyProfile.properties['userprofile_schema:Informations']}} </p>
+              </div>
+            </div>  
+          </div>  
+        </div>
+      </div>      
+  </div> 
+
+  <!-- fin des popup -->
+
+
+
+
+
+  <!-- Main part of the webpage -->
+  <div class="ui divided grid">
+    <!-- Left and central part of the page = Activities  -->
+    <div class="twelve wide column">
+      <div class="ui blue inverted segment">
+      <!-- Tabular menu -->
+        <div class="ui tabular filter menu one">
+          <a class="active item" data-tab="recentActivities">Recent Activities</a>
+          <a class="item" data-tab="CommunityWork">Community Work</a>
+          <a class="item" data-tab="Posts">Blog Posts</a>
+        </div>
+      <!-- I use parent-one as the first tabular-menu which is independant from others -->
+        <div id="parent-one">
+          <!-- Activities in http://answers.nuxeo.com/ -->
+          <div class="ui divided inbox selection list active tab" data-tab="recentActivities"  ng-controller="activityListController">
+            <!-- a segment = an activity -->
+            <div class="ui blue segment" ng-repeat="activity in activities.entries | limitTo:12">
+              <div class="description" ng-controller="userProfilController">
+                <p><a rel="nofollow" href="{{activity.properties['activitycommunity:Link']}}">{{activity.properties['dc:title']}} </a></p>
+                <span class="info">New post on <em>{{activity.properties['dc:source']}} </em>, by <a href="#" ng-click="showProfil(activity.properties['dc:publisher']);"> {{activity.properties['dc:publisher']}} </a></span>
+                on {{activity.properties['dc:created']}} 
+              </div>  
+              <div class="clear"></div>
+            </div>
+          </div>     
+          <!-- Activities in http://jira.nuxeo.com/ -->
+          <div class="ui divided inbox selection list tab" data-tab="CommunityWork"  ng-controller="jiraActivityListController">
+            <!-- a segment = an activity -->
+            <div class="ui blue segment" ng-repeat="activity in jiraActivities.entries | limitTo:12">
+              <div class="description" ng-controller="userProfilController">
+                <p><a rel="nofollow" href="{{activity.properties['activitycommunity:Link']}}">{{activity.properties['dc:title']}} </a></p>
+                <span class="info">New post on <em>{{activity.properties['dc:source']}} </em>, by <a href="#" ng-click="showProfil(activity.properties['dc:publisher']);"> {{activity.properties['dc:publisher']}} </a></span>
+                on {{activity.properties['dc:created']}} 
+              </div>  
+              <div class="clear"></div>
+            </div>
+          </div>  
+          <!-- Post in http://blogs.nuxeo.com -->
+          <div class="ui divided inbox selection list tab" data-tab="Posts"  ng-controller="blogPostListController">  
+            <!-- a segment = an activity -->        
+            <div class="ui blue segment" ng-repeat="blogPost in blogPosts.entries | limitTo:12">
+              <div class="description" ng-controller="userProfilController">
+                <p><a rel="nofollow" href="{{blogPost.properties['activitycommunity:Link']}}">{{blogPost.properties['dc:title']}} </a></p>
+                <span class="info">New post on <em>{{blogPost.properties['dc:source']}} </em>, by <a href="#" ng-click="showProfil(blogPost.properties['dc:publisher']);"> {{blogPost.properties['dc:publisher']}} </a></span>
+                on {{blogPost.properties['dc:created']}} 
+              </div>  
+              <div class="clear">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div> 
+    <!-- End of the left side -->
+
+    <!-- Right part of the page -->
+    <div class="four wide column">
+      <!-- A grid in this column to better organize the right part of the page -->
+      <div class="ui grid"> 
+        <div class="row">
+          <!-- A grid to display some users and medals -->
+          <div class="sixteen wide column">
+            <div class="ui blue inverted segment">
+              <div class="ui tabular filter menu two">
+                <a class="active item" data-tab="users">Users</a>
+                <a class="item" data-tab="medals">Medals</a>
+              </div> 
+            <!-- I use parent-two to make this tabular-menu independant from others -->
+              <div  id="parent-two">
+                <div class="ui divided inbox selection list active tab" data-tab="users">
+                  <div class="ui celled grid" ng-controller="userProfilController">
+                    <div class="row">
+                      <!-- <div class="two wide column" >
+                        <div class="item" title="George Alain 32ans Nuxeo">
+                          <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png" ng-click="showProfil('George Alain');">
+                        </div>
+                      </div> -->
+                    </div>  
+                    <div class="row">
+                    </div>  
+                    <div class="row">
+                    </div>  
+                  </div> 
+                  <!-- <div class="ui basic button" onclick='allUsers()'>All Users</div>  -->
+                </div>
+                <div class="ui divided inbox selection list tab" data-tab="medals">  
+                  <div class="ui celled grid">
+                    <div class="row">
+                      <!-- <div class="two wide column" >
+                        <div class="item" title="Médaille du contributeur">
+                          <img class="circular ui small image" src="">
+                        </div>
+                      </div> -->
+                    </div>  
+                    <div class="row">
+                    </div>  
+                    <div class="row">
+                    </div>  
+                  </div>
+                </div> 
+              </div>
+            </div>            
+          </div>
+        </div>
+        <!-- Links to social websites -->
+        <div class="row">
+          <div class="sixteen wide column">
+            <div class="ui blue inverted segment">
+              <H3>Join the conversation !</H3>
+              <div class="left floated ui icon">
+                <i class="twitter sign icon"> </i>
+                <a href="https://twitter.com/nuxeo">Follow @Nuxeo on Twitter</a>
+              </div>  
+              </br>
+              <div class="left floated ui icon">
+                <i class="facebook sign icon"> </i>
+                <a href="https://www.facebook.com/Nuxeo" >Join the Nuxeo page on Facebook</a>
+              </div> 
+              </br>
+              <div class="left floated ui icon">
+                <i class="google plus icon"> </i>
+                <a href="https://plus.google.com/+nuxeo/posts">Join the Nuxeo page on Google +</a>
+              </div> 
+              </br>
+              <div class="left floated ui icon">
+                <i class="linkedin icon"> </i>
+                <a href="http://www.linkedin.com/groups/Nuxeo-Community-43314?gid=43314&amp;mostPopular=&amp;trk=tyah">Join the Nuxeo group on Linkedin</a>
+              </div> 
+            </div>
+          </div> 
+        </div>
+        <!-- Questions for the community -->
+        <div class="row">
+          <div class="sixteen wide column">
+            <div class="ui blue inverted segment">
+              Question of the week: 
+              <var>What would you change to improve nuxeo platform ?</var>  
+              <form class="ui reply form">
+                <div class="field">
+                  <textarea></textarea>
+                </div>
+                <div class="ui fluid grey labeled submit icon button">
+                  <i class="icon edit"></i> Add Reply
+                </div>
+              </form>
+            </div>
+          </div> 
+        </div>
+        <div class="row">
+          <div class="sixteen wide column">
+            <div class="ui blue inverted segment">
+            Question of the day: 
+            <var>What is the name of our own reverse proxy?</var>  
+            </br>
+            Value:
+            <var>200</var> points
+            </div>
+          </div> 
+        </div>
+        <div class="row">
+        </div>
+      </div>
+      <!-- End of the grid -->
+    </div>
+    <!-- End of the right part -->     
+  </div>
+  <!-- "End of the main part of the page" -->
+
+
+  <!-- JavaScript  -->
+
+  <script type="text/javascript"> 
+
+      //Affiche le popup de connexion
+     function connection() {
+      $("#register").modal('hide.modal');
+      $("#login").modal('show');
+      }
+
+      //cache la connexion affiche l'enregistrement
+      function register() {
+      $("#login").modal('hide.modal');
+      $("#register").modal('show');
+      }
+
+      function pickAccount() {  
+      $("#userProfil").modal('hide.modal');
+      $("#userProfil").modal('hide.module');
+      $("#pickAccount").modal('show');  
+      }
+      //affiche le popup AllUsers
+      function allUsers() {  
+      $("#allUsers").modal('show');  
+      }
+
+      function showProfilePictures() {
+      $("#pictures").modal('show');
+      }
+
+      function changeInformations() {
+      $("#changeInformations").modal('show');
+      }
+
+      function changeBiography() {
+      $("#changeBiography").modal('show');
+      }
+
+      //fonction qui charge une page contenant les données d'un utilisateur en json
+      function getHU() 
+      { 
+      var hoo =  "http://demo.nuxeo.com:80/nuxeo/site/api/v1/user/"+ document.getElementById("hu").value ; 
+      newwindow=window.open(hoo);
+        if (window.focus) {newwindow.focus();}
+        return false;
+      } 
+
+  </script>
+  <!-- End JavaScript -->
+</body>
+
+</html>

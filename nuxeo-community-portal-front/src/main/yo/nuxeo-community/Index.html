@@ -1,15 +1,142 @@
 <!doctype html>
-<html lang="en" ng-app>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>My HTML File</title>
+  <!-- Standard Meta -->
+   
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+ 
+  <!-- Site Properties -->
+
+  <title>Nuxeo Community Platform Homepage</title>
+  <link rel="icon" href="../nuxeo-community/img/nuxeo-x-alone.png" />
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" href="css/app.css">
+  <link type="text/css" rel="stylesheet" href="css/welcomePage.css" />
+  <link rel="stylesheet" href="semantic/packaged/css/semantic.css" type="text/css"></link>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
+
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.js"></script>
+  <script language="JavaScript" type="text/JavaScript" src="semantic/packaged/javascript/semantic.js"></script>
   <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="js/nuxeo.js"></script> 
+  <script src="js/filters.js"></script>
+  <script src="js/services.js"></script>
 </head>
 <body>
+  	<div class="ui grid">
+		<div class="two wide column">
+		</div>
+		<div class="twelve wide column">
+			<div class="row"> 
+		  		<div class="ui center aligned header">
+		  			<div>
+		  				<h1>
+							<img class="left floated ui large image" src="../nuxeo-community/img/NuxeoLogo.jpg">
+							Welcome to the Nuxeo Community!
+						</h1>
+					  
+						<h4>
+							<p>Nuxeo is an <b>Open Source Platform</b> for <b>Enterprise Content
+						       Management</b> enabling architects and developers to build, deploy
+						       and run <b>content-driven applications</b>. The Nuxeo Platform is
+						       modular, flexible, and extensible, so applications can be configured
+						       and customized to adapt to the project context.
+							</p>
 
-  <p>Nothing here {{'yet' + '!'}}</p>
-
+							<p>Nuxeo applications can be configured with no programming experience, and extended using
+						      <b>standard</b> Java EE technologies.
+							</p>
+						</h4> 
+					</div>	   
+				</div>
+			</div>
+			<div class="row">
+        	<!-- Form register -->
+        		<div class="ui grid">
+        			<div class="eight wide column">
+        				
+					    <div class="ui blue inverted fluid form segment">  
+					       	<font size="4">
+					       	<p>Register !!!</p>
+					       	<div class="field">
+					           	<label for="pseudo">Firstname</label>
+					           	<input id="firstname" placeholder="Firstname" type="text" class="champ">
+					       	</div>
+					        <div class="field">
+					            <label for="pseudo">Lastname</label>
+					            <input id="lastname" placeholder="Lastname" type="text" class="champ">
+					        </div>
+					        <div class="field">
+					            <label for="email">Email</label>
+						        <input id="email" placeholder="stanLee@marvel.com" type="text" class="champ">
+						    </div>
+						    <div class="field">
+					            <label for="pseudo">Password</label>
+					            <input id="pswd" type="password" class="champ">
+					        </div>
+					        <div class="field">
+					            <label for="confirmation">Confirmation Password</label>
+					            <input id="confirmation" type="password" class="champ">
+						    </div>
+						    <div class="ui left floated button" id="envoi" ng-click="getInformations();">
+					        	<font size="4"> Submit</font>
+					        </div>
+					        <div class="ui right floated button" id="reset">
+					        	<font size="4"> Reset informations</font>	
+					        </div>
+					        </font>
+						</div>   
+				    </div>
+				    
+				    <div class="eight wide column">
+					        <!-- <div class="ui blue inverted fluid form segment" ng-controller="connectionController">  
+					        	<font size="4">
+					        	<p>Sign in !!!</p>
+							    <div class="field">
+							        <label>Username</label>
+						            <input placeholder="Username" type="text" id="username">
+						        </div>
+						        <div class="field">
+						            <label>Password</label>
+						            <input type="text" id="password">
+						        </div>
+							    <div class="ui left floated aligned button"  ng-click="getUsername();">
+							    	<font size="4"> Submit</font>
+							    </div>
+						        </font>
+						    </div> -->
+						    <div class="ui blue inverted fluid form segment">
+								<div class="ui button" onclick='enterPrivate()'>
+									<font size="7"> I already have an account</font>
+								</div>			
+							</div>	
+				
+						</br>
+						
+							<div class="ui blue inverted fluid form segment">
+								<div class="ui button" onclick='enterPublic()'>
+									<font size="7"> Enter on the public site</font>
+								</div>			
+							</div>	 
+				    </div> 
+				</div>
+			</div>
+		</div>
+	  	<div class="two wide column">
+	  	</div>
+	</div>
+	<script type="text/javascript"> 
+		function enterPublic() { 
+			window.location.href="Visitor.html";
+    	}
+    	function enterPrivate() { 
+			window.location.href="User.html";
+    	}
+	</script>	
 </body>
 </html>

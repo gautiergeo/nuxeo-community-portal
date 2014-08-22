@@ -265,7 +265,7 @@ function getActivityTitle(Flux,i){
         return title;
         }
         else{
-          title=username[1] +" "+ title1;
+          title=username[1] +" linked two issues!"
           return title;
         }
       };

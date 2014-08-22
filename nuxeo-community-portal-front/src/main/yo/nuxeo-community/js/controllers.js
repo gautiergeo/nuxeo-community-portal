@@ -6,7 +6,7 @@ var app = angular.module("app", []);
 
 var mainClient = new nuxeo.Client({
   baseURL: 'http://localhost:8080/nuxeo/',
-  username: 'Administrator',
+  username: 'Adam',
   password: 'Administrator'
 });
      
@@ -80,15 +80,7 @@ app.controller('jiraActivityListController', function ($rootScope) {
   $rootScope.$apply();
   })
 }); 
-
-app.controller('userConnectedController', ['$rootScope', function($rootScope) { 
-    $rootScope.getUsername = function() {
-    // $rootScope.username=document.getElementById("username").value;
-    $rootScope.username="aescaffre";
-    $("#login").modal('hide.module');
-    console.log($rootScope.username)
-    }; 
-}]);  
+ 
 
 app.controller('commentsController', ['$scope', function($scope) { 
     $scope.showComments = function(id) {

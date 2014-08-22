@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html ng-app="connected">
 <head>
  
   <!-- Standard Meta -->
@@ -9,8 +9,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
  
   <!-- Site Properties -->
- 
-  <title>NxCommunity</title>
+  <link rel="icon" href="../nuxeo-community/img/nuxeo-x-alone.png" />
+  <title>Nuxeo Community Platform User</title>
   <link type="text/css" rel="stylesheet" href="css/mainPage.css" />
   <link rel="stylesheet" href="semantic/packaged/css/semantic.css" type="text/css"></link>
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -26,7 +26,7 @@
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-resource/angular-resource.js"></script>
   <script src="js/nuxeo.js"></script>
-  <script src="js/controllers.js"></script>
+  <script src="js/index.js"></script>
   <script src="js/filters.js"></script>
   <script src="js/services.js"></script>
   <!--  <link rel="stylesheet" type="text/css" href="mainPage.css"> -->
@@ -144,7 +144,7 @@
     <div id="feedhaut2">
   <div class="ui center aligned header" ng-controller="userProfilController">
     <!-- bouton connect -->
-    <div class="right floated ui blue inverted huge aligned button" onclick='connection()'>Connect
+    <div class="right floated ui blue inverted huge aligned button" ng-controller="beforeConnectController" ng-click="connection();">Connect
     </div>
     <div class="right floated ui blue inverted huge aligned button" ng-click="showProfil(username);">MyAccount
     </div>
@@ -160,26 +160,6 @@
   <!-- Fin bouton connect et barre search -->
 
   <!-- les différents "popup" -->
-
-  <!-- Login quand clique sur connect ou login-->
-  <div class="ui modal" id="login" ng-controller="userConnectedController">
-      <div class="ui fluid form segment">
-        <div class="ui right floated segment">
-          <i class="close icon"></i> 
-        </div>  
-        <p>Connecte toi !!!</p>
-        <div class="field">
-            <label>Username</label>
-            <input placeholder="Username" type="text" id="username">
-        </div>
-        <div class="field">
-            <label>Password</label>
-            <input type="password">
-        </div>
-        <div class="ui left floated aligned button"  ng-click="getUsername();">Let's go</div>
-        <div class="ui right floated aligned button" onclick='register()'> Register</div>  
-      </div>
-  </div>
 
   <!-- création NxSourceId -->
 
@@ -239,17 +219,26 @@
       <div class="ui segment" id="erreur">
         <p>Vous n'avez pas rempli correctement les champs du formulaire !</p>
       </div>  
-  </div>  
+  </div>   
 
-  <!-- Félicitation inscription -->
-  <div  class="ui modal" id="Congratulation">
-      <div class="ui fluid form segment">
-        <div class="ui right floated segment">
-          <i class="close icon"></i> 
-        </div>  
-        <p>Merci de t'être inscrit !</p>
-      </div>
-  </div> 
+  <div  class="ui modal" id="signIn">
+    <div class="ui blue inverted fluid form segment" ng-controller="connectionController">  
+      <font size="4">
+        <p>Sign in !!!</p>
+        <div class="field">
+          <label>Username</label>
+          <input placeholder="Username" type="text" id="username">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="text" id="password">
+        </div>
+        <div class="ui left floated aligned button"  ng-click="getUsername();">
+        <font size="4"> Submit</font>
+        </div>
+      </font>
+    </div>
+  </div>
 
   <!-- photos du profil -->
   <div  class="ui modal" id="pictures">
@@ -331,36 +320,6 @@
             </div>
           </div>
           <div class="row">  
-            <div class="five wide column" >
-              <div class="ui celled grid">
-                <div class="six wide column">
-                  <img class="circular ui medium image" src="">
-                </div>
-                <div class="eight wide column">  
-                  <p><a href="#" ng-click='showProfil()'> George Alain</a><br/>Utlisateur depuis le 13/06/13<br/>Rang: Légende</p>
-                </div>  
-              </div>  
-            </div>
-            <div class="five wide column" >
-              <div class="ui celled grid">
-                <div class="six wide column">
-                  <img class="circular ui medium image" src="">
-                </div>
-                <div class="eight wide column">  
-                  <p><a href="#" ng-click='showProfil()'> George Alain</a><br/>Utlisateur depuis le 13/06/13<br/>Rang: Légende</p>
-                </div>  
-              </div>  
-            </div>
-            <div class="five wide column" >
-              <div class="ui celled grid">
-                <div class="six wide column">
-                  <img class="circular ui medium image" src="">
-                </div>
-                <div class="eight wide column">  
-                  <p><a href="#" value="George Alain" onclick='profil()'> George Alain</a><br/>Utlisateur depuis le 13/06/13<br/>Rang: Légende</p>
-                </div>  
-              </div>  
-            </div>
           </div>
       </div>
     </div> 
@@ -388,19 +347,14 @@
             <a class="item" data-tab="info">More Informations</a>
             </div>
             <div id="parent-three">
-              <div class="ui divided inbox selection list active tab" data-tab="recentUser" ng-controller="activityListController">
+              <div class="ui divided inbox selection list active tab" data-tab="recentUser" ng-controller="connectionController">
                 <div class="feedsBlock" ng-controller="commentsController">
             <!-- un segment = une activité -->
                   <div class="ui blue segment" ng-repeat="activity in userActivities.entries | limitTo:3">
-                    <div><img src="" alt=""></div>
                     <div class="description" ng-controller="userProfilController">
-                      <p><a rel="nofollow" href="{{activity.properties['dc:source']}}">{{activity.properties['dc:title']}} </a></p>
-                      <span class="info">New question on 
-                        <em>{{activity.type}} </em>, by 
-                        <a id="{{$index}}" href="#" ng-click="showProfil(activity.properties['dc:publisher']);"> {{activity.properties['dc:publisher']}} </a>
-                      </span> on {{activity.properties['dc:created']}} 
-                      <div class="ui mini button" id="like">Like
-                      </div>
+                      <p><a rel="nofollow" href="{{activity.properties['activitycommunity:Link']}}">{{activity.properties['dc:title']}} </a></p>
+                      <span class="info">New post on <em>{{activity.properties['dc:source']}} </em>, by <a id="{{$index}}" href="#" ng-click="showProfil(activity.properties['dc:publisher']);"> {{activity.properties['dc:publisher']}} </a></span>
+                      on {{activity.properties['dc:created']}} 
                       <div class="ui mini button" ng-click="showComments($index);">Comments
                       </div>  
                     </div>  
@@ -444,19 +398,14 @@
             <a class="item" data-tab="info">More Informations</a>
             </div>
             <div id="parent-four">
-              <div class="ui divided inbox selection list active tab" data-tab="recentUser" ng-controller="activityListController">
+              <div class="ui divided inbox selection list active tab" data-tab="recentUser" ng-controller="connectionController">
                 <div class="feedsBlock" ng-controller="commentsController">
             <!-- un segment = une activité -->
                   <div class="ui blue segment" ng-repeat="activity in userActivities.entries | limitTo:3">
-                    <div><img src=""></div>
                     <div class="description" ng-controller="userProfilController">
-                      <p><a rel="nofollow" href="{{activity.properties['dc:source']}}">{{activity.properties['dc:title']}} </a></p>
-                      <span class="info">New question on 
-                        <em>{{activity.type}} </em>, by 
-                        <a id="{{$index}}" href="#" ng-click="showProfil(activity.properties['dc:publisher']);"> {{activity.properties['dc:publisher']}} </a>
-                      </span> on {{activity.properties['dc:created']}} 
-                      <div class="ui mini button" id="like">Like
-                      </div>
+                      <p><a rel="nofollow" href="{{activity.properties['activitycommunity:Link']}}">{{activity.properties['dc:title']}} </a></p>
+                      <span class="info">New post on <em>{{activity.properties['dc:source']}} </em>, by <a id="{{$index}}" href="#" ng-click="showProfil(activity.properties['dc:publisher']);"> {{activity.properties['dc:publisher']}} </a></span>
+                      on {{activity.properties['dc:created']}} 
                       <div class="ui mini button" ng-click="showComments($index);">Comments
                       </div>  
                     </div>  
@@ -511,7 +460,7 @@
   </div>
 
   <!-- Modal comments -->
-  <div  class="ui modal" id="comments" ng-controller="activityListController">
+  <div  class="ui modal" id="comments" ng-controller="connectionController">
 	  <div class="ui segment">
 	    <div class="ui right floated segment">
         <i class="close icon"></i> 
@@ -546,240 +495,183 @@
 
 
 
-
   <!-- fin des popup -->
 
-  <!-- Grille principale -->
-  <div class="ui divided grid">
-    <!-- Partie de gauche =  Activités -->
-    <div class="twelve wide column">
-    <div class="ui blue inverted segment">
-      <!-- Tabular menu -->
-      <div class="ui tabular filter menu one">
-        <a class="active item" data-tab="recentActivities">Recent Activities</a>
-        <a class="item" data-tab="CommunityWork">Community Work</a>
-        <a class="item" data-tab="Posts">Blog Posts</a>
-      </div>
-      <!-- Exemples de post -->
-      <div id="parent-one">
-        <!-- Activities -->
-        <div class="ui divided inbox selection list active tab" data-tab="recentActivities" ng-controller="activityListController">
-          <div class="feedsBlock" ng-controller="commentsController">
-            <!-- un segment = une activité -->
-            <div class="ui blue segment" ng-repeat="activity in activities.entries | limitTo:12">
-              <div><img src="" alt=""></div>
-              <div class="description" ng-controller="userProfilController">
-                <p><a rel="nofollow" href="{{activity.properties['activitycommunity:Link']}}">{{activity.properties['dc:title']}} </a></p>
-                <span class="info">New post on <em>{{activity.properties['dc:source']}} </em>, by <a id="{{$index}}" href="#" ng-click="showProfil(activity.properties['dc:publisher']);"> {{activity.properties['dc:publisher']}} </a></span>
-                on {{activity.properties['dc:created']}} 
-                <div class="ui mini button" id="like">Like
-                </div>
-                <div class="ui mini button" ng-click="showComments($index);">Comments
-                </div>  
-              </div>  
-              <div class="clear"></div>
-            </div>
-          </div>
-        </div>    
-        <!-- Community Work -->
-        <div class="ui divided inbox selection list tab" data-tab="CommunityWork" ng-controller="jiraActivityListController">
-          <div class="feedsBlock" ng-controller="commentsController">
-            <!-- un segment = une activité -->
-            <div class="ui blue segment" ng-repeat="activity in jiraActivities.entries | limitTo:12">
-              <div><img src="" alt=""></div>
-              <div class="description" ng-controller="userProfilController">
-                <p><a rel="nofollow" href="{{activity.properties['activitycommunity:Link']}}">{{activity.properties['dc:title']}} </a></p>
-                <span class="info">New post on <em>{{activity.properties['dc:source']}} </em>, by <a id="{{$index}}" href="#" ng-click="showProfil(activity.properties['dc:publisher']);"> {{activity.properties['dc:publisher']}} </a></span>
-                on {{activity.properties['dc:created']}} 
-                <div class="ui mini button" id="like">Like
-                </div>
-                <div class="ui mini button" ng-click="showComments($index);">Comments
-                </div>  
-              </div>  
-              <div class="clear"></div>
-            </div>
-          </div>
-        </div>    
-        <!-- Post -->
-        <div class="ui divided inbox selection list tab" data-tab="Posts" ng-controller="blogPostListController">
-          <div class="feedsBlock" ng-controller="commentsController">
-          <div class="ui blue segment" ng-repeat="blogPost in blogPosts.entries | limitTo:12">
-            <div><img src="" alt=""></div>
-            <div class="description" ng-controller="userProfilController">
-              <p><a rel="nofollow" href="{{blogPost.properties['activitycommunity:Link']}}">{{blogPost.properties['dc:title']}} </a></p>
-              <span class="info">New post on <em>{{blogPost.properties['dc:source']}} </em>, by <a id="{{$index}}" href="#" ng-click="showProfil(blogPost.properties['dc:publisher']);"> {{blogPost.properties['dc:publisher']}} </a></span>
-              on {{blogPost.properties['dc:created']}} 
-              <div class="ui mini button" id="like">Like
-              </div>
-              <div class="ui mini button" ng-click="showComments($index);">Comments
-              </div>  
-            </div>  
-            <div class="clear"></div>
-          </div>
-        </div>
-        </div>
-      </div>
-    </div> 
-    </div> 
-    <!-- Fin Partie de gauche -->
 
-    <!-- Partie de droite -->
-    <div class="four wide column">
-      <!-- Une grille pour avoir une colone de taille 16 -->
-      <div class="ui grid"> 
-        <!-- une ligne = un tableau -->
-        <div class="row">
-          <!-- Utilisateurs et Medailles -->
-          <div class="sixteen wide column" id="blockUser">
-            <div class="ui blue inverted segment">
-            <div class="ui tabular filter menu two">
-              <a class="active item" data-tab="users">Top Users</a>
-              <a class="item" data-tab="medals">Medals</a>
-            </div> 
-            <div  id="parent-two">
-              <div class="ui divided inbox selection list active tab" data-tab="users">
-                <div class="ui celled grid" ng-controller="userProfilController">
-                  <div class="row">
-                    <div class="two wide column" >
-                      <div class="item" title="George Alain 32ans Nuxeo">
-                        <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png" ng-click="showProfil('George Alain');">
-                      </div>
-                    </div>
-                    <div class="two wide column"> 
-                      <div class="item" title="George Alain 32ans Nuxeo">
-                        <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png" ng-click="showProfil('Charles H.');">
-                      </div>
-                    </div>
-                    <div class="two wide column" >
-                      <div class="item" title="Michael Kyle 28ans Smart&soft">
-                        <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png">
-                      </div>
-                    </div>
-                  </div>  
-                  <div class="row">
-                    <div class="two wide column" >
-                      <div class="item">
-                        <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png">
-                      </div>
-                    </div>
-                    <div class="two wide column" >
-                      <div class="item">
-                        <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png">
-                      </div>
-                    </div>
-                    <div class="two wide column" >
-                      <div class="item">
-                        <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png">
-                      </div>
-                    </div>
-                  </div>  
-                  <div class="row">
-                    <div class="two wide column" >
-                      <div class="item">
-                        <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png">
-                      </div>
-                    </div>
-                    <div class="two wide column" >
-                      <div class="item">
-                        <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png">
-                      </div>
-                    </div>
-                    <div class="two wide column" >
-                      <div class="item">
-                        <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png">
-                      </div>
-                    </div>
-                  </div>  
-                </div> 
-                <div class="ui basic button" onclick='allUsers()'>All Users</div> 
-              </div>
-              <div class="ui divided inbox selection list tab" data-tab="medals">  
-                <div class="ui celled grid">
-                  <div class="row">
-                    <div class="two wide column" >
-                      <div class="item" title="Médaille du contributeur">
-                        <img class="circular ui small image" src="">
-                      </div>
-                    </div>
-                  </div>  
-                  <div class="row">
-                  </div>  
-                  <div class="row">
-                  </div>  
-                </div>
-                <div class="ui basic button" onclick="return popitup('http://www.sochi2014.com/en/medals')">All Medals</div> 
-              </div> 
+
+
+
+  <!-- Main part of the webpage -->
+  <div class="ui divided grid">
+    <!-- Left and central part of the page = Activities  -->
+    <div class="twelve wide column">
+      <div class="ui blue inverted segment">
+      <!-- Tabular menu -->
+        <div class="ui tabular filter menu one">
+          <a class="active item" data-tab="recentActivities">Recent Activities</a>
+          <a class="item" data-tab="CommunityWork">Community Work</a>
+          <a class="item" data-tab="Posts">Blog Posts</a>
+        </div>
+      <!-- I use parent-one as the first tabular-menu which is independant from others -->
+        <div id="parent-one">
+          <!-- Activities in http://answers.nuxeo.com/ -->
+          <div class="ui divided inbox selection list active tab" data-tab="recentActivities" ng-controller="connectionController">
+            <!-- a segment = an activity -->
+            <div class="ui blue segment" ng-repeat="activity in activities.entries | limitTo:12">
+              <div class="description" ng-controller="userProfilController">
+                <p><a rel="nofollow" href="{{activity.properties['activitycommunity:Link']}}">{{activity.properties['dc:title']}} </a></p>
+                <span class="info">New post on <em>{{activity.properties['dc:source']}} </em>, by <a href="#" ng-click="showProfil(activity.properties['dc:publisher']);"> {{activity.properties['dc:publisher']}} </a></span>
+                on {{activity.properties['dc:created']}} 
+              </div>  
+              <div class="clear"></div>
             </div>
+          </div>     
+          <!-- Activities in http://jira.nuxeo.com/ -->
+          <div class="ui divided inbox selection list tab" data-tab="CommunityWork" ng-controller="connectionController">
+            <!-- a segment = an activity -->
+            <div class="ui blue segment" ng-repeat="activity in jiraActivities.entries | limitTo:12">
+              <div class="description" ng-controller="userProfilController">
+                <p><a rel="nofollow" href="{{activity.properties['activitycommunity:Link']}}">{{activity.properties['dc:title']}} </a></p>
+                <span class="info">New post on <em>{{activity.properties['dc:source']}} </em>, by <a href="#" ng-click="showProfil(activity.properties['dc:publisher']);"> {{activity.properties['dc:publisher']}} </a></span>
+                on {{activity.properties['dc:created']}} 
+              </div>  
+              <div class="clear"></div>
+            </div>
+          </div>  
+          <!-- Post in http://blogs.nuxeo.com -->
+          <div class="ui divided inbox selection list tab" data-tab="Posts" ng-controller="connectionController">  
+            <!-- a segment = an activity -->        
+            <div class="ui blue segment" ng-repeat="blogPost in blogPosts.entries | limitTo:12">
+              <div class="description" ng-controller="userProfilController">
+                <p><a rel="nofollow" href="{{blogPost.properties['activitycommunity:Link']}}">{{blogPost.properties['dc:title']}} </a></p>
+                <span class="info">New post on <em>{{blogPost.properties['dc:source']}} </em>, by <a href="#" ng-click="showProfil(blogPost.properties['dc:publisher']);"> {{blogPost.properties['dc:publisher']}} </a></span>
+                on {{blogPost.properties['dc:created']}} 
+              </div>  
+              <div class="clear">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div> 
+    <!-- End of the left side -->
+
+    <!-- Right part of the page -->
+    <div class="four wide column">
+      <!-- A grid in this column to better organize the right part of the page -->
+      <div class="ui grid"> 
+        <div class="row">
+          <!-- A grid to display some users and medals -->
+          <div class="sixteen wide column">
+            <div class="ui blue inverted segment">
+              <div class="ui tabular filter menu two">
+                <a class="active item" data-tab="users">Users</a>
+                <a class="item" data-tab="medals">Medals</a>
+              </div> 
+            <!-- I use parent-two to make this tabular-menu independant from others -->
+              <div  id="parent-two">
+                <div class="ui divided inbox selection list active tab" data-tab="users">
+                  <div class="ui celled grid" ng-controller="userProfilController">
+                    <div class="row">
+                      <!-- <div class="two wide column" >
+                        <div class="item" title="George Alain 32ans Nuxeo">
+                          <img class="circular ui small image" src="../nuxeo-community/img/Default-user-icon.png" ng-click="showProfil('George Alain');">
+                        </div>
+                      </div> -->
+                    </div>  
+                    <div class="row">
+                    </div>  
+                    <div class="row">
+                    </div>  
+                  </div> 
+                  <!-- <div class="ui basic button" onclick='allUsers()'>All Users</div>  -->
+                </div>
+                <div class="ui divided inbox selection list tab" data-tab="medals">  
+                  <div class="ui celled grid">
+                    <div class="row">
+                      <!-- <div class="two wide column" >
+                        <div class="item" title="Médaille du contributeur">
+                          <img class="circular ui small image" src="">
+                        </div>
+                      </div> -->
+                    </div>  
+                    <div class="row">
+                    </div>  
+                    <div class="row">
+                    </div>  
+                  </div>
+                </div> 
+              </div>
             </div>            
           </div>
         </div>
-        <div class="row">
-          <div class="sixteen wide column">
-            <div class="ui green inverted segment">
-            Question of the week: 
-            <var>What would you change to improve nuxeo platform ?</var>  
-            <br>
-            <form class="ui reply form">
-		      <div class="field">
-	            <textarea></textarea>
-	          </div>
-		      <div class="ui fluid blue labeled submit icon button">
-		        <i class="icon edit"></i> Add Reply
-		      </div>
-		    </form>
-            </div>
-          </div> 
-        </div>
-        <!-- Social -->
+        <!-- Links to social websites -->
         <div class="row">
           <div class="sixteen wide column">
             <div class="ui blue inverted segment">
+              <H3>Join the conversation !</H3>
               <div class="left floated ui icon">
                 <i class="twitter sign icon"> </i>
-                <a href="https://twitter.com/nuxeo">follow us on twitter</a>
+                <a href="https://twitter.com/nuxeo">Follow @Nuxeo on Twitter</a>
               </div>  
+              </br>
               <div class="left floated ui icon">
                 <i class="facebook sign icon"> </i>
-                <a href="https://www.facebook.com/Nuxeo" >follow us on facebook</a>
+                <a href="https://www.facebook.com/Nuxeo" >Join the Nuxeo page on Facebook</a>
               </div> 
+              </br>
               <div class="left floated ui icon">
                 <i class="google plus icon"> </i>
-                <a href="https://plus.google.com/+nuxeo/posts">Join us on Google +</a>
+                <a href="https://plus.google.com/+nuxeo/posts">Join the Nuxeo page on Google +</a>
               </div> 
+              </br>
+              <div class="left floated ui icon">
+                <i class="linkedin icon"> </i>
+                <a href="http://www.linkedin.com/groups/Nuxeo-Community-43314?gid=43314&amp;mostPopular=&amp;trk=tyah">Join the Nuxeo group on Linkedin</a>
+              </div> 
+            </div>
+          </div> 
+        </div>
+        <!-- Questions for the community -->
+        <div class="row">
+          <div class="sixteen wide column">
+            <div class="ui blue inverted segment">
+              Question of the week: 
+              <var>What would you change to improve nuxeo platform ?</var>  
+              <form class="ui reply form">
+                <div class="field">
+                  <textarea></textarea>
+                </div>
+                <div class="ui fluid grey labeled submit icon button">
+                  <i class="icon edit"></i> Add Reply
+                </div>
+              </form>
             </div>
           </div> 
         </div>
         <div class="row">
           <div class="sixteen wide column">
-            <div class="ui green inverted segment">
+            <div class="ui blue inverted segment">
             Question of the day: 
             <var>What is the name of our own reverse proxy?</var>  
-            <br>
+            </br>
             Value:
             <var>200</var> points
             </div>
           </div> 
         </div>
         <div class="row">
-          <div class="sixteen wide column">
-            <div class="ui purple inverted segment">
-            Meet the user of the week: 
-            <br>
-            <var>
-            <img class="left floated circular ui small image" src="">
-            <a class="right floated link" href="#" ng-click='showProfil()'> George Alain</a>
-            </var>  
-            </div>
-          </div> 
         </div>
       </div>
-      <!-- Fin grille -->
+      <!-- End of the grid -->
     </div>
-    <!-- fin partie de droite -->     
+    <!-- End of the right part -->     
   </div>
-  <!-- "fin" de la page -->
-</div>
-  <!-- JS  -->
+  <!-- "End of the main part of the page" -->
+
+
+  <!-- JavaScript  -->
+
   <script type="text/javascript"> 
 
       //Affiche le popup de connexion
@@ -792,12 +684,6 @@
       function register() {
       $("#login").modal('hide.modal');
       $("#register").modal('show');
-      }
-  
-      //cache l'enregistrement affiche les félicitations
-      function submit1() {  
-      $("#register").modal('hide.modal');
-      $("#Congratulation").modal('show');  
       }
 
       function pickAccount() {  
@@ -831,15 +717,8 @@
         return false;
       } 
 
-      //popup à remplacer quand on clique sur les médailles
-      function popitup(url) {
-      newwindow=window.open(url,'Medals','height=500,width=500,left=100,top=100');
-        if (window.focus) {newwindow.focus();}
-        return false;
-      }
-
   </script>
-  <!-- Fin JS -->
+  <!-- End JavaScript -->
 </body>
 
 </html>
