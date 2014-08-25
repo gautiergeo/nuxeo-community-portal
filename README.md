@@ -17,4 +17,4 @@ See <a href="https://github.com/gautiergeo/nuxeo-community-portal/blob/master/nu
 We use AngularJs and SemanticUi for pages Index.html, User.html, Visitor.html Index.js and Controllers.js are the controllers for the pages (respectively) User.html and Visitor.html.
 Each controller corresponds to a query type via the API Nuxeo. There is a controller to display the profile of a user, a controller to display the stream of activities, a controller to change the profile picture, etc.
 
-See <a href=""> controllers.js</a> and <a href=""> index.js</a> for more details.
+See <a href=""> controllers.js</a> and <a href="https://github.com/gautiergeo/nuxeo-community-portal/blob/master/nuxeo-community-portal-front/src/main/yo/nuxeo-community/js/index.js"> index.js</a> for more details.
