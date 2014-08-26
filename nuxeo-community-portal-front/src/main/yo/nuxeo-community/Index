@@ -94,34 +94,7 @@
 				    </div>
 				    
 				    <div class="eight wide column">
-					        <!-- <div class="ui blue inverted fluid form segment" ng-controller="connectionController">  
-					        	<font size="4">
-					        	<p>Sign in !!!</p>
-							    <div class="field">
-							        <label>Username</label>
-						            <input placeholder="Username" type="text" id="username">
-						        </div>
-						        <div class="field">
-						            <label>Password</label>
-						            <input type="text" id="password">
-						        </div>
-							    <div class="ui left floated aligned button"  ng-click="getUsername();">
-							    	<font size="4"> Submit</font>
-							    </div>
-						        </font>
-						    </div> -->
 						    <div class="ui blue inverted fluid form segment">
-						    	<font size="4">
-							        <p>Sign in !!!</p>
-							        <div class="field">
-							          <label>Username</label>
-							          <input placeholder="Username" type="text" id="username">
-							        </div>
-							        <div class="field">
-							          <label>Password</label>
-							          <input type="text" id="password">
-							        </div>
-						      	</font>
 								<div class="ui button" onclick='enterPrivate()'>
 									<font size="7"> I already have an account</font>
 								</div>			
@@ -146,26 +119,7 @@
 			window.location.href="Visitor";
     	}
     	function enterPrivate() { 
-    		username=document.getElementById("username").value;
-    		password=document.getElementById("password").value;
-
-		    var client = new nuxeo.Client({
-		      baseURL: 'http://localhost:8080/nuxeo/',
-		      username: username,
-		      password: password
-		    });
-		 
-		    client.connect(function(error, client) {
-		      if (error) {
-		        console.error('Cannot connect to Nuxeo server');
-		        throw new Error(error);
-		      }
-		      else{
-		        console.log("You are now connected")
-		      }
-		    });
-
-			window.location.href="User#"+username;
+			window.location.href="User";
     	}
 	</script>	
 </body>

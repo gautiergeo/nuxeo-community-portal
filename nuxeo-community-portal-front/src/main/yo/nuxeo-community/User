@@ -139,14 +139,15 @@
 </div>
   <!-- Fin Breadcrumb -->
   <!-- Bouton connect et barre search -->
-  <div id="feed1">
-  </br>
-    <div id="feedhaut2">
-  <div class="ui center aligned header" ng-controller="userProfilController">
+<div id="feed1">
+ </br>
+  <div id="feedhaut2" ng-controller="beforeConnectController">
+    <div class="ui center aligned header" ng-controller="userProfilController">
     <!-- bouton connect -->
-    <div class="right floated ui blue inverted huge aligned button" >Disconnect
-    </div>
-    <div class="right floated ui blue inverted huge aligned button" ng-click="showProfil(username);">MyAccount
+      <div class="right floated ui blue inverted medium aligned button" ng-click="connection();">Connect
+      </div>
+    </div>                
+    <div class="right floated ui blue inverted medium aligned button" ng-click="showProfil(username);">MyAccount
     </div>
     <!-- Barre search -->
     <div class="left floated ui icon input">
@@ -221,9 +222,8 @@
       </div>  
   </div>   
 
-  <!-- <div  class="ui modal" id="signIn">
+  <div  class="ui modal" id="signIn">
     <div class="ui blue inverted fluid form segment" ng-controller="connectionController">  
-      <font size="4">
         <p>Sign in !!!</p>
         <div class="field">
           <label>Username</label>
@@ -233,12 +233,10 @@
           <label>Password</label>
           <input type="text" id="password">
         </div>
-        <div class="ui left floated aligned button"  ng-click="getUsername();">
-        <font size="4"> Submit</font>
+        <div class="ui left floated aligned button"  ng-click="enterPrivate();">Submit
         </div>
-      </font>
     </div>
-  </div> -->
+  </div>
 
   <!-- photos du profil -->
   <div  class="ui modal" id="pictures">
