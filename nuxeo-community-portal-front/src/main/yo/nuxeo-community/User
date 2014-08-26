@@ -144,7 +144,7 @@
     <div id="feedhaut2">
   <div class="ui center aligned header" ng-controller="userProfilController">
     <!-- bouton connect -->
-    <div class="right floated ui blue inverted huge aligned button" ng-controller="beforeConnectController" ng-click="connection();">Connect
+    <div class="right floated ui blue inverted huge aligned button" >Disconnect
     </div>
     <div class="right floated ui blue inverted huge aligned button" ng-click="showProfil(username);">MyAccount
     </div>
@@ -221,7 +221,7 @@
       </div>  
   </div>   
 
-  <div  class="ui modal" id="signIn">
+  <!-- <div  class="ui modal" id="signIn">
     <div class="ui blue inverted fluid form segment" ng-controller="connectionController">  
       <font size="4">
         <p>Sign in !!!</p>
@@ -238,7 +238,7 @@
         </div>
       </font>
     </div>
-  </div>
+  </div> -->
 
   <!-- photos du profil -->
   <div  class="ui modal" id="pictures">

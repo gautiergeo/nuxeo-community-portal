@@ -8,29 +8,19 @@ connected.controller('beforeConnectController', ['$scope', function($scope) {
     }; 
 }]); 
 
-connected.controller("connectionController", ['$rootScope', function($rootScope) { 
-    $rootScope.getUsername = function() {
-    $("#signIn").modal('hide');  
 
-    $rootScope.username=document.getElementById("username").value;
-    $rootScope.password=document.getElementById("password").value;
+connected.controller("connectionController", function ($rootScope) {
+    var username=window.location.hash.match('#(.*)');
+
+    $rootScope.username=username[1];
+    console.log($rootScope.username + " is connected")
+ 
 
     var client = new nuxeo.Client({
       baseURL: 'http://localhost:8080/nuxeo/',
-      username: $rootScope.username,
-      password: $rootScope.password
+      username: 'xxx',
+      password: 'xxx'
     });
-         
-    client.connect(function(error, client) {
-      if (error) {
-        console.error('Cannot connect to Nuxeo server');
-        throw new Error(error);
-      }
-      else{
-        console.log("You are now connected")
-      }
-    });
-
     client.schemas(['dublincore','common', 'file','nxsourceid','userprofile_schema','activitycommunity']);
 
     client.operation('Document.Query')
@@ -72,12 +62,7 @@ connected.controller("connectionController", ['$rootScope', function($rootScope)
   
 
 
-
-
-
-
-  };
-}]);
+});
 
 connected.controller("userListController", function ($scope) {
   $scope.users = [
@@ -145,18 +130,15 @@ connected.controller('ConnectController', ['$scope', function($scope) {
     $scope.getInformations = function() {
       var client = new nuxeo.Client({
         baseURL: 'http://localhost:8080/nuxeo/',
-        username: $rootScope.username,
-        password: $rootScope.password
+        username: 'xxx',
+        password: 'xxx'
       });
-      
-      console.log($rootScope.username)
-      console.log(username)
       client.schemas(['dublincore','common', 'file','nxsourceid','userprofile_schema','activitycommunity']);
 
       var firstName = document.getElementById("firstname").value;
       var lastName = document.getElementById("lastname").value;
       var password = document.getElementById("pswd").value;
-      mainClient.request("../../user").post({ "entity-type" : "user",
+      client.request("../../user").post({ "entity-type" : "user",
   "id" : "psteele",
   "extendedGroups" : [  ],
   "isAdministrator" : false,
@@ -176,19 +158,16 @@ connected.controller('ConnectController', ['$scope', function($scope) {
 }]);
 
 connected.controller('profilInfosController', ['$rootScope', function($rootScope) { 
-    $rootScope.submitInfos = function(picture) {
+    $rootScope.submitInfos = function() {
       var client = new nuxeo.Client({
         baseURL: 'http://localhost:8080/nuxeo/',
-        username: $rootScope.username,
-        password: $rootScope.password
+        username: 'xxx',
+        password: 'xxx'
       });
-      
-      console.log($rootScope.username)
-      console.log(username)
       client.schemas(['dublincore','common', 'file','nxsourceid','userprofile_schema','activitycommunity']);
 
     var infos = document.getElementById("newInformations").value;  
-    mainClient.document($rootScope.MyProfile.path)
+    client.document($rootScope.MyProfile.path)
     .fetch(function(error, doc) {
     if (error) {
       throw error;
@@ -201,19 +180,16 @@ connected.controller('profilInfosController', ['$rootScope', function($rootScope
 }]); 
 
 connected.controller('profilBioController', ['$rootScope', function($rootScope) { 
-    $rootScope.submitBio = function(picture) {
+    $rootScope.submitBio = function() {
       var client = new nuxeo.Client({
         baseURL: 'http://localhost:8080/nuxeo/',
-        username: $rootScope.username,
-        password: $rootScope.password
+        username: 'xxx',
+        password: 'xxx'
       });
-      
-      console.log($rootScope.username)
-      console.log(username)
       client.schemas(['dublincore','common', 'file','nxsourceid','userprofile_schema','activitycommunity']);
 
     var bio = document.getElementById("newBiography").value;  
-    mainClient.document($rootScope.MyProfile.path)
+    client.document($rootScope.MyProfile.path)
     .fetch(function(error, doc) {
     if (error) {
       throw error;
@@ -233,15 +209,13 @@ connected.controller('IdSourceController', ['$rootScope', function($rootScope) {
         username: $rootScope.username,
         password: $rootScope.password
       });
-      
-      console.log($rootScope.username)
-      console.log(username)
+
       client.schemas(['dublincore','common', 'file','nxsourceid','userprofile_schema','activitycommunity']);
 
       var blogsName = document.getElementById("BlogsId").value;
       var answersName = document.getElementById("AnswersId").value;
       if (answersName != '') {
-        mainClient.operation('Document.Query')
+        client.operation('Document.Query')
         .params( {
             query : "SELECT * FROM NxSourceId WHERE nxsourceid:NxId ='"+answersName+"' AND nxsourceid:NxSource='Answers'"
           })
@@ -253,7 +227,7 @@ connected.controller('IdSourceController', ['$rootScope', function($rootScope) {
              console.log("that's not You")
           }
           if (data.entries[0]== undefined){
-            mainClient.operation('Document.Create')
+            client.operation('Document.Create')
             .params({
               type: 'NxSourceId',
               name: '',
@@ -267,21 +241,21 @@ connected.controller('IdSourceController', ['$rootScope', function($rootScope) {
               }
               console.log('It worked')
             });
-            mainClient.operation('Document.Query')
+            client.operation('Document.Query')
             .params( {
                 query : "SELECT * FROM ActivityCommunity WHERE dc:publisher='"+answersName+"' AND ecm:currentLifeCycleState != 'deleted'"
               })
             .execute(function(error, data) {  
               console.log(data)
             });
-            // mainClient.request("/user/"+username).put(function (error,data){
+            // client.request("/user/"+username).put(function (error,data){
             // });
           }
         });
       };
       if (blogsName != '') {
         console.log(blogsName)
-        mainClient.operation('Document.Query')
+        client.operation('Document.Query')
         .params( {
             query : "SELECT * FROM NxSourceId WHERE nxsourceid:NxId ='"+blogsName+"' AND nxsourceid:NxSource='Blogs'"
           })
@@ -293,7 +267,7 @@ connected.controller('IdSourceController', ['$rootScope', function($rootScope) {
              console.log("that's not You")
           }
           if (data.entries[0]== undefined){
-            mainClient.operation('Document.Create')
+            client.operation('Document.Create')
             .params({
               type: 'NxSourceId',
               name: '',
@@ -318,15 +292,12 @@ connected.controller('profilPictureController', ['$rootScope', function($rootSco
     $rootScope.changePicture = function(picture) {
       var client = new nuxeo.Client({
       baseURL: 'http://localhost:8080/nuxeo/',
-      username: $rootScope.username,
-      password: $rootScope.password
+      username: 'xxx',
+      password: 'xxx'
     });
-    
-    console.log($rootScope.username)
-    console.log(username)
     client.schemas(['dublincore','common', 'file','nxsourceid','userprofile_schema','activitycommunity']);
 
-    mainClient.document($rootScope.MyProfile.path)
+    client.document($rootScope.MyProfile.path)
     .fetch(function(error, doc) {
     if (error) {
       // something went wrong
@@ -336,7 +307,7 @@ connected.controller('profilPictureController', ['$rootScope', function($rootSco
     doc.save(function(error, doc) {});
   });  
   $("#pictures").modal('hide.module');  
-    // mainClient.request("/Document/"+ $rootScope.MyProfile.path).put({
+    // client.request("/Document/"+ $rootScope.MyProfile.path).put({
     //     properties:'userprofile_schema:Picture=../nuxeo-community/img/administrator-icon.png'
     //   },function (error,user){  
     //   if(error){
@@ -360,18 +331,42 @@ connected.controller('userProfilController', ['$rootScope', function($rootScope)
   $rootScope.showProfil = function(username) {
     var client = new nuxeo.Client({
       baseURL: 'http://localhost:8080/nuxeo/',
-      username: $rootScope.username,
-      password: $rootScope.password
+      username: 'xxx',
+      password: 'xxx'
     });
-    
-    console.log($rootScope.username)
-    console.log(username)
     client.schemas(['dublincore','common', 'file','nxsourceid','userprofile_schema','activitycommunity']);
-
     if (username== undefined) {
       alert('You are not connected');
     }
     else{
+      if (username==$rootScope.username) {
+        client.request("/user/"+username).get(function (error,user){
+          $rootScope.user=user;
+          $rootScope.$apply(); 
+        });
+        client.operation('Document.Query').params( {
+        query : "SELECT * FROM MyProfile WHERE dc:title ='"+username+"'"})
+        .execute(function(error, data) {
+          if (error) {
+            throw error;
+          }
+          $rootScope.MyProfile = data.entries[0];
+          $rootScope.$apply();
+        });  
+        client.operation('Document.Query').params( {
+        query : "SELECT * FROM ActivityCommunity WHERE dc:publisher ='"+username+"'"})
+        .execute(function(error, data) {
+          if (error) {
+              // something went wrong
+            throw error;
+          }
+              $rootScope.userActivities = data;
+              $rootScope.$apply();
+              $("#allUsers").modal('hide.modal');   
+              $("#profilUser").modal('show');
+        });
+      };
+      if (username!=$rootScope.username) {
         client.request("/user/"+username).get(function (error,user){  
           if(error){
             alert("The user isn't registered")
@@ -405,7 +400,8 @@ connected.controller('userProfilController', ['$rootScope', function($rootScope)
             $("#allUsers").modal('hide.modal');   
             $("#profil").modal('show');
           };
-        });       
+        });
+      }; 
     };
   }; 
 }]); 

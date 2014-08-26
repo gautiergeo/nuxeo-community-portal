@@ -111,6 +111,17 @@
 						        </font>
 						    </div> -->
 						    <div class="ui blue inverted fluid form segment">
+						    	<font size="4">
+							        <p>Sign in !!!</p>
+							        <div class="field">
+							          <label>Username</label>
+							          <input placeholder="Username" type="text" id="username">
+							        </div>
+							        <div class="field">
+							          <label>Password</label>
+							          <input type="text" id="password">
+							        </div>
+						      	</font>
 								<div class="ui button" onclick='enterPrivate()'>
 									<font size="7"> I already have an account</font>
 								</div>			
@@ -132,10 +143,29 @@
 	</div>
 	<script type="text/javascript"> 
 		function enterPublic() { 
-			window.location.href="Visitor.html";
+			window.location.href="Visitor";
     	}
     	function enterPrivate() { 
-			window.location.href="User.html";
+    		username=document.getElementById("username").value;
+    		password=document.getElementById("password").value;
+
+		    var client = new nuxeo.Client({
+		      baseURL: 'http://localhost:8080/nuxeo/',
+		      username: username,
+		      password: password
+		    });
+		 
+		    client.connect(function(error, client) {
+		      if (error) {
+		        console.error('Cannot connect to Nuxeo server');
+		        throw new Error(error);
+		      }
+		      else{
+		        console.log("You are now connected")
+		      }
+		    });
+
+			window.location.href="User#"+username;
     	}
 	</script>	
 </body>
