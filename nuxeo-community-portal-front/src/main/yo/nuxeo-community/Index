@@ -12,7 +12,6 @@
   <title>Nuxeo Community Platform Homepage</title>
   <link rel="icon" href="../nuxeo-community/img/nuxeo-x-alone.png" />
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-  <link type="text/css" rel="stylesheet" href="css/welcomePage.css" />
   <link rel="stylesheet" href="semantic/packaged/css/semantic.css" type="text/css"></link>
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
 

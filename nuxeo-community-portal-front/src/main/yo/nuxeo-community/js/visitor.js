@@ -6,8 +6,8 @@ var app = angular.module("app", []);
 
 var mainClient = new nuxeo.Client({
   baseURL: 'http://localhost:8080/nuxeo/',
-  username: 'aescaffre',
-  password: 'Administrator'
+  username: 'Visitor',
+  password: 'Visitor'
 });
      
 mainClient.connect(function(error, mainClient) {

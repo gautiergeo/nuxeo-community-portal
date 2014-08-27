@@ -37,38 +37,17 @@
   <!-- Menu Dropdown en haut à droite -->
   <div class="ui right aligned header">
     <div class="ui secondary menu">
-      <!-- Langue -->
-      <div class="ui simple dropdown item">
-        English <i class="dropdown icon"></i>
-        <div class="menu">
-          <div class="item">French</div>
-          <div class="item">Italian</div>
-        </div>
+      <div ng-controller="disconnectController">
+      <div class="right floated ui red inverted medium aligned button" ng-click="disconnect();"> <font size="4">Disconnect</font>
       </div>
-      <!-- Produit -->
-      <div class="ui simple dropdown item">
-        Products  <i class="dropdown icon"></i>
-        <div class="menu">
-          <div class="item">DM</div>
-          <div class="item">DAM</div>
-          <div class="item">DRIVE</div>
-        </div>
-      </div>
-      <!-- Autre compte -->
-      <div class="ui simple dropdown item">
-        My Connect <i class="dropdown icon"></i>
-        <div class="menu">
-          <div class="item">Connect</div>
-          <div class="item">Answers</div>
-        </div>
-      </div>
+    </div>
     </div>
   </div> <!-- Fin menu en haut à droite -->
 
   <!-- Menu Dropdown central cf NuxeoDotCom + Image Nuxeo à gauche -->
   <div class="ui center aligned header">
     <!-- Image nuxeo en haut à gauche -->
-    <img class="left floated ui medium image" src="">
+    <img class="left floated ui medium image" src="../nuxeo-community/img/Logo-Nuxeo_large.png">
     <!-- Menu central haut-->
     <div class="ui aligned secondary menu" id="secMenu">
       <div class="ui simple dropdown item">
@@ -222,17 +201,19 @@
 
   <div  class="ui modal" id="signIn">
     <div class="ui blue inverted fluid form segment" ng-controller="connectionController">  
-        <p>Sign in !!!</p>
-        <div class="field">
-          <label>Username</label>
-          <input placeholder="Username" type="text" id="username">
-        </div>
-        <div class="field">
-          <label>Password</label>
-          <input type="password" id="password">
-        </div>
-        <div class="ui left floated aligned button"  ng-click="enterPrivate();">Submit
-        </div>
+      <p>Sign in !!!</p>
+      <div class="field">
+        <label>Username</label>
+        <input placeholder="Username" type="text" id="username">
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="password">
+      </div>
+      <div ng-controller="connectedController">
+        <div class="ui left floated aligned button"  ng-click="enterPrivate();">Submit</div>
+        <div class="ui right floated aligned button"  ng-click="alreadyConnected();">Go back to my session</div>
+      </div>
     </div>
   </div>
 
@@ -332,7 +313,7 @@
             <div class="ui right floated segment">
               <i class="close icon"></i> 
             </div>
-            <p>Firstname: {{user.properties.firstName}}</br></br>Lastname: {{user.properties.lastName}}</br></br>I am {{user.properties.email}}</p>
+            <p>Firstname: {{user.properties.firstName}}</br></br>Lastname: {{user.properties.lastName}}</br></br>Email: {{user.properties.email}}</p>
           </div> 
         </div>
         <div class="row">
@@ -382,7 +363,7 @@
             <div class="ui right floated segment">
               <i class="close icon"></i> 
             </div>  
-            <p>Firstname: {{user.properties.firstName}}</br></br>Lastname: {{user.properties.lastName}}</br></br>I am {{user.properties.email}}</p>
+            <p>Firstname: {{user.properties.firstName}}</br></br>Lastname: {{user.properties.lastName}}</br></br>Email: {{user.properties.email}}</p>
             <div class="ui right floated small button" onclick="pickAccount()"> Bind another account</div>
           </div> 
         </div>
@@ -670,11 +651,7 @@
 
   <script type="text/javascript"> 
 
-
-    $("#userProfil").modal.set.scrolling();
-
-
-    window.onload=function() // Au chargement de la page
+      window.onload=function() // Au chargement de la page
       {
        $("#signIn").modal('show');
       }

@@ -68,7 +68,7 @@
   <!-- Menu Dropdown central cf NuxeoDotCom + Image Nuxeo à gauche -->
   <div class="ui center aligned header">
     <!-- Image nuxeo en haut à gauche -->
-    <img class="left floated ui medium image" src="">
+    <img class="left floated ui medium image" src="../nuxeo-community/img/Logo-Nuxeo_large.png">
     <!-- Menu central haut-->
     <div class="ui aligned secondary menu" id="secMenu">
       <div class="ui simple dropdown item">
@@ -259,7 +259,7 @@
             <div class="ui right floated segment">
               <i class="close icon"></i> 
             </div>
-            <p>Firstname: {{user.properties.firstName}}</br></br>Lastname: {{user.properties.lastName}}</br></br>I am {{user.properties.email}}</p>
+            <p>Firstname: {{user.properties.firstName}}</br></br>Lastname: {{user.properties.lastName}}</br></br>Email: {{user.properties.email}}</p>
           </div> 
         </div>
         <div class="row">

@@ -8,6 +8,11 @@ connected.controller('beforeConnectController', ['$scope', function($scope) {
     }; 
 }]); 
 
+connected.controller('disconnectController', ['$scope', function($scope) { 
+    $scope.disconnect = function() {
+      console.log('How to disconnect from Nuxeo?')
+    }; 
+}]); 
 // connected.controller('toConnectController', ['$rootScope', function($rootScope) { 
 //     $rootScope.enterPrivate = function() {
 //         $rootScope.username=document.getElementById("username").value;
@@ -45,19 +50,85 @@ connected.controller("connectionController", ['$rootScope', function($rootScope)
           password: $rootScope.password
         });
 
-    // client.connect(function(error, client) {
-    //       if (error) {
-    //         console.error('Cannot connect to Nuxeo server');
-    //         throw new Error(error);
-    //       }
-    //       else{
-    //         console.log("You are now connected")
-    //       }
-    //     });
+    client.connect(function(error, client) {
+          if (error) {
+            console.error('Cannot connect to Nuxeo server');
+            throw new Error(error);
+          }
+          else{
+            console.log("You are now connected")
+          }
+        });
      
-    client.schemas(['dublincore','common', 'file','nxsourceid','userprofile_schema','activitycommunity']);
+    client.schemas(['dublincore','common', 'file','nxsourceid','userprofile_schema','activitycommunity','stats']);
 
     console.log($rootScope.username)
+    client.operation('Document.Query')
+    .params( {
+    query : "SELECT * FROM ActivityCommunity WHERE dc:source='Answers' AND ecm:currentLifeCycleState != 'deleted' ORDER BY dc:created DESC"})
+    .execute(function(error, data) {
+      if (error) {
+        throw error;
+      }
+      else {
+        $rootScope.activities = data;
+        $rootScope.$apply();
+      } 
+    });
+
+    client.operation('Document.Query')
+    .params( {
+    query : "SELECT * FROM ActivityCommunity WHERE dc:source='Blogs' AND ecm:currentLifeCycleState != 'deleted' ORDER BY dc:created DESC"})
+    .execute(function(error, data) {
+      if (error) {
+        // something went wrong
+        throw error;
+      }
+    $rootScope.blogPosts = data;
+    $rootScope.$apply();
+    });
+
+    client.operation('Document.Query')
+    .params( {
+    query : "SELECT * FROM ActivityCommunity WHERE dc:source='Jira' AND ecm:currentLifeCycleState != 'deleted' ORDER BY dc:created DESC"})
+    .execute(function(error, data) {
+      if (error) {
+        // something went wrong
+        throw error;
+      }
+    $rootScope.jiraActivities = data;
+    $rootScope.$apply();
+    });
+  
+$("#signIn").modal('hide');
+
+    }; 
+}]); 
+
+connected.controller("connectedController", ['$rootScope', function($rootScope) { 
+    $rootScope.alreadyConnected = function() {
+
+    var client = new nuxeo.Client({
+          baseURL: 'http://localhost:8080/nuxeo/',
+          username: 'xxx',
+          password: 'xxx'
+        });
+     
+    client.schemas(['dublincore','common', 'file','nxsourceid','userprofile_schema','activitycommunity','stats']);
+
+    client.operation('Document.Query')
+    .params( {
+    query : "SELECT * FROM Stats WHERE dc:title='Session' AND ecm:currentLifeCycleState != 'deleted'"})
+    .execute(function(error, data) {
+      if (error) {
+        throw error;
+      }
+      else {
+        $rootScope.username = data.entries[0].properties['stats:username'];
+        $rootScope.$apply();
+      } 
+    });
+
     client.operation('Document.Query')
     .params( {
     query : "SELECT * FROM ActivityCommunity WHERE dc:source='Answers' AND ecm:currentLifeCycleState != 'deleted' ORDER BY dc:created DESC"})
@@ -161,13 +232,13 @@ connected.controller("userListController", function ($scope) {
 //   $rootScope.$apply();
 //   })
 // }); 
- 
+
 connected.controller('ConnectController', ['$scope', function($scope) { 
     $scope.getInformations = function() {
       var client = new nuxeo.Client({
           baseURL: 'http://localhost:8080/nuxeo/',
-          username: $rootScope.username,
-          password: $rootScope.password
+          username: 'xxx',
+          password: 'xxx'
         });
      
     client.schemas(['dublincore','common', 'file','nxsourceid','userprofile_schema','activitycommunity']);
@@ -198,8 +269,8 @@ connected.controller('profilInfosController', ['$rootScope', function($rootScope
     $rootScope.submitInfos = function() {
       var client = new nuxeo.Client({
           baseURL: 'http://localhost:8080/nuxeo/',
-          username: $rootScope.username,
-          password: $rootScope.password
+          username: 'xxx',
+          password: 'xxx'
         });
      
     client.schemas(['dublincore','common', 'file','nxsourceid','userprofile_schema','activitycommunity']);
@@ -221,8 +292,8 @@ connected.controller('profilBioController', ['$rootScope', function($rootScope) 
     $rootScope.submitBio = function() {
       var client = new nuxeo.Client({
           baseURL: 'http://localhost:8080/nuxeo/',
-          username: $rootScope.username,
-          password: $rootScope.password
+          username: 'xxx',
+          password: 'xxx'
         });
      
     client.schemas(['dublincore','common', 'file','nxsourceid','userprofile_schema','activitycommunity']);
@@ -245,8 +316,8 @@ connected.controller('IdSourceController', ['$rootScope', function($rootScope) {
     $rootScope.getUsernames = function() {
       var client = new nuxeo.Client({
           baseURL: 'http://localhost:8080/nuxeo/',
-          username: $rootScope.username,
-          password: $rootScope.password
+          username: 'xxx',
+          password: 'xxx'
         });
      
     client.schemas(['dublincore','common', 'file','nxsourceid','userprofile_schema','activitycommunity']);
@@ -331,8 +402,8 @@ connected.controller('profilPictureController', ['$rootScope', function($rootSco
     $rootScope.changePicture = function(picture) {
       var client = new nuxeo.Client({
           baseURL: 'http://localhost:8080/nuxeo/',
-          username: $rootScope.username,
-          password: $rootScope.password
+          username: 'xxx',
+          password: 'xxx'
         });
      
     client.schemas(['dublincore','common', 'file','nxsourceid','userprofile_schema','activitycommunity']);
@@ -372,19 +443,10 @@ connected.controller('userProfilController', ['$rootScope', function($rootScope)
     
 var client = new nuxeo.Client({
           baseURL: 'http://localhost:8080/nuxeo/',
-          username: $rootScope.username,
-          password: $rootScope.password,
+          username: 'xxx',
+          password: 'xxx',
         });
      
-        client.connect(function(error, client) {
-          if (error) {
-            console.error('Cannot connect to Nuxeo server');
-            throw new Error(error);
-          }
-          else{
-            console.log("You are now connected")
-          }
-        });
     client.schemas(['dublincore','common', 'file','nxsourceid','userprofile_schema','activitycommunity']);
 
     console.log($rootScope.username)

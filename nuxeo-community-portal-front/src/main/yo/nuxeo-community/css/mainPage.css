@@ -20,6 +20,7 @@ body {
   font-family: 'Source Sans Pro', "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
+
 #Feedhaut{ 
 background-color: #66CCFF;
 }
@@ -74,11 +75,6 @@ margin-right: 300px;
 }
 
 #login {
-  margin: -200px;
-  width: 400px;
-}
-
-#Congratulation {
   margin: -200px;
   width: 400px;
 }
