@@ -6,7 +6,7 @@ nuxeo-community-portal
 The purpose of the application is to gather people using Nuxeo. The application provides access to a stream of information coming from different sites of Nuxeo. Nuxeo Community Portal allows users to share their opinions and to keep themselves informed of what happen in the Nuxeo community.
 
 
-<h3>	Status</h3>
+<h3>Status</h3>
 
 Work in progress.
 
@@ -47,7 +47,7 @@ We use AngularJs and SemanticUi for the homepage: Index, the user page: User, an
 
 Each controller corresponds to a query type using the Nuxeo API: there is a controller to display the profile of a user, one to display the stream of activities, another one to change the profile picture, etc.
 	
-See <a href="https://github.com/gautiergeo/nuxeo-community-portal/blob/master/nuxeo-community-portal-front/src/main/yo/nuxeo-community/js/controllers.js"> visitor.js</a> and <a href="https://github.com/gautiergeo/nuxeo-community-portal/blob/master/nuxeo-community-portal-front/src/main/yo/nuxeo-community/js/user.js"> user.js</a> for more details.
+See <a href="https://github.com/gautiergeo/nuxeo-community-portal/blob/master/nuxeo-community-portal-front/src/main/yo/nuxeo-community/js/visitor.js"> visitor.js</a> and <a href="https://github.com/gautiergeo/nuxeo-community-portal/blob/master/nuxeo-community-portal-front/src/main/yo/nuxeo-community/js/user.js"> user.js</a> for more details.
 
 Index is the homepage that allows you to go to the user page if the user has an account, but he must connect first, or to the visitor page if the user doesn't have an account.
 
@@ -76,7 +76,7 @@ Currently the profile documents are created by an administrator in a file on beh
 A user has the rights to write in the file to its name. He has the right to read the other files.
 
 
-Limitatins and remainign work
+<h4>Limitating and remaining work</h4>
 
 Currently documents NxProfile and MyProfile are created by an administrator on behalf of users. We must implement a workflow in Nuxeo Platform that create a document NxProfile and a document MyProfile when we create a new user. It 	must give the right to write to the user created, and the right to read to the others.
 
