@@ -24,8 +24,6 @@
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-resource/angular-resource.js"></script>
   <script src="js/nuxeo.js"></script> 
-  <script src="js/filters.js"></script>
-  <script src="js/services.js"></script>
 </head>
 <body>
   	<div class="ui grid">

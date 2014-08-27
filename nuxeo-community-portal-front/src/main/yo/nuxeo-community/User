@@ -26,9 +26,7 @@
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-resource/angular-resource.js"></script>
   <script src="js/nuxeo.js"></script>
-  <script src="js/index.js"></script>
-  <script src="js/filters.js"></script>
-  <script src="js/services.js"></script>
+  <script src="js/user.js"></script>
   <!--  <link rel="stylesheet" type="text/css" href="mainPage.css"> -->
   <!-- <script src="mainPage.js"></script> -->
 
@@ -144,11 +142,11 @@
   <div id="feedhaut2" ng-controller="beforeConnectController">
     <div class="ui center aligned header" ng-controller="userProfilController">
     <!-- bouton connect -->
-      <div class="right floated ui blue inverted medium aligned button" ng-click="connection();">Connect
+      <div class="right floated ui blue inverted medium aligned button" ng-click="connection();"> <font size="4">Connection</font>
+      </div>
+      <div class="right floated ui blue inverted medium aligned button" ng-click="showProfil(username);"><font size="4">My account</font>
       </div>
     </div>                
-    <div class="right floated ui blue inverted medium aligned button" ng-click="showProfil(username);">MyAccount
-    </div>
     <!-- Barre search -->
     <div class="left floated ui icon input">
       <input type="text" name="sethu" id="hu" /> 
@@ -231,7 +229,7 @@
         </div>
         <div class="field">
           <label>Password</label>
-          <input type="text" id="password">
+          <input type="password" id="password">
         </div>
         <div class="ui left floated aligned button"  ng-click="enterPrivate();">Submit
         </div>
@@ -671,6 +669,15 @@
   <!-- JavaScript  -->
 
   <script type="text/javascript"> 
+
+
+    $("#userProfil").modal.set.scrolling();
+
+
+    window.onload=function() // Au chargement de la page
+      {
+       $("#signIn").modal('show');
+      }
 
       //Affiche le popup de connexion
      function connection() {

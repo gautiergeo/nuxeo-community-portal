@@ -6,7 +6,7 @@ var app = angular.module("app", []);
 
 var mainClient = new nuxeo.Client({
   baseURL: 'http://localhost:8080/nuxeo/',
-  username: 'Adam',
+  username: 'aescaffre',
   password: 'Administrator'
 });
      

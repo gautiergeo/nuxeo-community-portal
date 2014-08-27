@@ -37,7 +37,7 @@ connected.controller("connectionController", ['$rootScope', function($rootScope)
     $rootScope.enterPrivate = function() {
 
       $rootScope.username=document.getElementById("username").value;
-        $rootScope.password=document.getElementById("password").value;
+      $rootScope.password=document.getElementById("password").value;
 
     var client = new nuxeo.Client({
           baseURL: 'http://localhost:8080/nuxeo/',
