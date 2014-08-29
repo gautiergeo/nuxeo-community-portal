@@ -126,6 +126,7 @@ connected.controller("connectedController", ['$rootScope', function($rootScope) 
       else {
         $rootScope.username = data.entries[0].properties['stats:username'];
         $rootScope.$apply();
+        console.log($rootScope.username)
       } 
     });
 

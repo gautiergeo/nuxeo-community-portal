@@ -20,7 +20,6 @@ body {
   font-family: 'Source Sans Pro', "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
-
 #Feedhaut{ 
 background-color: #66CCFF;
 }
@@ -46,6 +45,10 @@ background-color: white;
 margin-right: 300px;
 }
 
+.ui.blue.segment {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
 /*******************************
             Global
 *******************************/
