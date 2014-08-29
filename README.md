@@ -39,7 +39,7 @@ Once the USId document is created, all the other activities created by his ident
 <h4>Architecture</h4>
 
 
-Nuxeo Community Portal uses the Nuxeo API to create/read/update documents in the Nuxeo platform. We use Nuxeo repository for storing activity, profile, and USId(= Username/Source/Id) objects. These types of documents must be 		created in the Nuxeo platform in advance.
+Nuxeo Community Portal uses the Nuxeo API to create/read/update documents in the Nuxeo platform. We use Nuxeo repository for storing activity, profile, and USId(= Username/Source/Id) objects. These types of documents must be 	created in the Nuxeo platform in advance.You have to put the file cors-config.xml in the folder config which is in the folder nxserver, in your Nuxeo application. For more information about CORS, see http://doc.nuxeo.com/pages/viewpage.action?pageId=14257084
 	
 An AngularJS application which leverages the nuxeo.js client is used for the UI.
 
